@@ -1,535 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>PS Zone | Makeup · Clothes · Mobiles & more</title>
-  <!-- Google Fonts + Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For PUDKI - A Magical Love Journey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&display=swap');
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #fff5f7;
-      color: #2d2a2b;
-    }
+        :root {
+            --pink-light: #ffe6f2;
+            --pink-mid: #ffb3d9;
+            --pink-dark: #ff66b2;
+            --moonlight-bg: linear-gradient(to bottom, #1a0b1a, #4a2040, #8a4b69, #ffb3d9);
+            --day-bg: linear-gradient(to bottom, #fff0f5, #ffd1dc, #ffb6c1);
+        }
 
-    /* pink & white nykaa style */
-    .top-bar {
-      background: white;
-      padding: 14px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      box-shadow: 0 4px 12px rgba(232,62,140,0.08);
-      border-bottom: 1px solid #ffe2ec;
-    }
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Quicksand', sans-serif;
+            background: var(--day-bg);
+            transition: background 2s ease-in-out;
+            user-select: none;
+        }
 
-    .logo {
-      font-size: 2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #e83e8c, #ff85a1);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: -0.3px;
-    }
-    .logo i {
-      display: none; /* heart removed */
-    }
+        /* Heart Cursor Trail */
+        .cursor-heart {
+            position: absolute;
+            pointer-events: none;
+            font-size: 20px;
+            color: var(--pink-dark);
+            text-shadow: 0 0 5px white;
+            animation: floatUp 1s ease-out forwards;
+            z-index: 9999;
+        }
 
-    .search-category-row {
-      background: white;
-      padding: 18px 32px 12px 32px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      border-bottom: 1px solid #ffe2ec;
-    }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+        }
 
-    .search-box {
-      flex: 2;
-      min-width: 220px;
-      display: flex;
-      align-items: center;
-      background: #fff0f3;
-      border-radius: 48px;
-      padding: 6px 18px;
-      border: 1px solid #ffc0d0;
-    }
-    .search-box i {
-      color: #e83e8c;
-    }
-    .search-box input {
-      border: none;
-      background: transparent;
-      padding: 12px 12px;
-      font-size: 1rem;
-      width: 100%;
-      outline: none;
-    }
+        /* Floating Mascot */
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 50px;
+            animation: floatMascot 3s ease-in-out infinite;
+            z-index: 1000;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(255, 102, 178, 0.5));
+        }
 
-    .category-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .filter-btn {
-      background: #fff0f3;
-      border: none;
-      padding: 8px 24px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #b13e6b;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: #e83e8c;
-      color: white;
-      box-shadow: 0 6px 12px rgba(232,62,140,0.2);
-    }
+        @keyframes floatMascot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
 
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 28px 32px;
-    }
+        /* Scene Management */
+        .scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.5s ease-in-out;
+            z-index: 10;
+        }
 
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 28px;
-      margin-bottom: 50px;
-    }
+        .scene.active {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-    .product-card {
-      background: white;
-      border-radius: 28px;
-      overflow: hidden;
-      transition: 0.25s ease;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-      border: 1px solid #ffe2ec;
-      cursor: pointer;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 30px -8px rgba(232,62,140,0.2);
-      border-color: #ffb7cb;
-    }
-    .product-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      background: #fef6f9;
-    }
-    .card-info {
-      padding: 16px 16px 20px;
-    }
-    .product-title {
-      font-weight: 700;
-      font-size: 1rem;
-      margin-bottom: 6px;
-    }
-    .price {
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: #e83e8c;
-      margin: 8px 0;
-    }
-    .rating {
-      color: #ffb347;
-      font-size: 0.8rem;
-    }
-    .category-badge {
-      font-size: 0.7rem;
-      background: #ffeef4;
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 30px;
-      margin-top: 8px;
-      color: #b56576;
-    }
+        /* Button Styling */
+        .magical-btn {
+            background: linear-gradient(45deg, var(--pink-mid), var(--pink-dark));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 102, 178, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 30px;
+        }
 
-    /* contact section */
-    .contact-section {
-      background: white;
-      border-radius: 32px;
-      margin-top: 20px;
-      margin-bottom: 40px;
-      padding: 36px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.03);
-      border: 1px solid #ffe0ea;
-    }
-    .contact-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #b13e6b;
-      margin-bottom: 8px;
-    }
-    .form-group {
-      margin-bottom: 22px;
-    }
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 14px 20px;
-      border-radius: 48px;
-      border: 1.5px solid #ffcfdf;
-      background: #fffbfd;
-      font-family: inherit;
-    }
-    .form-group input:focus, .form-group textarea:focus {
-      border-color: #e83e8c;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(232,62,140,0.1);
-    }
-    .send-feedback-btn {
-      background: #e83e8c;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 48px;
-      font-weight: 700;
-      color: white;
-      cursor: pointer;
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .send-feedback-btn:hover {
-      background: #c72a74;
-    }
+        .magical-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 25px rgba(255, 102, 178, 0.6);
+        }
 
-    /* DETAIL PAGE */
-    .detail-view {
-      background: white;
-      border-radius: 32px;
-      padding: 32px;
-      margin-bottom: 40px;
-    }
-    .back-btn {
-      background: none;
-      border: none;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #e83e8c;
-      cursor: pointer;
-      margin-bottom: 24px;
-      display: inline-flex;
-      gap: 8px;
-    }
-    .detail-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 36px;
-    }
-    .detail-gallery {
-      flex: 1.2;
-      min-width: 260px;
-    }
-    .detail-main-img {
-      width: 100%;
-      border-radius: 28px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      background: #fef2f6;
-    }
-    .extra-thumbs {
-      display: flex;
-      gap: 14px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    .extra-thumb {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 18px;
-      cursor: pointer;
-      border: 2px solid transparent;
-    }
-    .extra-thumb:hover {
-      border-color: #e83e8c;
-    }
-    .detail-info {
-      flex: 1;
-    }
-    .detail-price {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #e83e8c;
-      margin: 12px 0;
-    }
-    .reviews-section {
-      margin-top: 32px;
-      border-top: 2px solid #ffe2ec;
-      padding-top: 24px;
-    }
-    .review-card {
-      background: #fffafc;
-      border-radius: 24px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #b56576;
-      border-top: 1px solid #ffe2ec;
-    }
-    .hidden {
-      display: none;
-    }
-    @media (max-width: 700px) {
-      .top-bar, .search-category-row { padding: 12px 20px; }
-      .container { padding: 20px 16px; }
-    }
-  </style>
+        /* SCENE 1: Magic Door */
+        .door-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
+        .door-container:hover { transform: scale(1.05); }
+        .door {
+            width: 200px;
+            height: 300px;
+            background: linear-gradient(to bottom, #ff99cc, #ff66b2);
+            border-radius: 100px 100px 0 0;
+            border: 10px solid #fff;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8), inset 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 1.5s ease-in-out;
+            transform-origin: left;
+        }
+        .door.open {
+            transform: perspective(1000px) rotateY(-105deg);
+            opacity: 0;
+        }
+        .doorknob {
+            width: 25px;
+            height: 25px;
+            background: gold;
+            border-radius: 50%;
+            position: absolute;
+            right: 20px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+        .scene-title {
+            font-family: 'Pacifico', cursive;
+            color: var(--pink-dark);
+            font-size: 40px;
+            text-shadow: 2px 2px 5px rgba(255,255,255,0.8);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* SCENE 2: Name Constellation */
+        .stars-container {
+            position: relative;
+            width: 80%;
+            height: 60%;
+        }
+        .star {
+            position: absolute;
+            font-size: 40px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.5s, text-shadow 0.5s, transform 0.3s;
+        }
+        .star:hover { transform: scale(1.2); }
+        .star.lit {
+            color: gold;
+            text-shadow: 0 0 20px gold, 0 0 40px yellow;
+        }
+        .constellation-line {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.5);
+            height: 2px;
+            transform-origin: 0 50%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* SCENE 3: Memory Lanterns */
+        .lantern-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .lantern {
+            width: 80px;
+            height: 120px;
+            background: rgba(255, 200, 200, 0.8);
+            border-radius: 20px 20px 10px 10px;
+            position: relative;
+            cursor: pointer;
+            animation: floatMascot 4s ease-in-out infinite alternate;
+            box-shadow: 0 0 20px rgba(255, 100, 100, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: transparent;
+            transition: all 0.5s;
+        }
+        .lantern:nth-child(2) { animation-delay: 1s; }
+        .lantern:nth-child(3) { animation-delay: 2s; }
+        .lantern.revealed {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--pink-dark);
+            transform: scale(1.5);
+            z-index: 20;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 1);
+        }
+
+        /* SCENE 4: My Heart to You (Emotional Room) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        .emotional-text-container {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .emotional-line {
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            margin: 10px 0;
+            position: absolute;
+        }
+        .emotional-line.visible {
+            opacity: 1;
+            position: relative;
+        }
+        .giant-heart-bg {
+            position: absolute;
+            font-size: 400px;
+            color: rgba(255, 102, 178, 0.1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: -1;
+            transition: transform 3s ease-out, opacity 3s;
+            pointer-events: none;
+        }
+
+        /* Background Sparkles */
+        .sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px white;
+            animation: twinkle linear infinite;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+            100% { opacity: 0; transform: scale(0.5); }
+        }
+
+    </style>
 </head>
 <body>
 
-<div class="top-bar">
-  <div class="logo">PS Zone</div>
-  <div><i class="fas fa-shopping-bag" style="color:#e83e8c; font-size:1.4rem;"></i></div>
-</div>
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.3) return; // limit amount of hearts
+            const heart = document.createElement('div');
+            heart.classList.add('cursor-heart');
+            heart.innerHTML = '💖';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 1000);
+        });
+    </script>
 
-<div class="search-category-row">
-  <div class="search-box">
-    <i class="fas fa-search"></i>
-    <input type="text" id="searchInput" placeholder="Search for lipstick, dress, iPhone, sneakers...">
-  </div>
-  <div class="category-filters">
-    <button class="filter-btn active" data-cat="all">✨ All</button>
-    <button class="filter-btn" data-cat="makeup">💄 Makeup</button>
-    <button class="filter-btn" data-cat="clothes">👗 Clothes</button>
-    <button class="filter-btn" data-cat="mobile">📱 Mobiles</button>
-    <button class="filter-btn" data-cat="accessories">👜 Accessories</button>
-  </div>
-</div>
+    <div class="mascot" title="I'm here to guide you!">🧸</div>
 
-<div class="container" id="mainContainer">
-  <div id="homepageView">
-    <div id="productsGrid" class="products-grid"></div>
-    <div id="contactUsSection" class="contact-section">
-      <div class="contact-title"><i class="fas fa-envelope-open-text"></i> Contact us</div>
-      <div class="contact-desc">We’d love your feedback! Share your thoughts with our PS Zone team.</div>
-      <form id="feedbackForm">
-        <div class="form-group">
-          <input type="text" id="firstNameContact" placeholder="Your first name *" required>
+    <div id="sparkles-container"></div>
+
+    <div class="scene active" id="scene-1">
+        <h1 class="scene-title">Welcome to your Dreamland, PUDKI</h1>
+        <p style="color: #ff66b2; font-size: 20px; margin-bottom: 40px; font-weight: 600;">Click the magic door to begin our journey...</p>
+        <div class="door-container" onclick="openDoor()">
+            <div class="door" id="magic-door">
+                <div class="doorknob"></div>
+            </div>
         </div>
-        <div class="form-group">
-          <textarea id="feedbackMsg" rows="3" placeholder="Write your feedback / message here..." required></textarea>
-        </div>
-        <button type="submit" class="send-feedback-btn"><i class="fas fa-paper-plane"></i> Send feedback</button>
-        <div id="feedbackStatus" style="margin-top: 18px; font-size: 0.85rem;"></div>
-      </form>
     </div>
-  </div>
 
-  <div id="detailView" class="detail-view hidden">
-    <button id="backToHomeBtn" class="back-btn"><i class="fas fa-arrow-left"></i> Back to shopping</button>
-    <div class="detail-grid">
-      <div class="detail-gallery">
-        <img id="detailMainImg" class="detail-main-img" alt="product">
-        <div id="detailExtraThumbs" class="extra-thumbs"></div>
-      </div>
-      <div class="detail-info">
-        <h2 id="detailTitle" style="font-size: 1.9rem;"></h2>
-        <div id="detailRating" class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> 4.7</div>
-        <div id="detailPrice" class="detail-price"></div>
-        <p id="detailDesc" class="detail-desc"></p>
-        <div class="reviews-section">
-          <h3><i class="fas fa-comments"></i> User reviews</h3>
-          <div id="reviewsContainer"></div>
-        </div>
-      </div>
+    <div class="scene" id="scene-2">
+        <h1 class="scene-title">You are my brightest star.</h1>
+        <p style="color: #ff66b2; font-size: 18px;">Click the stars to reveal the most beautiful name in the universe.</p>
+        <div class="stars-container" id="stars-box">
+            </div>
+        <button class="magical-btn" id="btn-next-2" style="display:none;" onclick="goToScene(3)">Continue</button>
     </div>
-  </div>
-</div>
-<footer>🌸 PS Zone – Glam, style & tech | Real products, real love</footer>
 
-<script>
-  // ---------- 30+ PRODUCTS with REALISTIC IMAGES (makeup, clothes, mobiles, accessories) ----------
-  // all images are working Unsplash/photos that represent actual items
-  const products = [
-    { id:1, name:"Velvet Matte Lipstick - Ruby Woo", price:24.99, category:"makeup", image:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1586495777432-d7efc4e1e1ae?w=300&h=300&fit=crop"], desc:"Intense matte finish, long-lasting & hydrating. Cruelty-free." },
-    { id:2, name:"Luminous Silk Foundation", price:42.00, category:"makeup", image:"https://images.unsplash.com/photo-1596462502278-6a40f483f11c?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1571781926291-c4772fd24b7a?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1596704017254-9b121068fb31?w=300&h=300&fit=crop"], desc:"Buildable medium-to-full coverage, natural dewy glow." },
-    { id:3, name:"Sunset Hues Eyeshadow Palette", price:38.99, category:"makeup", image:"https://images.unsplash.com/photo-1512496015851-a90fb38f7961?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1533669955142-6a73332af4db?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1583241802723-15248b7d5a16?w=300&h=300&fit=crop"], desc:"18 warm shades, ultra-blendable." },
-    { id:4, name:"Lash Drama Mascara", price:18.50, category:"makeup", image:"https://images.unsplash.com/photo-1631212571790-ecb4b7e2f8c5?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1589330273594-fade1ee91647?w=300&h=300&fit=crop"], desc:"Volumizing & curling, smudge-proof." },
-    { id:5, name:"Peachy Cream Blush", price:16.99, category:"makeup", image:"https://images.unsplash.com/photo-1612033444073-96ee1dddf32b?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1616856654305-db65b93adf17?w=300&h=300&fit=crop"], desc:"Dewy finish, melts into skin." },
-    { id:6, name:"Strobe Highlighter", price:22.30, category:"makeup", image:"https://images.unsplash.com/photo-1631212554803-6a5d6dbd3c9c?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1631212552026-2d1d63f9c6b5?w=300&h=300&fit=crop"], desc:"Glass skin effect, light-reflecting pearls." },
-    { id:7, name:"Full Cover Concealer", price:14.99, category:"makeup", image:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1618354691551-44de113f0164?w=300&h=300&fit=crop"], desc:"Hydrating, high coverage, crease-resistant." },
-    { id:8, name:"Vintage Denim Jacket", price:59.90, category:"clothes", image:"https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1516257984-b6b4d2e0f2b5?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=300&h=300&fit=crop"], desc:"Classic oversized denim jacket, 100% cotton." },
-    { id:9, name:"Flowy Floral Midi Dress", price:45.00, category:"clothes", image:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=300&h=300&fit=crop"], desc:"Lightweight chiffon, perfect for summer." },
-    { id:10, name:"Essential Cotton Tee", price:19.99, category:"clothes", image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=300&h=300&fit=crop"], desc:"Soft premium cotton, everyday staple." },
-    { id:11, name:"Leather Tote Bag", price:89.00, category:"accessories", image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1591561954555-607968c989ab?w=300&h=300&fit=crop"], desc:"Genuine leather, spacious & chic." },
-    { id:12, name:"Cashmere Silk Scarf", price:34.50, category:"accessories", image:"https://images.unsplash.com/photo-1601924638867-3a6de6b7a500?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1604176354204-9268737828e4?w=300&h=300&fit=crop"], desc:"Luxurious softness, artisan pattern." },
-    { id:13, name:"Retro Platform Sneakers", price:72.99, category:"clothes", image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=300&h=300&fit=crop"], desc:"Cushioned sole, retro vibe." },
-    { id:14, name:"Wool Cable Sweater", price:67.00, category:"clothes", image:"https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=300&h=300&fit=crop"], desc:"Cozy merino wool, warm winter essential." },
-    { id:15, name:"iPhone 15 Pro", price:999.00, category:"mobile", image:"https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=300&h=300&fit=crop","https://images.unsplash.com/photo-1678685888221-cda773a9d3b8?w=300&h=300&fit=crop"], desc:"A17 Pro, titanium body, 48MP camera." },
-    { id:16, name:"Samsung Galaxy S24", price:859.00, category:"mobile", image:"https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=300&h=300&fit=crop"], desc:"AI zoom, dynamic AMOLED 2X, all-day battery." },
-    { id:17, name:"Google Pixel 8 Pro", price:699.00, category:"mobile", image:"https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1598327105850-6c27a4d2c9b0?w=300&h=300&fit=crop"], desc:"Advanced AI camera, clean Android." },
-    { id:18, name:"OnePlus 12", price:749.99, category:"mobile", image:"https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1616348436168-de43ad0db179?w=300&h=300&fit=crop"], desc:"Snapdragon 8 Gen 3, 100W charging." },
-    { id:19, name:"Xiaomi 13T Pro", price:649.00, category:"mobile", image:"https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1589492477829-5e65395b66cc?w=300&h=300&fit=crop"], desc:"Leica optics, 144Hz, 120W HyperCharge." },
-    { id:20, name:"Motorola Edge 40", price:499.00, category:"mobile", image:"https://images.unsplash.com/photo-1610792516307-9e8a8b5fe12d?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1610792516307-9e8a8b5fe12d?w=300&h=300&fit=crop"], desc:"Curved pOLED, 68W turbo power." },
-    // additional items to make category feel rich
-    { id:21, name:"Satin Lip Gloss Set", price:28.50, category:"makeup", image:"https://images.unsplash.com/photo-1599305444371-78fdd7dfcd07?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1599305444371-78fdd7dfcd07?w=300&h=300&fit=crop"], desc:"High-shine, non-sticky gloss." },
-    { id:22, name:"Silk Satin Pajama Set", price:79.00, category:"clothes", image:"https://images.unsplash.com/photo-1553456558-5e6b2b2a0c9b?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1544967082-d9d25f8675ed?w=300&h=300&fit=crop"], desc:"Luxurious sleepwear, breathable." },
-    { id:23, name:"Designer Handbag", price:129.00, category:"accessories", image:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop"], desc:"Elegant structured handbag." },
-    { id:24, name:"Sunglasses Aviator", price:49.99, category:"accessories", image:"https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&h=300&fit=crop"], desc:"UV400 protection, timeless style." },
-    { id:25, name:"Noise Cancelling Earbuds", price:89.99, category:"accessories", image:"https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&h=300&fit=crop"], desc:"Crystal clear sound, 30h battery." },
-    { id:26, name:"Matte Liquid Lipstick", price:19.99, category:"makeup", image:"https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=300&h=300&fit=crop"], desc:"Transfer-proof, intense color." },
-    { id:27, name:"Oversized Hoodie", price:54.99, category:"clothes", image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=300&h=300&fit=crop"], desc:"Cotton blend, streetwear staple." },
-    { id:28, name:"Smartwatch Series 9", price:429.00, category:"accessories", image:"https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&h=300&fit=crop"], desc:"Fitness tracking, always-on display." },
-    { id:29, name:"Crop Top & Skirt Set", price:68.00, category:"clothes", image:"https://images.unsplash.com/photo-1525373698358-041e3a460346?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1525373698358-041e3a460346?w=300&h=300&fit=crop"], desc:"Chic co-ord set, pastel shades." },
-    { id:30, name:"Pore Minimizing Primer", price:15.99, category:"makeup", image:"https://images.unsplash.com/photo-1596462502278-6a40f483f11c?w=400&h=400&fit=crop", extraImages:["https://images.unsplash.com/photo-1596462502278-6a40f483f11c?w=300&h=300&fit=crop"], desc:"Smooths skin, extends makeup wear." }
-  ];
-
-  // Reviews mapping (some custom)
-  const getReviews = (id) => {
-    const base = [{user:"🌸 Priya S.", text:"Absolutely stunning! Quality is amazing."},{user:"💖 Ananya R.", text:"Loved it! Fast delivery & authentic."}];
-    if(id === 1) return [{user:"Riya M.", text:"Best matte lipstick ever."},{user:"Neha K.", text:"Stays all day, comfortable."}];
-    if(id === 8) return [{user:"Kavya J.", text:"Jacket fits perfectly, great denim."}];
-    if(id === 15) return [{user:"Aryan S.", text:"Super fast, amazing camera."}];
-    if(id === 11) return [{user:"Simran B.", text:"Beautiful tote, genuine leather."}];
-    return base;
-  };
-
-  // DOM
-  const homepageView = document.getElementById('homepageView');
-  const detailViewDiv = document.getElementById('detailView');
-  const productsGrid = document.getElementById('productsGrid');
-  const searchInput = document.getElementById('searchInput');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  let currentCategory = 'all';
-  let currentSearch = '';
-
-  function renderHomepage() {
-    let filtered = products.filter(p => {
-      const matchCat = currentCategory === 'all' || p.category === currentCategory;
-      const matchSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) || p.category.includes(currentSearch.toLowerCase());
-      return matchCat && matchSearch;
-    });
-    productsGrid.innerHTML = '';
-    if(filtered.length === 0) {
-      productsGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px;">✨ No items found. Try another keyword ✨</div>`;
-      return;
-    }
-    filtered.forEach(prod => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <img class="product-img" src="${prod.image}" alt="${prod.name}" loading="lazy" onerror="this.src='https://picsum.photos/id/29/400/400'">
-        <div class="card-info">
-          <div class="product-title">${prod.name}</div>
-          <div class="price">$${prod.price.toFixed(2)}</div>
-          <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
-          <div class="category-badge">${prod.category === 'makeup' ? '💄 Makeup' : prod.category === 'clothes' ? '👗 Fashion' : prod.category === 'mobile' ? '📱 Mobile' : '👜 Accessories'}</div>
+    <div class="scene" id="scene-3">
+        <h1 class="scene-title">Our Floating Memories</h1>
+        <p style="color: #ff66b2; font-size: 18px;">Click each lantern to see what's inside...</p>
+        <div class="lantern-container">
+            <div class="lantern" onclick="revealLantern(this, 'You have the cutest smile ever.')">🏮</div>
+            <div class="lantern" onclick="revealLantern(this, 'Every moment with you is magic.')">🏮</div>
+            <div class="lantern" onclick="revealLantern(this, 'You make my world so colorful.')">🏮</div>
         </div>
-      `;
-      card.addEventListener('click', () => openProductDetail(prod.id));
-      productsGrid.appendChild(card);
-    });
-  }
+        <button class="magical-btn" id="btn-next-3" style="display:none;" onclick="startEmotionalScene()">Step into the Moonlight...</button>
+    </div>
 
-  function openProductDetail(productId) {
-    const product = products.find(p => p.id === productId);
-    if(!product) return;
-    // fill detail
-    document.getElementById('detailTitle').innerText = product.name;
-    document.getElementById('detailPrice').innerHTML = `$${product.price.toFixed(2)}`;
-    document.getElementById('detailDesc').innerText = product.desc;
-    const mainImg = document.getElementById('detailMainImg');
-    mainImg.src = product.image;
-    // extra images
-    const thumbsContainer = document.getElementById('detailExtraThumbs');
-    thumbsContainer.innerHTML = '';
-    const extras = product.extraImages || [];
-    extras.forEach(url => {
-      const thumb = document.createElement('img');
-      thumb.src = url;
-      thumb.classList.add('extra-thumb');
-      thumb.addEventListener('click', () => { mainImg.src = url; });
-      thumbsContainer.appendChild(thumb);
-    });
-    if(extras.length === 0) thumbsContainer.innerHTML = '<p style="font-size:0.8rem;">✨ More photos in store</p>';
-    // reviews
-    const reviews = getReviews(product.id);
-    const reviewsContainer = document.getElementById('reviewsContainer');
-    reviewsContainer.innerHTML = '';
-    reviews.forEach(r => {
-      const revDiv = document.createElement('div');
-      revDiv.className = 'review-card';
-      revDiv.innerHTML = `<div class="reviewer"><i class="fas fa-user-circle"></i> ${r.user}</div><div class="review-text">⭐ ${r.text}</div>`;
-      reviewsContainer.appendChild(revDiv);
-    });
-    homepageView.classList.add('hidden');
-    detailViewDiv.classList.remove('hidden');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+    <div class="scene" id="scene-4">
+        <div class="giant-heart-bg" id="giant-heart">❤️</div>
+        <div class="glass-card">
+            <h2 style="font-family: 'Pacifico'; color: #ffd1dc; margin-top:0; font-size: 32px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 15px;">My Heart to You</h2>
+            <div class="emotional-text-container" id="emotional-text-box">
+                </div>
+            <button class="magical-btn" id="btn-hold-heart" style="display:none; margin: 0 auto; margin-top: 30px; background: rgba(255,255,255,0.9); color: var(--pink-dark);" onclick="goToScene(5)">Hold My Heart</button>
+        </div>
+    </div>
 
-  function backToHome() {
-    homepageView.classList.remove('hidden');
-    detailViewDiv.classList.add('hidden');
-    renderHomepage();
-  }
+    <div class="scene" id="scene-5">
+        <h1 class="scene-title" style="font-size: 60px; color: white; text-shadow: 0 0 20px var(--pink-dark);">Thank you for being my sweetest PUDKI.</h1>
+        <p style="color: white; font-size: 24px; text-shadow: 0 0 10px #ff66b2;">My heart chooses you every day. I love you endlessly.</p>
+        <div style="font-size: 100px; animation: floatMascot 2s infinite;">💖</div>
+    </div>
 
-  // filter & search
-  searchInput.addEventListener('input', (e) => { currentSearch = e.target.value; renderHomepage(); });
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.getAttribute('data-cat');
-      renderHomepage();
-    });
-  });
+    <script>
+        // Utilities
+        function goToScene(sceneNumber) {
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            document.getElementById(`scene-${sceneNumber}`).classList.add('active');
+        }
 
-  // Contact form (send feedback to sammanlamsal31@gmail.com)
-  const feedbackForm = document.getElementById('feedbackForm');
-  const feedbackStatus = document.getElementById('feedbackStatus');
-  feedbackForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const firstName = document.getElementById('firstNameContact').value.trim();
-    const message = document.getElementById('feedbackMsg').value.trim();
-    if(!firstName || !message) {
-      feedbackStatus.innerHTML = '<span style="color:#d9534f;">💬 Please fill both fields.</span>';
-      return;
-    }
-    feedbackStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Sending feedback...';
-    try {
-      const res = await fetch('https://formsubmit.co/ajax/sammanlamsal31@gmail.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: firstName,
-          message: message,
-          _subject: `📝 PS Zone Feedback from ${firstName}`,
-          _captcha: 'false'
-        })
-      });
-      if(res.ok) {
-        feedbackStatus.innerHTML = '<span style="color:#2b7a3e;">✅ Thank you! Your feedback has been sent 💖</span>';
-        feedbackForm.reset();
-        setTimeout(() => feedbackStatus.innerHTML = '', 5000);
-      } else throw new Error();
-    } catch(err) {
-      feedbackStatus.innerHTML = '<span style="color:#c0392b;">❌ Failed to send. Please try again later.</span>';
-    }
-  });
+        function createSparkles(amount) {
+            const container = document.getElementById('sparkles-container');
+            container.innerHTML = ''; // clear old
+            for(let i=0; i<amount; i++) {
+                let sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.width = Math.random() * 5 + 'px';
+                sparkle.style.height = sparkle.style.width;
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDuration = (Math.random() * 3 + 1) + 's';
+                container.appendChild(sparkle);
+            }
+        }
+        createSparkles(30);
 
-  document.getElementById('backToHomeBtn').addEventListener('click', backToHome);
-  renderHomepage();
-</script>
+        // Scene 1 Logic
+        function openDoor() {
+            document.getElementById('magic-door').classList.add('open');
+            setTimeout(() => {
+                goToScene(2);
+                initConstellation();
+            }, 1500);
+        }
+
+        // Scene 2 Logic
+        let starsLit = 0;
+        function initConstellation() {
+            const letters = ['P', 'U', 'D', 'K', 'I'];
+            const box = document.getElementById('stars-box');
+            if(box.innerHTML.trim() !== '') return; // prevent double init
+            
+            const positions = [
+                { top: '20%', left: '10%' },
+                { top: '60%', left: '30%' },
+                { top: '30%', left: '50%' },
+                { top: '70%', left: '70%' },
+                { top: '20%', left: '90%' }
+            ];
+
+            letters.forEach((letter, index) => {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.innerHTML = '⭐';
+                star.style.top = positions[index].top;
+                star.style.left = positions[index].left;
+                
+                let text = document.createElement('span');
+                text.innerText = letter;
+                text.style.position = 'absolute';
+                text.style.top = '50px';
+                text.style.left = '10px';
+                text.style.opacity = '0';
+                text.style.transition = 'opacity 0.5s';
+                star.appendChild(text);
+
+                star.onclick = function() {
+                    if (!this.classList.contains('lit')) {
+                        this.classList.add('lit');
+                        text.style.opacity = '1';
+                        starsLit++;
+                        if (starsLit === letters.length) {
+                            setTimeout(() => {
+                                document.getElementById('btn-next-2').style.display = 'block';
+                            }, 1000);
+                        }
+                    }
+                };
+                box.appendChild(star);
+            });
+        }
+
+        // Scene 3 Logic
+        let lanternsRevealed = 0;
+        function revealLantern(element, message) {
+            if(!element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+                element.innerHTML = `<span style="color: var(--pink-dark); font-family: 'Quicksand'; font-size: 16px;">${message}</span>`;
+                lanternsRevealed++;
+                if(lanternsRevealed === 3) {
+                    setTimeout(() => {
+                        document.getElementById('btn-next-3').style.display = 'block';
+                    }, 1500);
+                }
+            }
+        }
+
+        // Scene 4 Logic: My Heart to You
+        const emotionalLines = [
+            "I love you, baby.",
+            "I love you in your brightest moments, and I love you in your darkest ones.",
+            "When life feels heavy, I want to be the one beside you.",
+            "When life feels beautiful, I want to celebrate it with you.",
+            "In your lows, I am with you.",
+            "In your highs, I am with you.",
+            "No matter what version of yourself you are, I will love you through all of it.",
+            "You never have to face anything alone while I am here.",
+            "My love is not only for your smiles, but for your tears too.",
+            "I choose you on the easy days.",
+            "I choose you on the difficult days.",
+            "I choose you always.",
+            "Through every high and every low, I am yours, and I love you."
+        ];
+
+        function startEmotionalScene() {
+            goToScene(4);
+            document.body.style.background = 'var(--moonlight-bg)';
+            createSparkles(100); // more magic
+            
+            const textBox = document.getElementById('emotional-text-box');
+            let currentLine = 0;
+
+            function showNextLine() {
+                if(currentLine > 0) {
+                    const prev = document.getElementById(`emo-line-${currentLine-1}`);
+                    if(prev) { prev.classList.remove('visible'); }
+                }
+
+                if (currentLine < emotionalLines.length) {
+                    let p = document.createElement('p');
+                    p.classList.add('emotional-line');
+                    p.id = `emo-line-${currentLine}`;
+                    p.innerText = emotionalLines[currentLine];
+                    textBox.appendChild(p);
+                    
+                    // Force reflow
+                    void p.offsetWidth;
+                    p.classList.add('visible');
+
+                    // Mid reveal: hearts
+                    if(currentLine === Math.floor(emotionalLines.length / 2)) {
+                        createFloatingHearts();
+                    }
+
+                    // Final reveal
+                    if(currentLine === emotionalLines.length - 1) {
+                        document.getElementById('giant-heart').style.transform = 'translate(-50%, -50%) scale(1)';
+                        setTimeout(() => {
+                            document.getElementById('btn-hold-heart').style.display = 'block';
+                        }, 2000);
+                    }
+
+                    currentLine++;
+                    setTimeout(showNextLine, 4000); // Wait 4 seconds per line
+                }
+            }
+            
+            setTimeout(showNextLine, 2000);
+        }
+
+        function createFloatingHearts() {
+            for(let i=0; i<15; i++) {
+                setTimeout(() => {
+                    let h = document.createElement('div');
+                    h.innerHTML = '💖';
+                    h.style.position = 'absolute';
+                    h.style.left = Math.random() * 100 + 'vw';
+                    h.style.bottom = '-50px';
+                    h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    h.style.opacity = '0.6';
+                    h.style.transition = 'transform 10s linear, opacity 10s';
+                    document.body.appendChild(h);
+                    
+                    setTimeout(() => {
+                        h.style.transform = `translateY(-120vh) rotate(${Math.random()*360}deg)`;
+                        h.style.opacity = '0';
+                    }, 50);
+                }, i * 300);
+            }
+        }
+    </script>
 </body>
 </html>
