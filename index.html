@@ -430,9 +430,38 @@ function generatePageContent(pageNum) {
   }
 
   // --- STANDARD PROCEDURAL PAGES (Pages 2 - 600) ---
-  const line1 = `There is something about the way you ${pick(actions, pageNum + 1)} that feels so ${pick(emotions, pageNum + 2)}.`;
-  const line2 = `It is subtle, almost impossible to explain, but every time it happens, ${pick(effects, pageNum + 3)}.`;
-  const line3 = `Maybe it is the way it happens ${pick(metaphors, pageNum + 4)}, or maybe it is just you being exactly who you are.`;
+  
+  // Grab the random words for this page
+  const action = pick(actions, pageNum + 1);
+  const emotion = pick(emotions, pageNum + 2);
+  const effect = pick(effects, pageNum + 3);
+  const metaphor = pick(metaphors, pageNum + 4);
+
+  // Pick a random paragraph pattern (0 to 4) to ensure variety
+  const patternSeed = Math.floor(rand(pageNum * 8.2) * 5);
+  let line1, line2, line3;
+
+  if (patternSeed === 0) {
+    line1 = `There is something about the way you ${action} that feels so ${emotion}.`;
+    line2 = `It is subtle, almost impossible to explain, but every time it happens, ${effect}.`;
+    line3 = `Maybe it is the way it happens ${metaphor}, or maybe it is just you being exactly who you are.`;
+  } else if (patternSeed === 1) {
+    line1 = `I caught myself thinking earlier about how you ${action}.`;
+    line2 = `It's such a ${emotion} thing to witness. I don't think you even realize that when you do it, ${effect}.`;
+    line3 = `It hits me ${metaphor}, reminding me of how deeply I care for you.`;
+  } else if (patternSeed === 2) {
+    line1 = `When you ${action}, the whole world seems to just slow down for a second.`;
+    line2 = `It feels ${metaphor}. A quiet, ${emotion} pause in my day that I always look forward to.`;
+    line3 = `Because in those tiny moments, ${effect}.`;
+  } else if (patternSeed === 3) {
+    line1 = `Have I ever told you how absolutely ${emotion} you are when you ${action}?`;
+    line2 = `You do it so naturally, but for me, ${effect}.`;
+    line3 = `It feels ${metaphor}, wrapping around my heart and making everything brighter.`;
+  } else {
+    line1 = `Just you. Just the way you ${action}. That's really all it takes.`;
+    line2 = `It brings this ${emotion} wave over me. ${metaphor}, it changes my entire mood for the better.`;
+    line3 = `I watch you, and suddenly ${effect}.`;
+  }
 
   let extra = "";
   let styleSeed = Math.floor(rand(pageNum * 5.5) * 4);
