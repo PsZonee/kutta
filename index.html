@@ -944,7 +944,7 @@ const TOTAL_PAGES = 700;
 const BODY_SECTION_START = 601;
 
 // ============================================================
-// PROCEDURAL LOVE LETTER GENERATOR POOLS
+// PROCEDURAL LOVE LETTER GENERATOR POOLS (Pages 2-600)
 // ============================================================
 const titles = [
   "A Soft Thought", "My Favorite Smile", "Endless Warmth", "The Way You Glow", 
@@ -1018,36 +1018,107 @@ const closers = [
 
 const decors = ['🌸', '💕', '✨', '🌷', '💖', '🌺', '⭐', '🦋', '🌹', '🌙'];
 
-// ============================================================
-// PROCEDURAL BODY APPRECIATION POOLS (Pages 601-699)
-// ============================================================
-const bodyFeatures = [
-  { feature: "Your Eyes", icon: "👁️✨" },
-  { feature: "Your Nose", icon: "🌸" },
-  { feature: "Your Lips", icon: "💋" },
-  { feature: "Your Neck", icon: "🦢" },
-  { feature: "Your Hands", icon: "🤍" },
-  { feature: "Your Waist", icon: "🌹" },
-  { feature: "Chocolate", icon: "🍫" },
-  { feature: "Your Feet", icon: "🌸" },
-  { feature: "Your Smile", icon: "✨" },
-  { feature: "Your Laugh", icon: "🎶" }
-];
 
-const bodyTexts = [
-  "It is one of those things that is so uniquely, perfectly you that I cannot imagine any other way it could be.",
-  "Every time I notice it, my heart skips a tiny beat. It fits so beautifully, like the universe designed it just right.",
-  "I love it because it is a part of you, and every single part of you is absolutely breathtaking to me.",
-  "You might not even think about it, but I notice it, and it takes my breath away every single time.",
-  "It carries such a soft, sweet elegance. You are a masterpiece, and this is just one of the reasons why.",
-  "There is a quiet magic in everything about you. I could spend a lifetime simply adoring this part of you.",
-  "Perfectly placed, perfectly shaped, perfectly you. It makes my whole heart melt.",
-  "I am so unbelievably lucky to know you, to see you, and to cherish every beautiful detail about you."
+// ============================================================
+// BODY APPRECIATION POOLS (Pages 601-699)
+// ============================================================
+const bodyAppreciationData = [
+  {
+    title: "Your Eyes",
+    icon: "👁️✨",
+    texts: [
+      "Pudke, your eyes hold entire galaxies in them. I could get lost looking into them forever and never want to be found.",
+      "There is a warmth in your eyes that instantly melts my heart. They are the most beautiful eyes I have ever seen.",
+      "The way your eyes sparkle when you smile is my absolute favorite sight in the world.",
+      "I look into your eyes and I see my home, my future, and the most gorgeous soul to ever exist.",
+      "Whenever you look at me, my breath catches. Your eyes are captivating, deep, and impossibly beautiful."
+    ]
+  },
+  {
+    title: "Your Cute Nose",
+    icon: "🌸",
+    texts: [
+      "I just want to boop it! Your nose is so perfectly cute and fits your beautiful face flawlessly.",
+      "The way your nose scrunches when you laugh or smile is the most adorable thing in the universe.",
+      "Every single feature of yours was crafted to perfection, Pudke, and your cute little nose is no exception.",
+      "It's such a tiny detail, but your nose is just one of the millions of things I am entirely obsessed with."
+    ]
+  },
+  {
+    title: "Your Lips",
+    icon: "💋",
+    texts: [
+      "Your lips are absolutely perfect. The way they curve into a smile is enough to make my heart stop completely.",
+      "Soft, beautiful, and completely captivating. Every time you smile, I am reminded of how lucky I am.",
+      "I am obsessed with your lips and that breathtaking smile of yours. It is pure perfection.",
+      "Pudke, your lips look like they were sculpted by the universe just for me to kiss. Flawless."
+    ]
+  },
+  {
+    title: "Your Neck",
+    icon: "🦢",
+    texts: [
+      "Your neck is so elegant and graceful. It's just another detail of yours that makes you look like a literal goddess.",
+      "The soft curve of your neck is so breathtaking. You are perfectly sculpted from head to toe.",
+      "I love the gentle, elegant slope of your neck. It is just so effortlessly beautiful.",
+      "Whenever you tilt your head, the graceful line of your neck leaves me completely speechless, Pudke."
+    ]
+  },
+  {
+    title: "Your Hands",
+    icon: "🤍",
+    texts: [
+      "Your hands are so soft and beautiful. Knowing they are mine to hold is the greatest comfort in the world.",
+      "I love the way your hands feel in mine. They are so gentle, so perfect, and so uniquely yours.",
+      "Even the way your hands move is graceful. I could hold them forever and never let go.",
+      "Pudke, your hands are so delicate and beautiful. My favorite place for them to be is wrapped up in mine."
+    ]
+  },
+  {
+    title: "Your Waist",
+    icon: "🌹",
+    texts: [
+      "Your curves are absolutely breathtaking. Your waist is sculpted so perfectly, making you the most gorgeous woman alive.",
+      "I am completely mesmerized by your figure. The curve of your waist is just pure, stunning perfection.",
+      "You have the most beautiful, perfect silhouette, Pudke. Every inch of you is a masterpiece.",
+      "The way your body is shaped is simply mesmerizing. Your waist is just perfectly, beautifully feminine."
+    ]
+  },
+  {
+    title: "Chocolate",
+    icon: "🍫",
+    texts: [
+      "Our little secret... chocolate is sooo amazing. I still can't believe how incredibly lucky I am, Pudke.",
+      "I think about chocolate all the time. It is absolutely perfect, and I am the luckiest guy in the world.",
+      "Just a reminder that chocolate is perfection. I am so lucky, so blessed, and so obsessed with you.",
+      "Chocolate... absolutely amazing. Words can't even describe how lucky I feel every single day to have you."
+    ]
+  },
+  {
+    title: "Your Cute Feet",
+    icon: "🎀",
+    texts: [
+      "Literally perfect from head to toe. Even your little feet are the cutest things ever.",
+      "Every single inch of you is adorable, right down to your cute little feet. Perfection everywhere.",
+      "I love every part of you without exception. Your tiny, perfect feet just add to how incredibly cute you are.",
+      "Pudke, it blows my mind how you manage to be gorgeous and adorable at the same time, from your beautiful face down to your toes."
+    ]
+  },
+  {
+    title: "Your Perfect Figure",
+    icon: "✨",
+    texts: [
+      "You are just flawlessly proportioned. Your entire body is a work of art that I am so lucky to admire.",
+      "Every single curve, every soft line of your body—you are stunningly, breathtakingly perfect.",
+      "Sometimes I just have to pause and admire how incredibly gorgeous your body is. Pure perfection, Pudke.",
+      "I don't think there has ever been a body as perfectly beautiful as yours. You are an absolute dream."
+    ]
+  }
 ];
 
 // ============================================================
 // SEEDED RANDOM NUMBER GENERATOR
-// Guarantees page 32 is always the same content every time!
+// Guarantees each page is uniquely generated but always stays the same
 // ============================================================
 function splitmix32(a) {
   return function() {
@@ -1078,9 +1149,9 @@ function generatePageContent(pageNum) {
 
   // Page 700: Finale
   if (pageNum === TOTAL_PAGES) {
-    return `<div class="page-heading">💕 Forever</div>
-            <div class="page-text">You are my sweetest happiness. My softest comfort. My brightest light. My most beautiful dream come true. And you will always be all of those things — always, forever, endlessly.</div>
-            <div class="page-text">I love you. More than these 700 pages. More than every word in every language. More than I will ever be able to say.</div>
+    return `<div class="page-heading">💕 Forever, Pudke</div>
+            <div class="page-text">You are my sweetest happiness. Every single part of you—from your beautiful eyes down to your cute little feet—is pure perfection.</div>
+            <div class="page-text">I love you, Pudke. More than these 700 pages. More than every word in every language. More than I will ever be able to say.</div>
             <div class="divider">💕 💕 💕</div>
             <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--deep-rose);">The End... and the beginning of forever.</div>`;
   }
@@ -1090,19 +1161,22 @@ function generatePageContent(pageNum) {
 
   // Body appreciation section (pages 601-699)
   if (pageNum >= BODY_SECTION_START) {
-    const feat = getRandomItem(bodyFeatures, prng);
-    const bodyPraise1 = getRandomItem(bodyTexts, prng);
+    const featureObj = getRandomItem(bodyAppreciationData, prng);
     
-    // Ensure the second text is different from the first
-    let bodyPraise2 = getRandomItem(bodyTexts, prng);
-    while(bodyPraise2 === bodyPraise1) {
-        bodyPraise2 = getRandomItem(bodyTexts, prng);
+    let text1 = getRandomItem(featureObj.texts, prng);
+    let text2 = getRandomItem(featureObj.texts, prng);
+    
+    // Ensure the second text is different from the first so it doesn't repeat
+    let loopProtect = 0;
+    while(text1 === text2 && loopProtect < 10) {
+        text2 = getRandomItem(featureObj.texts, prng);
+        loopProtect++;
     }
 
-    return `<div class="body-feature-heading">${feat.feature}</div>
-            <div class="body-feature-icon">${feat.icon}</div>
-            <div class="page-text">${bodyPraise1}</div>
-            <div class="page-text">${bodyPraise2}</div>
+    return `<div class="body-feature-heading">${featureObj.title}</div>
+            <div class="body-feature-icon">${featureObj.icon}</div>
+            <div class="page-text">${text1}</div>
+            <div class="page-text">${text2}</div>
             <div class="divider" style="font-size: 0.8rem;">Page ${pageNum} 💕</div>`;
   }
 
