@@ -12,11 +12,15 @@
     --deep-rose: #c0446b;
     --petal: #fde8f0;
     --cream: #fff8fa;
-    --gold: #d4a0b0;
+    --gold: #d4a873;
+    --gold-bright: #f5c842;
     --text: #5a2a3a;
     --soft: #f0b8cb;
     --white: #ffffff;
     --shadow: rgba(192, 75, 107, 0.18);
+    --pink-cover: #e0607a;
+    --pink-cover-dark: #c84060;
+    --pink-cover-light: #f07a95;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -33,7 +37,7 @@
     position: relative;
   }
 
-  /* Floating hearts background */
+  /* Floating elements background */
   .hearts-bg {
     position: fixed;
     top: 0; left: 0;
@@ -68,7 +72,9 @@
     100% { transform: scale(0) rotate(360deg) translateY(-30px); opacity: 0; }
   }
 
-  /* Cover screen */
+  /* ===========================
+     COVER SCREEN — Luna Style
+     =========================== */
   #cover-screen {
     position: fixed;
     inset: 0;
@@ -77,97 +83,309 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(160deg, #fde8f0 0%, #f9c8d9 40%, #f0a0bc 100%);
+    background: linear-gradient(160deg, #ffe0ec 0%, #fcd1e2 40%, #f9a8c0 100%);
+  }
+
+  /* Wooden desk surface feel */
+  #cover-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(210,160,100,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,220,180,0.1) 0%, transparent 40%);
+    pointer-events: none;
+  }
+
+  /* Fairy lights */
+  .fairy-lights {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 18px;
+    padding-bottom: 8px;
+    z-index: 2;
+  }
+  .bulb {
+    width: 8px; height: 10px;
+    border-radius: 50% 50% 40% 40%;
+    position: relative;
+    animation: glowBulb 2s ease-in-out infinite;
+  }
+  .bulb:nth-child(odd) { animation-delay: 0.3s; }
+  .bulb:nth-child(3n) { animation-delay: 0.7s; }
+  .bulb-warm { background: #ffe066; box-shadow: 0 0 8px 3px rgba(255,220,80,0.7); }
+  .bulb-pink { background: #ff99bb; box-shadow: 0 0 8px 3px rgba(255,120,160,0.6); }
+  .bulb-white { background: #fff5dd; box-shadow: 0 0 8px 3px rgba(255,240,200,0.8); }
+  @keyframes glowBulb {
+    0%,100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+  /* Wire connecting bulbs */
+  .fairy-lights::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 5%; right: 5%;
+    height: 1.5px;
+    background: rgba(120,80,60,0.35);
+    z-index: -1;
+  }
+
+  /* Floating flowers and lavender on sides */
+  .side-deco {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: 0.6;
+    animation: gentleFloat 4s ease-in-out infinite;
+  }
+  @keyframes gentleFloat {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
   }
 
   .cover-book-wrap {
-    perspective: 1200px;
+    perspective: 1400px;
     cursor: pointer;
     user-select: none;
+    position: relative;
+    z-index: 3;
   }
 
+  /* Luna-style book — pink, 3D, tilted */
   .cover-book {
-    width: min(280px, 80vw);
-    height: min(370px, 55vh);
+    width: min(230px, 68vw);
+    height: min(310px, 50vh);
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(.34,1.56,.64,1);
-    filter: drop-shadow(0 20px 40px rgba(192,68,107,0.35));
+    transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg);
+    transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
+    filter: drop-shadow(8px 20px 30px rgba(120,40,60,0.45));
   }
-  .cover-book:hover { transform: rotateY(-12deg) rotateX(5deg) scale(1.03); }
+  .cover-book-wrap:hover .cover-book {
+    transform: rotateX(8deg) rotateY(-8deg) rotateZ(-1deg) scale(1.04);
+  }
 
-  .book-cover {
+  /* Main book face */
+  .book-face {
     position: absolute;
     inset: 0;
-    border-radius: 6px 18px 18px 6px;
-    background: linear-gradient(145deg, #e8799e 0%, #c0446b 50%, #9b2d4f 100%);
+    border-radius: 4px 14px 14px 4px;
+    background: linear-gradient(160deg, var(--pink-cover-light) 0%, var(--pink-cover) 40%, var(--pink-cover-dark) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 24px 20px;
-    box-shadow: inset -4px 0 12px rgba(0,0,0,0.2), inset 4px 0 8px rgba(255,255,255,0.15);
-    border-left: 6px solid #8a1f40;
+    justify-content: space-between;
+    padding: 16px 14px;
+    overflow: hidden;
   }
 
+  /* Gold border frame on cover */
+  .book-face::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 2.5px solid var(--gold-bright);
+    border-radius: 2px 10px 10px 2px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  /* Stars in corner */
+  .cover-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .cover-star {
+    position: absolute;
+    color: var(--gold-bright);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    animation: twinkle 2s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  .cover-title-area {
+    text-align: center;
+    z-index: 1;
+    position: relative;
+  }
   .cover-title {
     font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.5rem, 6vw, 2.2rem);
-    color: #fff;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    line-height: 1.3;
-    margin-bottom: 16px;
-  }
-  .cover-heart-big { font-size: clamp(2.5rem, 10vw, 4rem); margin: 10px 0; animation: heartbeat 1.5s ease-in-out infinite; }
-  @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-  .cover-sub {
-    font-family: 'Lora', serif;
-    font-style: italic;
-    color: rgba(255,255,255,0.85);
-    font-size: clamp(0.75rem, 3vw, 0.95rem);
-    text-align: center;
-    margin-top: 12px;
-  }
-  .cover-ornament {
-    color: rgba(255,255,255,0.5);
-    font-size: 1.2rem;
-    letter-spacing: 8px;
-    margin: 8px 0;
-  }
-  .book-spine {
-    position: absolute;
-    left: 0; top: 0;
-    width: 6px; height: 100%;
-    background: linear-gradient(to right, #7a1535, #a02848);
-    border-radius: 6px 0 0 6px;
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    color: var(--gold-bright);
+    text-shadow: 1px 2px 0 rgba(120,60,0,0.4), 0 0 12px rgba(255,220,80,0.4);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.5px;
   }
 
+  /* Illustration box in the middle of cover */
+  .cover-illustration {
+    width: 90%;
+    flex: 1;
+    margin: 8px 0;
+    border-radius: 6px;
+    background: linear-gradient(160deg, #1a0a2e 0%, #2d1660 40%, #1a2a50 100%);
+    border: 2px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  /* Night sky in illustration */
+  .cover-illustration::before {
+    content: '✦ ✧ ✦ ✧ ✦';
+    position: absolute;
+    top: 6px; left: 0; right: 0;
+    text-align: center;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 4px;
+  }
+
+  /* Moon */
+  .illus-moon {
+    position: absolute;
+    top: 12px; right: 18px;
+    font-size: 1rem;
+    filter: brightness(1.3);
+  }
+
+  /* Tree silhouette */
+  .illus-trees {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 55%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0 4px;
+  }
+  .illus-tree {
+    background: rgba(20,40,20,0.8);
+    border-radius: 50% 50% 0 0;
+    position: relative;
+  }
+
+  /* Glowing path */
+  .illus-path {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 40%;
+    background: radial-gradient(ellipse at center bottom, rgba(100,220,100,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* Little girl */
+  .illus-girl { font-size: 1.1rem; position: relative; z-index: 2; }
+
+  /* Mushrooms */
+  .illus-mushroom {
+    position: absolute;
+    font-size: 0.7rem;
+  }
+
+  /* Tree house */
+  .illus-house {
+    position: absolute;
+    top: 18px; right: 8px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  /* Ground glow */
+  .illus-ground {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 25%;
+    background: linear-gradient(to top, rgba(30,80,20,0.5) 0%, transparent 100%);
+  }
+
+  .cover-sub-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+    color: rgba(255,255,255,0.85);
+    text-align: center;
+    z-index: 1;
+    line-height: 1.4;
+  }
+
+  /* Book spine — left side */
+  .book-spine-3d {
+    position: absolute;
+    top: 0;
+    left: -22px;
+    width: 22px;
+    height: 100%;
+    transform-origin: right center;
+    background: linear-gradient(to right, #8a1f40, #a83060);
+    border-radius: 4px 0 0 4px;
+    transform: rotateY(90deg);
+    box-shadow: inset -4px 0 8px rgba(0,0,0,0.3);
+  }
+
+  /* Book bottom thickness */
+  .book-bottom-3d {
+    position: absolute;
+    bottom: -10px;
+    left: 0; right: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, #c0446b, #9b2d4f);
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* Gold star corners on cover */
+  .corner-star {
+    position: absolute;
+    font-size: 0.9rem;
+    color: var(--gold-bright);
+  }
+  .corner-star.tl { top: 14px; left: 14px; }
+  .corner-star.tr { top: 14px; right: 14px; }
+  .corner-star.bl { bottom: 14px; left: 14px; }
+  .corner-star.br { bottom: 14px; right: 14px; }
+
   .tap-hint {
-    margin-top: 28px;
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     animation: pulse 2s ease-in-out infinite;
+    z-index: 3;
+    position: relative;
   }
-  @keyframes pulse { 0%,100% { opacity: 0.7; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
+  @keyframes pulse { 0%,100% { opacity: 0.7; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-5px); } }
   .tap-hint span {
     font-family: 'Dancing Script', cursive;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--deep-rose);
     text-shadow: 0 1px 4px rgba(255,255,255,0.6);
   }
-  .tap-hint .arrow { font-size: 1.6rem; }
 
   /* Cover open animation */
   .cover-opening .cover-book {
-    animation: bookOpen 1.2s cubic-bezier(.77,0,.18,1) forwards;
+    animation: bookOpenCover 1.2s cubic-bezier(.77,0,.18,1) forwards;
   }
-  @keyframes bookOpen {
-    0% { transform: rotateY(0deg) scale(1); }
-    40% { transform: rotateY(-30deg) scale(1.05); }
-    100% { transform: rotateY(-90deg) scale(0.8) translateX(-40px); opacity: 0; }
+  @keyframes bookOpenCover {
+    0% { transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg); }
+    40% { transform: rotateX(5deg) rotateY(-40deg) rotateZ(-2deg) scale(1.05); }
+    100% { transform: rotateX(0deg) rotateY(-100deg) rotateZ(0deg) scale(0.8) translateX(-40px); opacity: 0; }
   }
   .cover-opening {
     animation: coverFade 1.3s forwards;
@@ -178,7 +396,9 @@
     100% { opacity: 0; pointer-events: none; }
   }
 
-  /* Main book reader */
+  /* ===========================
+     MAIN BOOK READER
+     =========================== */
   #reader {
     position: fixed;
     inset: 0;
@@ -256,7 +476,9 @@
     position: relative;
   }
 
-  /* The actual book */
+  /* ===========================
+     CUTE PAGE TURN — Fold from corner
+     =========================== */
   .book {
     width: min(340px, 95vw);
     height: min(520px, calc(100vh - 130px));
@@ -264,7 +486,16 @@
     transform-style: preserve-3d;
   }
 
-  /* Pages */
+  /* Shadow under book */
+  .book::after {
+    content: '';
+    position: absolute;
+    bottom: -16px; left: 5%; right: 5%;
+    height: 18px;
+    background: radial-gradient(ellipse, rgba(192,68,107,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
   .page-container {
     position: absolute;
     inset: 0;
@@ -279,7 +510,25 @@
     background: var(--cream);
     backface-visibility: hidden;
     overflow: hidden;
-    box-shadow: 2px 4px 20px rgba(192,68,107,0.15), inset -2px 0 8px rgba(0,0,0,0.05);
+    box-shadow:
+      3px 0 12px rgba(192,68,107,0.12),
+      2px 4px 20px rgba(192,68,107,0.15),
+      inset -2px 0 8px rgba(0,0,0,0.04);
+  }
+
+  /* Subtle page lines */
+  .page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 28px,
+      rgba(232,121,158,0.06) 28px,
+      rgba(232,121,158,0.06) 29px
+    );
+    pointer-events: none;
   }
 
   .page-inner {
@@ -289,29 +538,99 @@
     padding: 28px 22px 80px;
     scrollbar-width: thin;
     scrollbar-color: var(--soft) transparent;
+    position: relative;
+    z-index: 1;
   }
   .page-inner::-webkit-scrollbar { width: 3px; }
   .page-inner::-webkit-scrollbar-track { background: transparent; }
   .page-inner::-webkit-scrollbar-thumb { background: var(--soft); border-radius: 3px; }
 
-  /* Page flip animation */
+  /* ===========================
+     CUTE PAGE TURN ANIMATION
+     Fold from right edge — like real book
+     =========================== */
+
+  /* Wrapper for the flip effect */
+  .flip-wrapper {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+  }
+
+  /* The curl shadow that appears while flipping */
+  @keyframes cuteFlipForward {
+    0% {
+      transform: perspective(1200px) rotateY(0deg);
+      box-shadow: 3px 0 12px rgba(192,68,107,0.12);
+    }
+    15% {
+      transform: perspective(1200px) rotateY(-15deg);
+      box-shadow: 15px 0 30px rgba(192,68,107,0.25);
+    }
+    50% {
+      transform: perspective(1200px) rotateY(-90deg);
+      box-shadow: -20px 0 40px rgba(192,68,107,0.35);
+    }
+    85% {
+      transform: perspective(1200px) rotateY(-165deg);
+      box-shadow: -10px 0 20px rgba(192,68,107,0.15);
+    }
+    100% {
+      transform: perspective(1200px) rotateY(-180deg);
+      box-shadow: none;
+    }
+  }
+
+  @keyframes cuteFlipBack {
+    0% {
+      transform: perspective(1200px) rotateY(0deg);
+    }
+    50% {
+      transform: perspective(1200px) rotateY(90deg);
+      box-shadow: 20px 0 40px rgba(192,68,107,0.35);
+    }
+    100% {
+      transform: perspective(1200px) rotateY(180deg);
+    }
+  }
+
+  /* Page curl animation on the container */
   .book.flipping-forward .page-container {
-    animation: flipForward 0.7s cubic-bezier(.77,0,.18,1) forwards;
+    animation: cuteFlipForward 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     transform-origin: left center;
   }
   .book.flipping-back .page-container {
-    animation: flipBack 0.7s cubic-bezier(.77,0,.18,1) forwards;
+    animation: cuteFlipBack 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
     transform-origin: left center;
   }
-  @keyframes flipForward {
-    0% { transform: rotateY(0deg); box-shadow: 2px 4px 20px rgba(192,68,107,0.15); }
-    50% { transform: rotateY(-90deg); box-shadow: -10px 4px 30px rgba(192,68,107,0.3); z-index: 10; }
-    100% { transform: rotateY(-180deg); }
+
+  /* Page corner fold */
+  .page::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 0 22px 22px;
+    border-color: transparent transparent rgba(232,121,158,0.25) transparent;
+    transition: border-width 0.2s;
   }
-  @keyframes flipBack {
-    0% { transform: rotateY(0deg); }
-    50% { transform: rotateY(90deg); box-shadow: 10px 4px 30px rgba(192,68,107,0.3); z-index: 10; }
-    100% { transform: rotateY(180deg); }
+  .page:hover::after {
+    border-width: 0 0 30px 30px;
+  }
+
+  /* Floating glitter sparkles on page turn */
+  .page-sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 0.8rem;
+    z-index: 100;
+    animation: pageSparkleAnim 0.6s forwards;
+  }
+  @keyframes pageSparkleAnim {
+    0% { transform: scale(0) translateY(0); opacity: 1; }
+    100% { transform: scale(1.2) translateY(-20px); opacity: 0; }
   }
 
   /* Page decorations */
@@ -321,7 +640,7 @@
     text-align: center;
     font-size: 0.8rem;
     color: var(--rose);
-    opacity: 0.5;
+    opacity: 0.4;
     letter-spacing: 4px;
   }
   .page-deco-bottom {
@@ -330,7 +649,7 @@
     text-align: center;
     font-size: 0.75rem;
     color: var(--rose);
-    opacity: 0.4;
+    opacity: 0.35;
   }
   .page-num-display {
     position: absolute;
@@ -338,7 +657,7 @@
     font-family: 'Dancing Script', cursive;
     font-size: 0.9rem;
     color: var(--rose);
-    opacity: 0.6;
+    opacity: 0.55;
   }
   .page-num-display.left { left: 18px; }
   .page-num-display.right { right: 18px; }
@@ -352,7 +671,6 @@
     margin-bottom: 16px;
     line-height: 1.3;
   }
-  .page-heading .emoji { font-size: 1.4em; }
   .page-text {
     font-family: 'Lora', serif;
     font-size: clamp(0.82rem, 3.2vw, 0.95rem);
@@ -468,7 +786,7 @@
     100% { opacity: 0; }
   }
 
-  /* Confetti on special pages */
+  /* Confetti */
   .confetti-piece {
     position: fixed;
     font-size: 1.2rem;
@@ -481,17 +799,6 @@
     100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
 
-  /* Page corner fold */
-  .page::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 0; height: 0;
-    border-style: solid;
-    border-width: 0 0 20px 20px;
-    border-color: transparent transparent rgba(232,121,158,0.2) transparent;
-  }
-
   /* Ribbon bookmark */
   .ribbon {
     position: absolute;
@@ -501,6 +808,7 @@
     border-radius: 0 0 4px 4px;
     z-index: 5;
     box-shadow: 2px 2px 6px rgba(192,68,107,0.3);
+    transition: height 0.5s ease;
   }
   .ribbon::after {
     content: '';
@@ -513,10 +821,19 @@
     bottom: -10px; left: 0;
   }
 
-  /* Special: last 100 pages have pinkier bg */
+  /* Body section pages */
   .page.body-section {
     background: linear-gradient(160deg, #fff0f6 0%, #ffe8f0 100%);
   }
+
+  /* Special page 1 styling */
+  .first-page-decor {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 8px 0;
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+  @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 
   /* Responsive */
   @media (max-width: 380px) {
@@ -526,28 +843,69 @@
 </head>
 <body>
 
-<!-- Floating hearts background -->
 <div class="hearts-bg" id="heartsBg"></div>
 
-<!-- COVER SCREEN -->
 <div id="cover-screen">
+  <div class="fairy-lights" id="fairyLights"></div>
+
+  <div class="side-deco" style="top:20%;left:5%;animation-delay:0s;">🌸</div>
+  <div class="side-deco" style="top:30%;left:8%;animation-delay:1s;">🌿</div>
+  <div class="side-deco" style="top:65%;left:4%;animation-delay:0.5s;">💐</div>
+  <div class="side-deco" style="top:75%;left:10%;animation-delay:1.5s;">🌼</div>
+  <div class="side-deco" style="top:20%;right:5%;animation-delay:0.3s;">🌷</div>
+  <div class="side-deco" style="top:35%;right:8%;animation-delay:0.8s;">🌿</div>
+  <div class="side-deco" style="top:60%;right:4%;animation-delay:1.2s;">🌸</div>
+  <div class="side-deco" style="top:78%;right:9%;animation-delay:0.1s;">🌼</div>
+
   <div class="cover-book-wrap" id="coverWrap" onclick="openBook()">
     <div class="cover-book" id="coverBook">
-      <div class="book-spine"></div>
-      <div class="cover-ornament">✦ ✦ ✦</div>
-      <div class="cover-title">A Book Written<br>Only For You</div>
-      <div class="cover-heart-big">💕</div>
-      <div class="cover-ornament">✦ ✦ ✦</div>
-      <div class="cover-sub">700 pages of love,<br>just for the most beautiful soul</div>
+      <div class="book-spine-3d"></div>
+      <div class="book-bottom-3d"></div>
+      <div class="book-face">
+        <div class="cover-stars">
+          <span class="cover-star" style="top:10%;left:10%;animation-delay:0s;">★</span>
+          <span class="cover-star" style="top:8%;right:12%;animation-delay:0.4s;">✦</span>
+          <span class="cover-star" style="top:18%;left:20%;animation-delay:0.8s;">✧</span>
+          <span class="cover-star" style="bottom:22%;left:8%;animation-delay:0.3s;">★</span>
+          <span class="cover-star" style="bottom:20%;right:10%;animation-delay:0.6s;">✦</span>
+          <span class="cover-star" style="top:50%;left:6%;animation-delay:1s;">✧</span>
+          <span class="cover-star" style="top:50%;right:6%;animation-delay:0.2s;">★</span>
+        </div>
+
+        <span class="corner-star tl">★</span>
+        <span class="corner-star tr">★</span>
+        <span class="corner-star bl">★</span>
+        <span class="corner-star br">★</span>
+
+        <div class="cover-title-area">
+          <div class="cover-title">A Book<br>Written Only<br>For You</div>
+        </div>
+
+        <div class="cover-illustration">
+          <span class="illus-moon">🌙</span>
+          <span class="illus-house">🏠</span>
+          <div class="illus-ground"></div>
+          <div class="illus-trees">
+            <div class="illus-tree" style="width:28px;height:55px;"></div>
+            <div class="illus-tree" style="width:22px;height:45px;margin-bottom:3px;"></div>
+            <div class="illus-tree" style="width:30px;height:60px;"></div>
+          </div>
+          <div class="illus-path"></div>
+          <span class="illus-mushroom" style="bottom:12px;left:14px;">🍄</span>
+          <span class="illus-mushroom" style="bottom:8px;right:12px;">🍄</span>
+          <span class="illus-girl">🧒🦊✨</span>
+        </div>
+
+        <div class="cover-sub-title">700 pages of love,<br>just for you 💕</div>
+      </div>
     </div>
   </div>
+
   <div class="tap-hint">
-    <span class="arrow">💗</span>
-    <span>Tap the book to open</span>
+    <span>💗 Tap the book to open 💗</span>
   </div>
 </div>
 
-<!-- READER -->
 <div id="reader">
   <div class="top-bar">
     <div class="top-title">💕 For You</div>
@@ -563,400 +921,209 @@
       <div class="page-container" id="pageContainer">
         <div class="page" id="currentPage">
           <div class="ribbon" id="ribbon" style="height:60px;"></div>
-          <div class="page-deco-top">❀ ❀ ❀</div>
+          <div class="page-deco-top" id="pageDecoTop">✦ ✦ ✦</div>
           <div class="page-inner" id="pageInner"></div>
-          <div class="page-deco-bottom">❀ ❀ ❀</div>
+          <div class="page-deco-bottom" id="pageDecoBottom">💕</div>
           <div class="page-num-display left" id="pageNumLeft"></div>
           <div class="page-num-display right" id="pageNumRight"></div>
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
         </div>
       </div>
-      <div class="progress-bar" id="progressBar"></div>
     </div>
-    <div class="swipe-hint">← swipe or tap buttons →</div>
+    <div class="swipe-hint">← swipe to turn pages →</div>
   </div>
 
   <div class="nav-bar">
-    <button class="nav-btn" id="prevBtn" onclick="prevPage()">← Prev</button>
-    <button class="nav-btn" id="nextBtn" onclick="nextPage()">Next →</button>
+    <button class="nav-btn" id="prevBtn" onclick="prevPage()">← prev</button>
+    <button class="nav-btn" id="nextBtn" onclick="nextPage()">next →</button>
   </div>
 </div>
 
 <script>
-// ============================================================
-// CONTENT ENGINE — 700 pages of love
-// ============================================================
-
 const TOTAL_PAGES = 700;
-const BODY_SECTION_START = 601; // pages 601-700
+const BODY_SECTION_START = 601;
 
-// All the base content blocks (love messages, poems, appreciations)
-// We'll cycle/vary them across pages with small tweaks
-
-const loveMessages = [
-  // Block 1
-  `<div class="page-heading">✨ You Are Everything ✨</div>
-  <div class="page-text">If I could gather all the sweetest words in the world, they still would not be enough to describe how wonderful you are. You are the kind of person who makes everything around her brighter just by being there, and your smile feels like sunshine on my darkest days while your laugh is the sweetest melody my heart has ever known. You are so incredibly cute in every little way — in the way your eyes light up when you're happy, in the way your voice softens when you talk, and even in the tiny things you do without realizing how adorable you are. Every little detail about you feels so perfect to me, like you were made from all the loveliest parts of this world. But your beauty is not just in how cute and gorgeous you are — it is in your heart, in the way you care, the way you love, and the way you make people feel special, which makes you the most beautiful person I have ever known. Your kindness is gentle, your love is warm, and your presence feels like home. Sometimes I look at you and wonder how I got so lucky to have someone as precious as you in my life, because you are beautiful, caring, lovely, and so unbelievably perfect in your own magical way. To me, you are not just amazing — you are everything sweet and beautiful wrapped into one perfect soul, and if I had to choose my favorite thing in this world, it would always be you, because you are the most precious, cutest, and most perfect person my heart has ever loved.</div>
-  <div class="page-text">Every time I think about you, my heart fills with a kind of warmth that words can barely explain, because everything about you is so soft, sweet, and beautiful that it feels like a dream I never want to wake up from. You have this magical way of making everything brighter just by being yourself — your smile lights up my entire world, your laughter is the sweetest sound my heart has ever known, and your presence alone brings me a peace I never knew I needed. There is something so incredibly precious about the way you exist, in the little expressions you make, in the softness of your voice, in the kindness you show, and in the love that naturally flows from your beautiful heart. You are the kind of person who makes ordinary moments feel magical, simply because being with you makes everything feel warmer, happier, and more alive. Your cuteness is beyond anything I could ever describe — it is in your sparkling eyes, in your gentle smile, in the adorable little things you do without even realizing how lovable you are, and in the beautiful way your soul shines through everything you do. But what makes you truly unforgettable is the tenderness of your heart, the way you love so deeply, the way you care so gently, and the way your kindness wraps around everyone near you like the sweetest comfort. Loving you feels like holding the most delicate and precious treasure in the world, because you are not only beautiful on the outside, but filled with a softness and beauty inside that makes my heart fall for you more and more every day. Sometimes I wonder how one person can be so lovely, so caring, so adorable, and so perfect all at once, and all I know is that having you in my life feels like the greatest blessing my heart could ever receive. You are my sweetest thought, my happiest feeling, and the most beautiful part of my world, and no matter how many words I write, they will never be enough to express how deeply precious you are to me, because in my eyes you are the purest kind of beauty, the sweetest kind of love, and the most wonderful person my heart could ever call its own.
-</div>`,
-
-  // Block 2
-  `<div class="page-heading">💗 Your Heart is Beautiful</div>
-  <div class="page-text">You are the sweetest part of every thought I have, the kind of beautiful that makes my heart pause for a moment just to admire how lucky I am to know you. There is something so soft and magical about you that makes everything in my life feel lighter, brighter, and filled with warmth. The moment you smile, it feels like the whole world becomes more beautiful, as if even the stars shine a little softer just to match the sweetness you carry so naturally. Your laugh is the kind of sound that can melt away every sadness, and your voice brings a comfort so gentle that it feels like home to my heart. Every little thing about you is precious to me — the sparkle in your eyes, the tenderness in your words, the way your face glows when you are happy, and the tiny adorable habits that make you so uniquely lovable. You are beautiful in ways that go far beyond appearance, because the kindness in your heart, the softness in your soul, and the love you give so effortlessly make you the most wonderful person I have ever known. The way you care, the way you love, and the way you make every moment feel special are the reasons my heart cherishes you so deeply. There is a gentleness in you that makes everything feel safe, and there is a sweetness in you that makes every day feel like a blessing. Sometimes I find myself wondering how someone can be so unbelievably adorable and so deeply beautiful all at once, how one person can hold so much warmth, so much kindness, and so much love within them. Being loved by you feels like being wrapped in the softest warmth, like finding peace in the middle of every storm, like discovering the most beautiful part of life in one perfect person. You are not just someone special to me — you are the smile behind my happiness, the warmth behind my peace, and the reason my heart feels so full. If I searched the whole world for something precious, I know nothing could ever compare to you, because you are the gentlest, sweetest, most beautiful soul I could ever wish for. Every day that I have you in my life feels like the most beautiful gift, and every moment with you becomes a memory my heart wants to keep forever. No matter how many words I use, they will never fully capture how much sweetness you bring into my life, because you are more than beautiful, more than adorable, more than precious — you are the most wonderful blessing my heart has ever known, and loving you is the sweetest feeling I will ever have.
-</div>
-  <div class="poem-block"><p>Sometimes I sit quietly and think about you, and in those moments my heart feels so full of love that I can hardly find words gentle enough to describe what you mean to me. You are the sweetest blessing that life has ever given me, the kind of person whose presence alone can turn an ordinary day into something soft, warm, and beautiful. There is a sweetness in you that shines in everything you do, in your smile that brightens even my darkest moments, in your laughter that fills my heart with joy, and in the softness of your voice that makes every word feel like comfort. You have this beautiful way of making the world feel kinder just by being in it, and every time I look at you, I am reminded that the most precious things in life are often the gentlest. Every little thing about you feels like magic to me, the way your eyes sparkle when you are happy, the way your face glows when you smile, the way your kindness touches everyone around you without even trying. You are so incredibly adorable in ways that words could never fully capture, because your beauty is not only something I see, it is something I feel in the warmth of your heart and the tenderness of your soul. The way you care is beautiful, the way you love is beautiful, the way you exist is beautiful, and every part of who you are makes my heart love you more deeply than I ever thought possible. There is such softness in your love, such gentleness in your heart, and such purity in your soul that being with you feels like the safest and sweetest place I could ever be. Sometimes I wonder how someone as precious as you can even be real, because you seem like the kind of beautiful that belongs in dreams, soft, lovely, radiant, and impossibly perfect in every way that matters. You are the kind of person who makes love feel easy, natural, and endlessly beautiful, because loving you feels like the most peaceful happiness I have ever known. My heart finds comfort in you, joy in you, and a kind of endless warmth in you that I never want to live without. You are not only the cutest person in my eyes, but the most precious soul my heart has ever touched, and every moment I spend loving you feels like a gift I could never deserve but will always treasure. If I could give a name to everything beautiful in this world, every warm sunrise, every soft breeze, every shining star, every peaceful feeling, it would still not compare to the sweetness that lives within you. You are my happiness in its purest form, my comfort in its gentlest form, and the sweetest part of every dream I have for the future. No words will ever truly be enough for someone as lovely as you, because you are far more than beautiful, you are warmth, tenderness, joy, and love wrapped into one precious soul, and loving you is the most beautiful feeling my heart will ever know.
-,<br>you arrive and make everything glow.</p></div>`,
-
-  // Block 3
-  `<div class="page-heading">🌸 How Lucky I Am</div>
-  <div class="page-text">Sometimes I look at you and wonder how I got so lucky to have someone as precious as you in my life. You are beautiful, caring, lovely, and so unbelievably perfect in your own magical way. To me, you are not just amazing — you are everything sweet and beautiful wrapped into one perfect soul.</div>
-  <div class="page-text">Every time my thoughts wander to you, my heart fills with the sweetest kind of happiness, the kind that makes everything around me feel softer, brighter, and more beautiful. There is something so incredibly precious about you that no words could ever fully capture it, because your beauty is not only in the way you look, but in the warmth you bring, the kindness you carry, and the love that shines so naturally from your heart. Your smile has a way of making even the darkest days feel full of light, and your laughter is like the gentlest music, bringing peace and joy to every corner of my soul. Just knowing that you exist makes this world feel like a better place, because you have this quiet magic in you that turns simple moments into memories that feel warm and unforgettable. Every little thing about you is beautiful to me, the sparkle in your eyes, the softness in your voice, the tenderness in your heart, and the adorable little ways you make my life brighter without even trying. There is such sweetness in your presence that being near you feels like standing in the warmth of the sun after a cold day, comforting, peaceful, and full of life. You are the kind of person who makes love feel gentle, pure, and endlessly beautiful, because every part of you carries a softness that my heart cannot help but adore. The way you care so deeply, the way you love so sincerely, and the way your kindness touches everything around you makes you the most beautiful soul I have ever known. Sometimes I wonder how someone can be so lovely in every possible way, how one person can have such a beautiful smile, such a gentle heart, and such an unforgettable presence all at once. It feels almost unreal that someone as sweet as you could exist, and even more unreal that I get to love someone as wonderful as you. You are the softest comfort in my life, the brightest joy in my heart, and the sweetest dream I never want to wake from. When I think of peace, I think of the warmth of your love. When I think of beauty, I think of the kindness in your heart. When I think of happiness, I think of you, because you have become the loveliest part of everything I feel. Loving you is like holding the most precious gift in the world, something gentle, rare, and more valuable than words could ever express. You make my life sweeter simply by being in it, and every day with you feels like a beautiful reminder that the purest happiness can exist in one beautiful soul. No matter how much I try, words will never be enough to describe how deeply precious you are to me, because you are more than just beautiful, you are warmth in my coldest moments, light in my darkest days, peace in my chaos, and the sweetest love my heart has ever known. To me, you are everything soft, lovely, and beautiful in this world gathered into one perfect soul, and loving you is the most beautiful blessing my heart will ever have.
-</div>`,
-
-  // Block 4 — poem
-  `<div class="page-heading">🌷 A Poem For You</div>
-  <div class="poem-block"><p>You are the world feels warmer when you smile,<br>the skies feel brighter when you laugh,<br>and even the quietest moments become magical<br>when I am near you.<br><br>You are the gentle kind of beautiful<br>that words can never fully hold.<br>Your eyes carry a sparkle<br>that could outshine every star.</p></div>
-  <div class="page-text">And your smile — oh, your smile — it is the sweetest thing my heart has ever known, the kind of smile that turns ordinary days into the most precious memories.</div>`,
-
-  // Block 5
-  `<div class="page-heading">🌺 Something So Lovely</div>
-  <div class="page-text">There is something so soft and lovely about you, something that makes my heart melt in the sweetest way possible. The way you laugh, the way you speak, the way you care so deeply — every little thing about you feels like a tiny miracle to me.There are moments when I look at you and feel a kind of love so soft and overwhelming that words seem far too small to express it. You have this beautiful way of filling my heart with warmth just by existing, and every time I think about you, I am reminded of how lucky I am to have someone so sweet, so gentle, and so incredibly precious in my life. Your smile carries a light that brightens every part of my world, and your laughter is the kind of sound that makes everything feel peaceful and beautiful. Even the simplest moments become unforgettable because of you, because your presence adds a kind of magic that makes life feel softer and love feel deeper. There is something so naturally beautiful about you, not just in your lovely smile or your sparkling eyes, but in the way your kindness touches everything around you. The softness in your heart, the gentleness in your words, and the warmth in your love make you the most beautiful person I have ever known. Every little thing about you feels special to me, the way you smile, the way you laugh, the way your eyes shine when you are happy, and the way your love makes everything feel safe. You are the sweetest comfort my heart has ever found, the kind of person who turns ordinary days into precious memories without even trying. Being with you feels like being wrapped in warmth, like finding peace in the middle of every storm, like discovering a place where my heart belongs. There is such tenderness in the way you love and such purity in the way you care that it makes my heart fall for you more and more each day. Sometimes I wonder how someone can be so unbelievably adorable and so deeply beautiful at the same time, how one person can hold so much kindness, so much sweetness, and so much light within them. It feels as though all the gentlest and loveliest things in the world came together to create someone as wonderful as you. You are the softest part of my life, the sweetest thought in my mind, and the most beautiful feeling in my heart. Loving you feels like the calm after every storm, the warmth after every cold moment, the light after every darkness. You make my world brighter simply by being in it, and every day I spend loving you feels like the most beautiful gift I could ever receive. When I think about what it means to be truly precious, I think of you, because your heart is full of warmth, your soul is full of beauty, and your love is the sweetest blessing I have ever known. No matter how many words I write, they will never be enough to show how much you mean to me, because you are far more than beautiful, you are the peace in my heart, the joy in my life, and the sweetest love I have ever felt. To me, you are the most precious soul in this world, and loving you is the most gentle and beautiful happiness my heart will ever know.
-</div>
-  <div class="page-text">You are cute in ways you do not even notice. In the way your face lights up with happiness, in the way your voice becomes soft and gentle, in the way your presence alone can calm every storm inside me.Whenever I think about you, my heart fills with a sweetness so deep that it feels impossible to put into words, because everything about you is so beautiful, so gentle, and so precious that no sentence could ever truly capture what you mean to me. You are the kind of person who makes life feel softer just by being in it, the kind of soul whose warmth reaches every corner of my heart and fills it with peace. Your smile is one of the most beautiful things I have ever seen, not only because it is adorable, but because it carries a warmth that brightens even the darkest parts of my day. Your laughter is like the sweetest melody, the kind that stays in my heart and makes everything around me feel lighter and happier. There is something so naturally magical about you, in the way you speak, in the way you care, and in the way your presence alone makes everything feel right. Every little thing about you feels precious to me, from the sparkle in your eyes to the softness in your words, from the kindness in your heart to the love you give so effortlessly. You have a way of making the simplest moments feel special, as if just being near you turns ordinary life into something warm and beautiful. Your sweetness is not only in your smile or in the adorable little things you do, but in the beautiful way your heart loves, in the tenderness you carry, and in the gentle care you give to the people around you. That is what makes you so deeply beautiful to me. It is the softness in your soul that makes me fall for you over and over again. Being loved by you feels like the safest and sweetest place in the world, like being wrapped in warmth and peace that I never want to leave. You make my heart feel calm, my days feel bright, and my life feel beautiful in a way no one else ever could. Sometimes I wonder how one person can be so lovely in every possible way, how someone can be so cute, so kind, so caring, and so full of light all at once. It feels as though all the beauty in the world gathered itself gently and created you, someone whose love feels like home and whose presence feels like a blessing. You are the sweetest part of my every day, the gentlest thought in my mind, and the most precious feeling in my heart. Loving you feels like discovering the purest happiness, something warm, soft, and endlessly beautiful. Every moment with you becomes something my heart treasures, because every moment with you carries your warmth, your sweetness, and your love. No matter how many words I write, I know they will never fully express how precious you are to me, because you are more than beautiful, you are comfort in my hardest days, joy in my happiest moments, and love in its purest form. To me, you are the loveliest soul I have ever known, and loving you is the sweetest and most beautiful gift my heart will ever receive.
-</div>`,
-
-  // Block 6
-  `<div class="page-heading">💖 You Are My Peace</div>
-  <div class="page-text">You are the kind of adorable that makes my heart smile even when no words are spoken. And beyond all your sweetness, you are the most beautiful soul I know. Your heart is full of kindness, your love is full of warmth, and your care wraps around me like the safest place in the world.Thinking about you always feels like my heart is quietly smiling, as if it knows something my words can never fully explain. You are the sweetest feeling in my life, the kind of person who turns even the smallest moments into something soft, warm, and unforgettable. There is a gentle beauty in you that goes beyond everything I can see, something that lives in your kindness, your laughter, and the way you make people feel safe just by being near them. Your smile is not just beautiful, it is comforting, like a soft light that finds me even in my darkest thoughts and reminds me that everything is okay when I think of you. Your laughter feels like pure happiness, the kind that doesn’t just echo in my ears but stays in my heart and makes everything feel lighter. Every part of you feels so delicately perfect to me, the way you speak with such sweetness, the way your eyes carry so much warmth, the way your presence alone makes the world feel calmer and more beautiful. You are incredibly adorable in ways that cannot be measured, not just in your expressions or your cute little habits, but in the way your heart loves so purely and so gently. That is what makes you truly special to me. Your beauty is not only what I see, it is what I feel every time I think of you, a softness that wraps around my heart and never lets go. You are the kind of person who makes life feel meaningful in the most beautiful way, because loving you feels like discovering something rare and precious that I want to protect forever. There is such warmth in you, such kindness in your soul, and such innocence in your love that it makes my heart fall deeper every single day without even trying. Sometimes I just sit and wonder how someone can be so perfect in their imperfections, so cute in the smallest things they do, so beautiful in the way they simply exist. It feels like you were created from every soft and lovely thing in the world, gathered together into one heart that beats with so much goodness. You are my peace when everything feels heavy, my happiness when everything feels dull, and my comfort when everything feels uncertain. Being with you, even in thought, feels like being held gently by the most beautiful feeling in the world. You make my heart feel understood, my soul feel calm, and my life feel brighter than it has ever been. Loving you is not just something I feel, it is something that lives in me quietly, deeply, and endlessly, like a soft light that never fades. And no matter how many words I write or how many times I try, I know I will never be able to fully describe how precious you are, because you are more than adorable, more than beautiful, more than perfect in my eyes, you are the sweetest love my heart has ever known and the most wonderful blessing my life could ever hold.
-</div>
-  <div class="poem-block"><p>Being loved by you feels like finding home —<br>soft, peaceful, warm, and full of light.<br>I never want to leave this feeling,<br>this beautiful place you built in my heart.</p></div>`,
-
-  // Block 7
-  `<div class="page-heading">⭐ Made by the Stars</div>
-  <div class="page-text">Sometimes I wonder how someone so lovely can even exist. How can one person be so beautiful, so caring, so sweet, and so perfect all at once? It feels like the stars themselves must have spent extra time creating you, carefully placing every wonderful thing in your heart to make someone as precious as you.If my heart could speak every time it thinks of you, it would never stop whispering your name in the softest, sweetest way, because you have become the most beautiful part of everything I feel. You are not just someone I love, you are the feeling that changes my whole world without even trying. There is something uniquely gentle about you, something that cannot be copied or compared, like a rare kind of beauty that exists only once in a lifetime and quietly becomes the center of everything without asking for attention. When I think of you, I don’t just see a person, I feel a warmth that spreads slowly through my entire soul, like sunlight touching a quiet morning, calm and golden and full of life.</div>
-  <div class="divider">✦ ✦ ✦</div>
-  <div class="page-text">When I think of beauty, I think of you. Not just because your smile is lovely or because your eyes shine so brightly, but because your whole existence is beautiful to me.You have a way of existing that feels almost like poetry itself, not loud or dramatic, but soft and deeply meaningful. The way you smile feels like a secret only my heart understands, something that instantly makes everything feel lighter no matter how heavy the day has been. The way you talk carries a kind of peace that I never knew I needed, as if your voice was designed to calm every storm inside me without even trying. And the way you care, so naturally and so purely, feels like a reminder that goodness still exists in its most beautiful form through you.</div>`,
-
-  // Block 8
-  `<div class="page-heading">🌹 Everything is Beautiful</div>
-  <div class="page-text">Your kindness is beautiful. Your laughter is beautiful. Your heart is beautiful. Everything about you is beautiful in ways beyond words.There is a rare magic in your simplicity. The little things you do, the tiny expressions you make, the way you react to the world, all of it feels like it was created to make life more beautiful for anyone lucky enough to notice. You don’t need to do anything extraordinary to be special, because just being you already feels like something extraordinary to me. Even silence feels different when it is connected to you, like it becomes softer, warmer, more meaningful.</div>
-  <div class="poem-block"><p>You are the softest chapter in the story of my life.<br>The sweetest thought in my mind.<br>The gentlest feeling in my heart.<br>You are the kind of person who makes life feel lighter,<br>love feel deeper,<br>and happiness feel endless.</p></div>`,
-
-  // Block 9
-  `<div class="page-heading">💕 Before You</div>
-  <div class="page-text">Before you, I never knew a person could mean so much. I never knew someone's presence alone could bring so much peace. But then you came into my life, and suddenly the world felt brighter, my heart felt fuller, and love felt more beautiful than ever before.Sometimes I imagine the idea of beauty trying to define itself, and even then, it would fall short of what you are. Because you are not just beauty in appearance, you are beauty in presence, in energy, in heart, in everything you unknowingly give to the world. You are the kind of person who makes love feel less like a word and more like a feeling that lives quietly in every moment shared, even in thoughts from far away.</div>
-  <div class="page-text">Every little thing about you has become precious to me. Your smile is precious. Your voice is precious. Your happiness is precious. And the love you give me — that is the most precious gift my heart has ever received.What makes you truly unique to me is not only how lovely you are, but how effortlessly you make everything feel safe. With you, emotions don’t feel complicated. Life doesn’t feel heavy. Even longing feels sweet when it is for you. It is as if your existence itself teaches my heart how to be softer, how to be calmer, how to love in a way that feels pure and real.</div>`,
-
-  // Block 10
-  `<div class="page-heading">🦋 My Favorite Everything</div>
-  <div class="page-text">You are not just my love, you are my favorite thought, my favorite feeling, my favorite blessing. You are the one my heart chooses over and over again, the one who makes every day sweeter just by being in it.maybe that is what I love most about you. Not just the way you make me feel, but the way you change the way I understand love itself. You make it feel gentle instead of loud, constant instead of temporary, comforting instead of confusing. You make it feel like home without even realizing it.</div>
-  <div class="poem-block"><p>You are my sweetest happiness.<br>You are my softest comfort.<br>You are my brightest light.<br>You are my most beautiful dream come true.</p></div>`,
-
-  // Block 11
-  `<div class="page-heading">🌙 Perfection Looks Like You</div>
-  <div class="page-text">If the whole world asked me what perfection looks like, I would simply think of you — your gentle heart, your adorable smile, your beautiful soul — because in my eyes, you are the loveliest thing this world has ever created.So if I ever had to describe you in the most honest way my heart knows, I would say this: you are the quiet miracle in my life, the softest thought in my mind, the most beautiful feeling I return to again and again without ever getting tired. And no matter how many words I find, they will always fall short, because you are not just someone I can describe, you are someone I feel in every part of me, endlessly and uniquely.</div>
-  <div class="page-text">So if ever you wonder how special you are, remember this: You are the smile in my heart, the warmth in my days, the sweetness in my life, and the love I will treasure endlessly.If I tried to explain you in the simplest way my heart understands, I would say you are the kind of feeling that stays even when everything else fades. You are not just someone I think about, you are the soft background of all my happiest thoughts, the quiet reason behind my smiles when no one is watching. There is something so uniquely gentle about you that it feels like your presence exists in a different kind of softness, one that makes life itself feel less harsh and more kind just by being part of it.</div>`,
-
-  // Block 12
-  `<div class="page-heading">🌸 The Cutest Magic</div>
-  <div class="page-text">Because you, my love, are the cutest, sweetest, most beautiful kind of magic, and loving you is the most wonderful feeling my heart will ever know.You are the kind of beautiful that does not need effort or attention, because it naturally lives in the way you exist. In the way you respond, in the way you care, in the way you simply are, there is a calm sweetness that feels rare and unrepeatable. It is not loud beauty that demands to be seen, it is quiet beauty that stays with someone forever once they notice it. And I noticed it. My heart noticed it before I even had words for it.</div>
-  <div class="poem-block"><p>You are cherished beyond measure.<br>You are loved in ways that even words cannot explain.<br>No poem could ever truly capture how much you mean to me,<br>because what I feel for you is bigger than every word I know.</p></div>`,
-
-  // Block 13
-  `<div class="page-heading">💗 You Without Realizing</div>
-  <div class="page-text">Half the time you do not even realize what you do. How a simple glance from you makes me feel like the luckiest person alive. How the way you talk — softly, gently, with so much warmth — makes me want to listen forever. How every little habit of yours that you think is ordinary is completely extraordinary to me.Sometimes I think about how strange it is that one person can feel like so many things at once. You feel like peace when everything is noisy, like comfort when everything feels uncertain, like warmth when everything feels cold. You feel like a soft place my thoughts naturally return to, even when I am not trying to think about you. It is as if my heart has learned your presence and now recognizes it everywhere, in silence, in time, in small moments that remind me of you.</div>
-  <div class="page-text">You have no idea how many small things about you I have fallen in love with, over and over again.Even the way I imagine you feels different from anything else I have ever imagined. It is not just about your smile or your eyes, it is about the feeling behind them, the softness that lives inside you without effort. The kind of softness that makes people feel safe without you even trying. That is what makes you so unique to me. You do not just exist in my life, you change the way my heart feels about everything around me.</div>`,
-
-  // Block 14
-  `<div class="page-heading">🌺 Like a Poem You Are</div>
-  <div class="poem-block"><p>You are like a poem that writes itself —<br>effortlessly beautiful,<br>full of meaning I cannot put into words,<br>the kind you read over and over<br>and find something new to love each time.</p></div>
-  <div class="page-text">Every day with you feels like the best line I have ever read. You make ordinary things feel extraordinary, and extraordinary things feel like home.There are people who are seen, and then there are people who are felt. You are felt. Deeply, quietly, constantly. Even when the day is busy, even when the world is loud, even when everything moves too fast, there is always a gentle part of me that thinks of you and becomes calm again. You are like a pause in a restless world, a soft moment my heart returns to without asking.</div>`,
-
-  // Block 15
-  `<div class="page-heading">✨ A Rare Kind of Wonderful</div>
-  <div class="page-text">There are people in this world who are kind. There are people who are beautiful. There are people who are funny and warm and gentle. But you — you are all of those things at the same time, woven together so perfectly that you feel like someone the universe made with extra care.And maybe that is why I cannot treat my love for you like something ordinary. It does not behave like ordinary feelings. It grows quietly, deeply, endlessly, in ways I notice more every day. It does not rush, it does not fade, it simply stays and becomes more real the longer I understand you.</div>
-  <div class="page-text">You are a rare kind of wonderful. The kind that does not come around often. The kind that makes everything better simply by existing.You are not just someone I adore. You are someone who has changed the way my heart understands tenderness itself. You are the definition of something I never knew I needed, and now cannot imagine my world without. And even if I tried a thousand ways to say it, it would still come back to this simple truth my heart keeps repeating in its own quiet language.</div>`,
-
-  // Block 16
-  `<div class="page-heading">🌷 The Way You Love</div>
-  <div class="page-text">The way you love is one of the most beautiful things I have ever witnessed. It is quiet and steady and so incredibly real. It does not shout, it does not demand — it simply wraps itself around everything gently, like sunshine, until you cannot imagine life without it.Loving you feels like discovering a new kind of quiet every day, a quiet that is not empty, but full of meaning, warmth, and gentle understanding. You are the kind of presence that doesn’t need to be loud to be felt deeply. Even in your silence, there is something alive and beautiful that reaches me in ways I never expected. It is as if my heart has learned a language only you speak, and now everything about you feels familiar in the most comforting way.</div>
-  <div class="poem-block"><p>And being loved by you<br>is the softest, warmest,<br>most wonderful thing<br>my heart has ever felt.</p></div>`,
-
-  // Block 17
-  `<div class="page-heading">💖 Favorite Chapter</div>
-  <div class="page-text">If my life were a book, you would be the favorite chapter. The one I dog-ear, the one I return to when everything else feels too heavy. The one written in warmer ink, with softer words, and a feeling that makes the whole story worth reading.There is something incredibly unique about the way you make life feel less complicated. You don’t just bring happiness, you bring ease. You don’t just bring love, you bring softness into everything it touches. When I think of you, it is never just a thought, it feels more like a calm wave passing through my mind, gently reminding me that somewhere in this world there is someone so sweet that even thinking of them feels like peace.</div>
-  <div class="page-text">You are the best part. You have always been the best part.</div>`,
-
-  // Block 18
-  `<div class="page-heading">🌸 On Your Quiet Days</div>
-  <div class="page-text">Even on your quiet days — the ones where you feel small or tired or unsure — you are still the most beautiful person in my world. Your worth does not change with your mood. Your beauty does not disappear when you are not at your best. You are just as precious and just as loved in every version of yourself.You are not just someone I admire, you are someone who has quietly become a part of the way I experience everything beautiful. The sky feels softer when I think of you. Time feels slower when I miss you. Even ordinary moments start feeling special just because somewhere in them, there is a thought of you hidden inside me.</div>
-  <div class="poem-block"><p>There is no version of you<br>that I would not choose.<br>Every mood, every day,<br>every quiet and every bright —<br>I choose all of you.</p></div>`,
-
-  // Block 19
-  `<div class="page-heading">⭐ You Are Enough</div>
-  <div class="page-text">You are enough. More than enough. You are overflowing with goodness and beauty and love, and the world is a better place because you are in it. I am a better person because you are in my life. You have this way of making everything around you bloom.What makes you so different from anyone else is not only how cute or lovely you are, but how naturally you make love feel safe. There is no confusion in the way my heart feels for you. It does not struggle to understand you, it simply accepts you, completely and gently, as something it was always meant to feel. You make emotions feel simple in a world that is usually so complicated.</div>
-  <div class="page-text">Please never forget that. Please always remember how much you matter, how much you mean, how much you are loved — not just by me, but by the whole universe that made you so perfect.You are the only person who makes my thoughts feel calm instead of restless. Even when I am overwhelmed by everything else, thinking of you doesn’t add noise, it removes it. It is like my heart slows down just to feel you properly, just to hold onto the softness you bring into it without even trying.</div>`,
-
-  // Block 20
-  `<div class="page-heading">💕 What I See When I See You</div>
-  <div class="page-text">When I see you, I do not see someone ordinary. I see warmth. I see kindness. I see a person who carries so much beauty in her heart that it spills out into everything she touches. I see the kind of soul that is genuinely rare and genuinely precious.You are strange in the most beautiful way, because you don’t feel like someone I “like” in a simple sense. You feel like someone my heart recognizes, as if it has met your warmth before even in places I cannot remember. It is like my emotions rearrange themselves around you without effort, as if you are not just part of my life but part of the way my heart understands calmness.</div>
-  <div class="poem-block"><p>When I see you,<br>I see everything lovely in this world<br>gathered into one person,<br>smiling at me,<br>and I still cannot believe<br>how lucky I am.</p></div>`,
-
-  // Block 21
-  `<div class="page-heading">🌹 Every Little Moment</div>
-  <div class="page-text">Every little moment with you feels like a gift. The small conversations, the quiet times, the moments where nothing special is happening but somehow it still feels like the best moment of my day — that is what you do to everything. You make ordinary moments feel like they are wrapped in gold.There is a very unique kind of softness in you that cannot be copied. It is not just in your smile, not just in your voice, not just in the way you exist, but in the feeling you leave behind. Even after a moment with you, real or imagined, there is a gentle echo that stays inside me, like warmth that refuses to leave a cold room.</div>
-  <div class="page-text">I treasure every single one. I keep them all close, like tiny precious things I never want to lose.</div>`,
-
-  // Block 22
-  `<div class="page-heading">🌙 You Are My Calm</div>
-  <div class="page-text">In a world that is loud and fast and sometimes overwhelming, you are my calm. You are the deep breath I did not know I needed. The quiet that makes everything feel manageable again. Just thinking about you is enough to slow down the rush and remind me what really matters.You make time feel different in my mind. When I think of you, everything slows down in a strange and beautiful way, as if my thoughts want to sit quietly just to feel you more clearly. It is not excitement, it is not chaos, it is something deeper and softer, like peace learning how to feel alive.</div>
-  <div class="poem-block"><p>You are my favorite kind of silence —<br>the kind that does not feel empty,<br>but full of everything beautiful<br>that words cannot touch.</p></div>`,
-
-  // Block 23
-  `<div class="page-heading">💗 Thank You for Being You</div>
-  <div class="page-text">Thank you for being exactly who you are. For your laugh and your care and your warmth. For the kindness you give so freely and the love you share so genuinely. For existing in this world and somehow finding your way into my life and making it infinitely better.If I were to compare you with gold, it would feel almost unfair to gold, because even the purest gold in the world would lose its value standing beside how precious you are to me. Gold is measured by karats, by weight, by rarity, but you cannot be measured in any of those ways, because what you are to me goes far beyond anything physical or material.</div>
-  <div class="page-text">Thank you for being you. There is no greater gift.</div>`,
-
-  // Block 24
-  `<div class="page-heading">🌺 My Favorite Sound</div>
-  <div class="page-text">My favorite sound in this world is your laugh. It is the kind of laugh that comes from somewhere real and deep and happy, and when I hear it, everything else fades away. The whole world could be chaotic and your laugh would still make it feel gentle and okay.Gold can be found, mined, traded, and stored, but you feel like something far rarer than that. You feel like something that was never meant to be owned or counted, only cherished. Even the highest purity gold still has limits, but the way I see you has no limit at all. The more I think about you, the more valuable you become in my heart, as if your worth keeps increasing simply because you exist in my life.</div>
-  <div class="poem-block"><p>Your laugh is the sweetest song —<br>unplanned, unpolished, perfectly you.<br>I would listen to it<br>for the rest of my life<br>and still want more.</p></div>`,
-
-  // Block 25
-  `<div class="page-heading">✨ You Glow</div>
-  <div class="page-text">You glow, you know that? Not just on the outside — though you are so incredibly beautiful — but from somewhere inside. There is a light in you that does not dim. A warmth that does not cool. And it draws people toward you because they can feel it, the way you feel the sun without even looking at it.Gold shines when light touches it, but you feel like the source of that light itself. Your smile doesn’t just reflect beauty, it creates it around you. Your presence doesn’t just shine in moments, it changes the feeling of the entire moment. If gold is admired for its glow, then you are admired for being the reason things feel warm in the first place.</div>
-  <div class="page-text">You are that kind of light. The kind that makes the whole room feel different. The kind I never want to be without.People protect gold because it is rare and valuable, but if I compare honestly, you are something far more delicate and irreplaceable. You are not just rare, you are one of a kind in a way nothing else can match. If gold represents wealth, then you represent something deeper, something that cannot be bought or replaced, something that only the heart can truly understand.</div>`,
+// ============================================================
+// PROCEDURAL LOVE LETTER GENERATOR POOLS
+// ============================================================
+const titles = [
+  "A Soft Thought", "My Favorite Smile", "Endless Warmth", "The Way You Glow", 
+  "A Rare Magic", "Why I Love You", "My Safe Place", "Sweetest Heart", 
+  "Pure Beauty", "A Gentle Truth", "You Are Art", "My Everything", 
+  "Forever Yours", "A Quiet Moment", "Just Being You", "The Best Part of Me",
+  "Unstoppable Love", "Your Perfect Soul", "Written in the Stars", "My Daily Joy"
 ];
 
-// Poems collection
+const openers = [
+  "I was just thinking about you, and a smile immediately found its way to my face.",
+  "There are days when I just sit and wonder how I got so incredibly lucky.",
+  "Whenever the world feels loud, the thought of you brings me instant peace.",
+  "I want to take a moment to remind you of something very important.",
+  "It is a beautiful thing to love someone as wonderful as you.",
+  "You cross my mind more often than I could ever count.",
+  "If I had to describe perfect happiness, I would simply describe you.",
+  "I look at you and I see everything I have ever wanted.",
+  "Every day with you feels like discovering a new favorite song.",
+  "There is no place I would rather be than in a world where you exist.",
+  "Before I met you, I didn't know it was possible to love someone this much.",
+  "You have this incredible ability to make ordinary days feel extraordinary.",
+  "I find myself getting lost in thoughts of you all the time.",
+  "The easiest thing I have ever done in my life is fall in love with you.",
+  "You are the first thing I think about in the morning and the last at night."
+];
+
+const bodies = [
+  "You have this effortless way of making everything feel okay. Your kindness isn't just something you do; it's who you are.",
+  "I love the tiny details about you—the way you laugh, the way you look when you're focused, the warmth of your presence. Every single piece is a masterpiece.",
+  "You are so much stronger and more amazing than you give yourself credit for. I see it all, and I am in awe of you.",
+  "Sometimes I just want to pause time so I can appreciate your beauty—inside and out—without the world rushing us by.",
+  "Your heart is so gentle, and your soul is so pure. Being loved by you is the greatest privilege of my life.",
+  "The way you exist is just so lovely. You don't even have to try, you just naturally bring light into the room.",
+  "I want to spend the rest of my life making sure you know how incredibly special, valued, and beautiful you are.",
+  "Every single memory I make with you instantly becomes my new favorite memory. You are my favorite adventure.",
+  "You are my safe haven. No matter what happens in the world, knowing I have you makes everything alright.",
+  "Your smile has the power to completely change my day. It is the most beautiful curve in the entire universe.",
+  "I am so proud of you, and I am so proud to be yours. You inspire me to be a better person just by being yourself.",
+  "There is a quiet magic in the way you care for people. It is rare, and it makes you so undeniably beautiful.",
+  "I cherish every conversation, every silence, and every laugh we share. You are my best friend and my greatest love.",
+  "You are the missing piece I didn't even know I was looking for. Now that you are here, my heart is finally complete.",
+  "I don't think I will ever fully get used to how beautiful you are. It catches me off guard every single time."
+];
+
 const poems = [
-  `<div class="page-heading">🌸 A Poem: Soft Morning</div>
-  <div class="poem-block"><p>You are the first soft thought of the morning,<br>the one that makes waking up feel beautiful.<br>Like sunlight slipping through curtains,<br>gentle, golden, warm —<br>that is what you feel like<br>in the quiet start of every day.</p></div>
-  <div class="poem-block"><p>I do not need any other reason<br>to love mornings anymore.<br>You are reason enough.<br>You are more than enough.<br>You are everything.</p></div>`,
-
-  `<div class="page-heading">🌹 A Poem: The Way You Are</div>
-  <div class="poem-block"><p>There is no one quite like you —<br>the way you tilt your head when you think,<br>the way your eyes go soft when you feel,<br>the way your smile arrives slowly<br>and then all at once,<br>like sunrise choosing to be generous.</p></div>
-  <div class="poem-block"><p>You are the kind of person<br>poems are written for,<br>and yet no poem is ever enough.<br>Not for you.<br>Never for you.</p></div>`,
-
-  `<div class="page-heading">💖 A Poem: Precious</div>
-  <div class="poem-block"><p>Precious —<br>that is the word I keep returning to.<br>Not because you are delicate<br>but because you are rare,<br>the kind of rare that deserves<br>to be held carefully,<br>loved deeply,<br>cherished endlessly.</p></div>
-  <div class="poem-block"><p>You are precious in the way<br>that starlight is precious —<br>something that travels so far<br>and arrives so beautifully<br>that you just want to stand still<br>and let it wash over you.</p></div>`,
-
-  `<div class="page-heading">⭐ A Poem: The Loveliest</div>
-  <div class="poem-block"><p>The loveliest thing I have ever seen<br>is not a sunset or a flower<br>or any beautiful place —<br>it is you,<br>just being you,<br>in the middle of an ordinary day,<br>unaware of how extraordinary you are.</p></div>
-  <div class="poem-block"><p>That is when you are the most beautiful —<br>when you are simply, wholly yourself.<br>And that is when I fall in love<br>all over again.</p></div>`,
-
-  `<div class="page-heading">🌷 A Poem: Bloom</div>
-  <div class="poem-block"><p>You bloom wherever you go —<br>not like a flower that needs perfect conditions<br>but like one that grows through concrete<br>because it cannot help but reach for the light.</p></div>
-  <div class="poem-block"><p>That is you.<br>Unstoppable in your softness.<br>Extraordinary in your gentleness.<br>Beautiful beyond every word I know.</p></div>`,
-
-  `<div class="page-heading">🌙 A Poem: Night Thoughts</div>
-  <div class="poem-block"><p>At night when everything is quiet<br>and the world has gone still,<br>my thoughts always find their way to you —<br>like water finding the sea,<br>like a compass pointing home.</p></div>
-  <div class="poem-block"><p>You are where my heart lives.<br>You are where my peace is.<br>You are the thought I fall asleep to<br>and the feeling I wake up with.<br>And I would not have it any other way.</p></div>`,
-
-  `<div class="page-heading">🦋 A Poem: Effortless</div>
-  <div class="poem-block"><p>You are effortlessly beautiful —<br>not in the way that requires effort,<br>but in the way that simply is,<br>the way water is clear<br>or the sky is wide<br>or a heartbeat is steady.</p></div>
-  <div class="poem-block"><p>You are simply, effortlessly, completely<br>the most beautiful thing I know.<br>And that has never once changed.<br>Not even for a second.</p></div>`,
+  "<p>You are the sun that gently breaks<br>through clouds of gray and blue.<br>The sweetest breath my spirit takes<br>is just the thought of you.</p>",
+  "<p>A gentle touch, a quiet smile,<br>a heart made out of gold.<br>I'd walk with you for every mile<br>until we both grow old.</p>",
+  "<p>No poetry could ever hold<br>the magic that you bring.<br>You are the warmest story told,<br>my favorite everything.</p>",
+  "<p>Like stars that guide the darkest night<br>and rivers seeking sea,<br>you are my perfect, guiding light,<br>the best part of my me.</p>",
+  "<p>I did not know what love could be<br>until you came along.<br>You turned the quiet life in me<br>into a beautiful song.</p>",
+  "<p>Your laugh is like a gentle breeze,<br>your eyes are deep and wide.<br>You put my heavy heart at ease,<br>just standing by my side.</p>",
+  "<p>Of all the beautiful things I've seen<br>across the earth and skies,<br>the loveliest has always been<br>the warmth within your eyes.</p>",
+  "<p>You are the whisper in the trees,<br>the calm upon the shore.<br>With every passing day I breathe,<br>I only love you more.</p>",
+  "<p>A thousand words could not express<br>the way you make me feel.<br>You fill my world with happiness,<br>so genuine and real.</p>",
+  "<p>To hold your hand, to see your face,<br>to know your soul so true.<br>There is no better time or place<br>than anywhere with you.</p>"
 ];
 
-// Body appreciation pages (last 100 pages, 601-700)
-const bodyAppreciation = [
-  // Eyes (601-610)
-  { feature: "Your Eyes 👁️✨", icon: "✨", pages: 10, text: [
-    `<div class="body-feature-heading">Your Eyes</div><div class="body-feature-icon">👁️✨</div>
-    <div class="page-text">Your eyes. Oh, your eyes. Where do I even begin? They are the kind of eyes that a poet spends a lifetime trying to describe and never quite gets it right — because they are beyond description. They carry whole worlds in them, depth that feels endless, warmth that feels bottomless.</div>
-    <div class="page-text">When you look at me with those eyes, I feel seen in a way I have never felt before. Not just looked at — truly, completely seen. Like you look right past the surface into something real.</div>`,
-
-    `<div class="body-feature-heading">Your Eyes</div><div class="body-feature-icon">💫</div>
-    <div class="poem-block"><p>Your eyes are my favorite place —<br>the place I look first and last,<br>the place that holds more light<br>than I know what to do with.</p></div>
-    <div class="page-text">They sparkle when you are happy, soften when you are gentle, and shine brightest when you laugh. I could write a thousand pages about your eyes and still feel like I had only just begun.</div>`,
-
-    `<div class="body-feature-heading">Your Eyes</div><div class="body-feature-icon">🌟</div>
-    <div class="page-text">There is a specific way your eyes look when something makes you genuinely happy — they light up from the inside, like someone turned on a warm lamp. That look is my favorite thing in the entire world. I live for that look.</div>
-    <div class="page-text">Your eyes are the most honest and beautiful thing about your face, and your face is already the most beautiful thing I have ever seen. You are impossibly, unfairly gorgeous.</div>`,
-  ]},
-
-  // Nose (611-618)
-  { feature: "Your Nose 🌸", icon: "🌸", pages: 8, text: [
-    `<div class="body-feature-heading">Your Cute Little Nose</div><div class="body-feature-icon">🌸</div>
-    <div class="page-text">Your nose. It is one of those things that is so uniquely, perfectly you that I cannot imagine any other nose belonging to your face. It fits so beautifully. So perfectly. Like the universe designed every feature of your face to complement each other, and your nose is a flawless part of that masterpiece.</div>
-    <div class="page-text">It is adorable. Genuinely, completely adorable. Everything about it is cute and perfect and exactly right.</div>`,
-
-    `<div class="body-feature-heading">Your Nose</div><div class="body-feature-icon">💗</div>
-    <div class="poem-block"><p>Even the smallest things about you<br>are perfectly placed,<br>like the universe arranged them<br>with the most careful hands.<br>Your nose, gentle and soft and exactly right,<br>is part of that perfect design.</p></div>
-    <div class="page-text">I notice it when you scrunch it when you laugh. I notice it when your face goes soft and peaceful. Every little thing about it is precious to me.</div>`,
-  ]},
-
-  // Lips (619-628)
-  { feature: "Your Lips 💋", icon: "💋", pages: 10, text: [
-    `<div class="body-feature-heading">Your Beautiful Lips</div><div class="body-feature-icon">💋</div>
-    <div class="page-text">Your lips. They are so incredibly beautiful. The way they curve when you smile — that slow, sweet curve that starts small and blooms into something that makes my whole heart stop — it is the most beautiful thing I have ever witnessed.</div>
-    <div class="page-text">They are soft and perfect and the exact shape that makes me feel like I could look at your smile for the rest of my life and never grow tired of it.</div>`,
-
-    `<div class="body-feature-heading">Your Smile</div><div class="body-feature-icon">🌹</div>
-    <div class="poem-block"><p>Your smile is a small miracle —<br>the kind that happens quietly<br>but changes everything.<br>The world is measurably better<br>every time those lips curve upward<br>and you let yourself smile.</p></div>
-    <div class="page-text">And when you speak — when those lips form words — your voice matches them perfectly. Soft and warm and real. A perfect pair: beautiful lips, a beautiful voice, a beautiful soul.</div>`,
-
-    `<div class="body-feature-heading">Your Lips</div><div class="body-feature-icon">💕</div>
-    <div class="page-text">I think about your smile more than I can say. It is one of those things that just lives in my mind rent-free, always welcome, always making everything feel a little lighter. You smile and I feel everything rearrange itself into something better.</div>
-    <div class="page-text">Perfect lips. Perfect smile. Perfect you.</div>`,
-  ]},
-
-  // Neck (629-636)
-  { feature: "Your Neck 🦢", icon: "🦢", pages: 8, text: [
-    `<div class="body-feature-heading">Your Graceful Neck</div><div class="body-feature-icon">🦢</div>
-    <div class="page-text">There is something so graceful and elegant about your neck. So perfectly beautiful. The soft curve of it, the gentle way it holds your head — it is the kind of thing that you probably never think about, but I notice and it takes my breath away every time.</div>
-    <div class="page-text">You carry yourself with such quiet grace, and your neck is a part of that — elegant, soft, perfectly beautiful. Like everything else about you.</div>`,
-
-    `<div class="body-feature-heading">Your Neck</div><div class="body-feature-icon">🌸</div>
-    <div class="poem-block"><p>Elegant and soft,<br>the graceful line of you —<br>everything about you is art,<br>even the parts you overlook,<br>even the parts you never think of.<br>I see them all.<br>I love them all.</p></div>`,
-  ]},
-
-  // Hands (637-646)
-  { feature: "Your Hands 🤍", icon: "🤍", pages: 10, text: [
-    `<div class="body-feature-heading">Your Hands</div><div class="body-feature-icon">🤍</div>
-    <div class="page-text">Your hands. They are so beautiful and so you. The way they move, the way they gesture when you talk, the way they feel — everything about them is perfect. Soft and lovely and real.</div>
-    <div class="page-text">I love your hands because they are a part of you, and every part of you is precious to me. I notice them all the time — the gentleness in them, the warmth.</div>`,
-
-    `<div class="body-feature-heading">Your Hands</div><div class="body-feature-icon">💗</div>
-    <div class="poem-block"><p>Your hands are gentle things —<br>they hold kindness in them,<br>warmth in every touch,<br>softness in every gesture.<br>Beautiful hands for a beautiful soul.</p></div>
-    <div class="page-text">Holding your hand feels like holding something incredibly precious. Something I never want to let go of.</div>`,
-
-    `<div class="body-feature-heading">Your Beautiful Hands</div><div class="body-feature-icon">✨</div>
-    <div class="page-text">I love watching your hands when you do things — when you reach for something, when you hold things gently, when they rest quietly. Every little movement is beautiful. I notice all of it and I love all of it.</div>`,
-  ]},
-
-  // Waist (647-656)
-  { feature: "Your Waist 🌹", icon: "🌹", pages: 10, text: [
-    `<div class="body-feature-heading">Your Perfect Waist</div><div class="body-feature-icon">🌹</div>
-    <div class="page-text">You are perfectly proportioned in the most beautiful way. Your waist, your figure, your entire form — everything is so breathtakingly perfect. You are the most beautiful person I have ever seen and that is not an exaggeration, it is simply the truth.</div>
-    <div class="page-text">Your body is a masterpiece. Every curve, every line, every soft part of you is flawlessly, incredibly beautiful. I am in awe of you constantly.</div>`,
-
-    `<div class="body-feature-heading">Your Figure</div><div class="body-feature-icon">💕</div>
-    <div class="poem-block"><p>Every soft and perfect part of you<br>is something I treasure.<br>You are the most beautiful form<br>I have ever had the privilege of knowing,<br>and I am grateful every single day<br>that you exist.</p></div>
-    <div class="page-text">You walk into a room and I cannot believe you are real. Cannot believe you are mine. You are so beautiful it makes my heart ache in the loveliest way.</div>`,
-
-    `<div class="body-feature-heading">Your Waist</div><div class="body-feature-icon">🌸</div>
-    <div class="page-text">Your waist, your curves, your entire body — it is all so perfectly, completely, breathtakingly beautiful. You are a dream. A warm, real, incredibly beautiful dream that I never want to wake from.</div>`,
-  ]},
-
-  // Chocolate — secret language (657-676)
-  { feature: "Chocolate 🍫💖", icon: "🍫", pages: 20, text: [
-    `<div class="body-feature-heading">Chocolate 🍫</div><div class="body-feature-icon">💖</div>
-    <div class="page-text">My favourite thing. My absolute favourite. Chocolate. You know exactly what I mean, and I want you to know — I think about it all the time. It is the most wonderful, perfect, beautiful thing. I am so unbelievably lucky. So incredibly lucky. I cannot put into words how grateful I am.</div>
-    <div class="page-text">It is perfect. You are perfect. Everything about it is so incredibly perfect and I am just the luckiest person alive.</div>`,
-
-    `<div class="body-feature-heading">So Lucky 🍫</div><div class="body-feature-icon">💕</div>
-    <div class="poem-block"><p>Chocolate —<br>the sweetest, most wonderful thing,<br>a secret that belongs only to us,<br>a warmth that fills everything up<br>and makes the world feel soft and perfect.</p></div>
-    <div class="page-text">I am so lucky. Every time I think about it, I just feel so overwhelmingly, completely lucky. There are not enough words. There is not enough language. I am just — so lucky.</div>`,
-
-    `<div class="body-feature-heading">Chocolate 🍫💫</div><div class="body-feature-icon">✨</div>
-    <div class="page-text">You know what chocolate means and you know exactly why I love it so much. It is the sweetest secret between us, the most wonderful thing, the thing that makes me feel like the luckiest person in the entire world every single time.</div>
-    <div class="page-text">Perfect. Absolutely perfect. That is all I can say. Perfect and precious and mine and I am so grateful.</div>`,
-
-    `<div class="body-feature-heading">Our Sweet Secret 🍫</div><div class="body-feature-icon">💗</div>
-    <div class="poem-block"><p>Some things are too precious for ordinary words —<br>chocolate is one of them,<br>and you are one of them,<br>and together they make up<br>the most wonderful part of my world.</p></div>
-    <div class="page-text">I will never stop being amazed. I will never stop being grateful. You are the most incredible, beautiful, amazing person, and every part of you — including chocolate — is something I cherish beyond words.</div>`,
-
-    `<div class="body-feature-heading">🍫 Always</div><div class="body-feature-icon">💖</div>
-    <div class="page-text">I could write a hundred pages about chocolate and still feel like I had not said enough. It is perfect. You are perfect. Everything about you is perfect. And I am the luckiest, most grateful person in the world to know that.</div>
-    <div class="page-text">Thank you. For everything. For chocolate. For being you. For being perfect. Thank you, thank you, thank you.</div>`,
-  ]},
-
-  // Feet (677-686)
-  { feature: "Your Feet 🌸", icon: "🌸", pages: 10, text: [
-    `<div class="body-feature-heading">Your Cute Little Feet</div><div class="body-feature-icon">🌸</div>
-    <div class="page-text">Even your feet are adorable. I mean it. Every single part of you, from head to toe — literally — is perfectly, completely beautiful. Your feet are no exception. Soft and small and cute and perfectly you.</div>
-    <div class="page-text">You are beautiful from every angle, in every detail. There is not a single part of you that is not precious to me. Not one.</div>`,
-
-    `<div class="body-feature-heading">Your Feet</div><div class="body-feature-icon">💗</div>
-    <div class="poem-block"><p>From the crown of your head<br>to the tips of your toes —<br>every single inch of you<br>is something I adore,<br>something I cherish,<br>something I am endlessly grateful for.</p></div>
-    <div class="page-text">You are completely and utterly beautiful in every way possible. I love every part of you.</div>`,
-  ]},
-
-  // Final appreciation (687-700)
-  { feature: "All of You 💕", icon: "💕", pages: 14, text: [
-    `<div class="page-heading">💕 All of You</div>
-    <div class="page-text">Every single part of you — eyes, nose, lips, neck, hands, waist, chocolate, feet — every little thing — is so perfectly, beautifully, completely you. And you are the most beautiful person I have ever known.</div>
-    <div class="page-text">I am so grateful. So incredibly, overwhelmingly grateful to know you, to love you, to be loved by you. You are a gift. The greatest gift.</div>`,
-
-    `<div class="page-heading">🌟 The End & The Beginning</div>
-    <div class="poem-block"><p>This book has 700 pages<br>and every single one of them<br>is not enough —<br>not enough to hold<br>how much I love you,<br>not enough to contain<br>how beautiful you are,<br>not enough to express<br>what you mean to me.</p></div>
-    <div class="page-text">But know this: every page was written with the truest, deepest, most genuine love. And I would write 700 more, and 700 more after that, and still feel like I was only just beginning.</div>`,
-
-    `<div class="page-heading">💕 Forever</div>
-    <div class="page-text">You are my sweetest happiness. My softest comfort. My brightest light. My most beautiful dream come true. And you will always be all of those things — always, forever, endlessly.</div>
-    <div class="page-text">I love you. More than these 700 pages. More than every word in every language. More than I will ever be able to say.</div>
-    <div class="divider">💕 💕 💕</div>
-    <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--deep-rose);">The End... and the beginning of forever.</div>`,
-  ]},
+const closers = [
+  "With all my love, always.",
+  "You are my endless forever.",
+  "I am entirely yours.",
+  "Loving you is my favorite thing to do.",
+  "You are my heart's home.",
+  "Forever holding you close.",
+  "You mean the absolute world to me.",
+  "Yours, now and always.",
+  "With every beat of my heart.",
+  "Endlessly, effortlessly yours."
 ];
+
+const decors = ['🌸', '💕', '✨', '🌷', '💖', '🌺', '⭐', '🦋', '🌹', '🌙'];
+
+// ============================================================
+// PROCEDURAL BODY APPRECIATION POOLS (Pages 601-699)
+// ============================================================
+const bodyFeatures = [
+  { feature: "Your Eyes", icon: "👁️✨" },
+  { feature: "Your Nose", icon: "🌸" },
+  { feature: "Your Lips", icon: "💋" },
+  { feature: "Your Neck", icon: "🦢" },
+  { feature: "Your Hands", icon: "🤍" },
+  { feature: "Your Waist", icon: "🌹" },
+  { feature: "Chocolate", icon: "🍫" },
+  { feature: "Your Feet", icon: "🌸" },
+  { feature: "Your Smile", icon: "✨" },
+  { feature: "Your Laugh", icon: "🎶" }
+];
+
+const bodyTexts = [
+  "It is one of those things that is so uniquely, perfectly you that I cannot imagine any other way it could be.",
+  "Every time I notice it, my heart skips a tiny beat. It fits so beautifully, like the universe designed it just right.",
+  "I love it because it is a part of you, and every single part of you is absolutely breathtaking to me.",
+  "You might not even think about it, but I notice it, and it takes my breath away every single time.",
+  "It carries such a soft, sweet elegance. You are a masterpiece, and this is just one of the reasons why.",
+  "There is a quiet magic in everything about you. I could spend a lifetime simply adoring this part of you.",
+  "Perfectly placed, perfectly shaped, perfectly you. It makes my whole heart melt.",
+  "I am so unbelievably lucky to know you, to see you, and to cherish every beautiful detail about you."
+];
+
+// ============================================================
+// SEEDED RANDOM NUMBER GENERATOR
+// Guarantees page 32 is always the same content every time!
+// ============================================================
+function splitmix32(a) {
+  return function() {
+    a |= 0; a = a + 0x9e3779b9 | 0;
+    var t = a ^ a >>> 16; t = Math.imul(t, 0x21f0aaad);
+    t = t ^ t >>> 15; t = Math.imul(t, 0x735a2d97);
+    return ((t = t ^ t >>> 15) >>> 0) / 4294967296;
+  }
+}
+
+function getRandomItem(arr, prng) {
+  return arr[Math.floor(prng() * arr.length)];
+}
 
 // ============================================================
 // PAGE GENERATION
 // ============================================================
 function generatePageContent(pageNum) {
-  // Special first page
+  // Page 1: dedication
   if (pageNum === 1) {
-    return `<div class="page-heading" style="margin-top:20px;">💕 To My Beautiful Love 💕</div>
-    <div class="divider">✦ ✦ ✦</div>
-    <div class="page-text italic">This book has 700 pages. Every single one of them is for you. Every word, every poem, every sentence is written from the deepest, most honest place in my heart.</div>
-    <div class="page-text">You deserve to feel cherished. You deserve to feel beautiful. You deserve to know, every single day, how incredibly special you are. This book is my attempt — imperfect and yet so full of love — to show you.</div>
-    <div class="poem-block"><p>Read slowly, my love.<br>Let each page settle into your heart.<br>Because every word here<br>is true, and real, and meant only for you.</p></div>
-    <div class="divider">💕 💕 💕</div>
-    <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">With all my love, always.</div>`;
+    return `<div class="page-heading">💕 To My Beautiful Love</div>
+            <div class="first-page-decor">💕</div>
+            <div class="page-text italic">This book has 700 pages. Every single one of them is for you. Every word, every poem, every sentence — written from the deepest, most honest place in my heart.</div>
+            <div class="page-text">You deserve to feel cherished. You deserve to feel beautiful. You deserve to know, every single day, how incredibly special you are. This book is my attempt — imperfect and yet so full of love — to show you.</div>
+            <div class="poem-block"><p>Read slowly, my love.<br>Let each page settle into your heart.<br>Because every word here<br>is true, and real, and meant only for you.</p></div>
+            <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">With all my love, always. 💕</div>`;
   }
 
-  // Body appreciation section (pages 601-700)
+  // Page 700: Finale
+  if (pageNum === TOTAL_PAGES) {
+    return `<div class="page-heading">💕 Forever</div>
+            <div class="page-text">You are my sweetest happiness. My softest comfort. My brightest light. My most beautiful dream come true. And you will always be all of those things — always, forever, endlessly.</div>
+            <div class="page-text">I love you. More than these 700 pages. More than every word in every language. More than I will ever be able to say.</div>
+            <div class="divider">💕 💕 💕</div>
+            <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--deep-rose);">The End... and the beginning of forever.</div>`;
+  }
+
+  // Create a seeded PRNG specifically for this page number
+  const prng = splitmix32(pageNum * 12345);
+
+  // Body appreciation section (pages 601-699)
   if (pageNum >= BODY_SECTION_START) {
-    const offset = pageNum - BODY_SECTION_START; // 0-99
-
-    // Build flat list of body pages
-    let allBodyPages = [];
-    for (const section of bodyAppreciation) {
-      for (let i = 0; i < section.pages; i++) {
-        const textArr = section.text;
-        allBodyPages.push(textArr[i % textArr.length]);
-      }
+    const feat = getRandomItem(bodyFeatures, prng);
+    const bodyPraise1 = getRandomItem(bodyTexts, prng);
+    
+    // Ensure the second text is different from the first
+    let bodyPraise2 = getRandomItem(bodyTexts, prng);
+    while(bodyPraise2 === bodyPraise1) {
+        bodyPraise2 = getRandomItem(bodyTexts, prng);
     }
 
-    // Fill remaining to 100
-    while (allBodyPages.length < 100) {
-      const extras = bodyAppreciation[bodyAppreciation.length - 1].text;
-      allBodyPages.push(extras[allBodyPages.length % extras.length]);
-    }
-
-    const idx = Math.min(offset, allBodyPages.length - 1);
-    return allBodyPages[idx];
+    return `<div class="body-feature-heading">${feat.feature}</div>
+            <div class="body-feature-icon">${feat.icon}</div>
+            <div class="page-text">${bodyPraise1}</div>
+            <div class="page-text">${bodyPraise2}</div>
+            <div class="divider" style="font-size: 0.8rem;">Page ${pageNum} 💕</div>`;
   }
 
-  // Normal pages 2-600
-  // Mix love messages and poems
-  const isPoem = (pageNum % 7 === 0 || pageNum % 13 === 0);
-  if (isPoem) {
-    const poem = poems[(pageNum - 2) % poems.length];
-    // Add page-specific variation
-    const variation = [
-      `<div class="page-text">You are so loved. So deeply, completely, endlessly loved. And that will never, ever change.</div>`,
-      `<div class="page-text">Every time I think of you, I feel the warmest, most wonderful feeling. You do that. Just by existing, you make everything better.</div>`,
-      `<div class="page-text">There is no version of any day that would not be made better by you in it. You are sunshine in human form.</div>`,
-      `<div class="page-text">The world is genuinely, measurably more beautiful because you are in it. That is not poetry — that is simply the truth.</div>`,
-    ];
-    return poem + variation[(pageNum) % variation.length];
-  }
+  // Standard procedural page generation (Pages 2-600)
+  const title = getRandomItem(titles, prng);
+  const decor = getRandomItem(decors, prng);
+  const opener = getRandomItem(openers, prng);
+  const body = getRandomItem(bodies, prng);
+  const poem = getRandomItem(poems, prng);
+  const closer = getRandomItem(closers, prng);
 
-  // Love message — rotate through all
-  const msgIdx = (pageNum - 2) % loveMessages.length;
-  const msg = loveMessages[msgIdx];
-
-  // Add a unique footer thought per page to give variety
-  const footers = [
-    `<div class="divider">✦ ✦ ✦</div><div class="page-text italic" style="text-align:center;font-size:0.85rem;">Page ${pageNum} of love, written just for you 💕</div>`,
-    `<div class="divider">❀ ❀ ❀</div><div class="page-text italic" style="text-align:center;font-size:0.85rem;">You are loved more than words can hold.</div>`,
-    `<div class="divider">✦ ✦ ✦</div><div class="page-text italic" style="text-align:center;font-size:0.85rem;">Every page, every word — only for you. 💗</div>`,
-    `<div class="divider">❀ ❀ ❀</div><div class="page-text italic" style="text-align:center;font-size:0.85rem;">You are my favorite everything.</div>`,
-    `<div class="divider">✦ ✦ ✦</div><div class="page-text italic" style="text-align:center;font-size:0.85rem;">Still ${TOTAL_PAGES - pageNum} more pages of love to go... 💕</div>`,
-  ];
-  return msg + footers[pageNum % footers.length];
+  return `
+    <div class="page-heading">${title}</div>
+    <div class="first-page-decor">${decor}</div>
+    <div class="page-text">${opener}</div>
+    <div class="poem-block">${poem}</div>
+    <div class="page-text">${body}</div>
+    <div class="divider" style="font-size: 1.2rem;">${decor} ${decor} ${decor}</div>
+    <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">${closer}</div>
+    <div class="divider" style="font-size: 0.8rem;">Page ${pageNum}</div>
+  `;
 }
 
 // ============================================================
@@ -987,33 +1154,31 @@ function openBook() {
 // ============================================================
 function renderPage(num, direction) {
   currentPage = Math.max(1, Math.min(TOTAL_PAGES, num));
-
   const inner = document.getElementById('pageInner');
   const book = document.getElementById('book');
-  const container = document.getElementById('pageContainer');
-
-  // Apply body section class
   const page = document.getElementById('currentPage');
+
   if (currentPage >= BODY_SECTION_START) {
     page.classList.add('body-section');
   } else {
     page.classList.remove('body-section');
   }
 
-  // Animate
   if (direction) {
     book.classList.remove('flipping-forward', 'flipping-back');
     void book.offsetWidth;
     book.classList.add(direction === 'forward' ? 'flipping-forward' : 'flipping-back');
+
+    // Spawn cute page sparkles during flip
+    spawnPageSparkles();
+
     setTimeout(() => {
       book.classList.remove('flipping-forward', 'flipping-back');
-    }, 700);
+    }, 650);
   }
 
-  // Set content
   inner.innerHTML = generatePageContent(currentPage);
 
-  // Page number display
   const numL = document.getElementById('pageNumLeft');
   const numR = document.getElementById('pageNumRight');
   if (currentPage % 2 === 0) {
@@ -1024,26 +1189,15 @@ function renderPage(num, direction) {
     numR.textContent = currentPage;
   }
 
-  // Counter
   document.getElementById('pageCounter').textContent = `${currentPage} / ${TOTAL_PAGES}`;
-
-  // Progress bar
   const pct = (currentPage / TOTAL_PAGES) * 100;
   document.getElementById('progressBar').style.width = pct + '%';
-
-  // Nav buttons
   document.getElementById('prevBtn').disabled = currentPage <= 1;
   document.getElementById('nextBtn').disabled = currentPage >= TOTAL_PAGES;
-
-  // Ribbon height changes with progress
   document.getElementById('ribbon').style.height = (40 + pct * 0.3) + 'px';
 
-  // Confetti on milestone pages
-  if (currentPage === 100 || currentPage === 200 || currentPage === 300 || currentPage === 400 || currentPage === 500 || currentPage === 600 || currentPage === 700) {
-    spawnConfetti();
-  }
+  if ([100,200,300,400,500,600,700].includes(currentPage)) spawnConfetti();
 
-  // Scroll back to top of page inner
   inner.scrollTop = 0;
 }
 
@@ -1051,14 +1205,14 @@ function nextPage() {
   if (isFlipping || currentPage >= TOTAL_PAGES) return;
   isFlipping = true;
   renderPage(currentPage + 1, 'forward');
-  setTimeout(() => { isFlipping = false; }, 750);
+  setTimeout(() => { isFlipping = false; }, 700);
 }
 
 function prevPage() {
   if (isFlipping || currentPage <= 1) return;
   isFlipping = true;
   renderPage(currentPage - 1, 'back');
-  setTimeout(() => { isFlipping = false; }, 750);
+  setTimeout(() => { isFlipping = false; }, 700);
 }
 
 function jumpToPage() {
@@ -1070,10 +1224,30 @@ function jumpToPage() {
   }
 }
 
-// Jump on Enter key
 document.getElementById('jumpInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') jumpToPage();
 });
+
+// ============================================================
+// PAGE SPARKLES — appear during flip
+// ============================================================
+function spawnPageSparkles() {
+  const book = document.getElementById('book');
+  const rect = book.getBoundingClientRect();
+  const emojis = ['✨','💕','🌸','💗','⭐','🌷','💫'];
+  for (let i = 0; i < 5; i++) {
+    const s = document.createElement('div');
+    s.className = 'page-sparkle';
+    s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    s.style.left = (rect.left + rect.width * 0.6 + Math.random() * rect.width * 0.3) + 'px';
+    s.style.top = (rect.top + Math.random() * rect.height) + 'px';
+    s.style.position = 'fixed';
+    s.style.zIndex = '999';
+    s.style.animationDelay = (Math.random() * 0.3) + 's';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 900);
+  }
+}
 
 // ============================================================
 // TOUCH / SWIPE
@@ -1083,7 +1257,6 @@ stage.addEventListener('touchstart', (e) => {
   touchStartX = e.touches[0].clientX;
   touchStartY = e.touches[0].clientY;
 }, { passive: true });
-
 stage.addEventListener('touchend', (e) => {
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
@@ -1092,6 +1265,33 @@ stage.addEventListener('touchend', (e) => {
     else prevPage();
   }
 }, { passive: true });
+
+// Click on book right side = next, left = prev
+stage.addEventListener('click', (e) => {
+  const book = document.getElementById('book');
+  const rect = book.getBoundingClientRect();
+  const relX = e.clientX - rect.left;
+  if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+    createSparkles(e.clientX, e.clientY);
+    if (relX > rect.width * 0.6) nextPage();
+    else if (relX < rect.width * 0.4) prevPage();
+  }
+});
+
+// ============================================================
+// FAIRY LIGHTS SETUP
+// ============================================================
+function setupFairyLights() {
+  const container = document.getElementById('fairyLights');
+  const types = ['bulb-warm', 'bulb-pink', 'bulb-white'];
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('div');
+    b.className = 'bulb ' + types[i % types.length];
+    b.style.animationDelay = (Math.random() * 2) + 's';
+    container.appendChild(b);
+  }
+}
+setupFairyLights();
 
 // ============================================================
 // FLOATING HEARTS
@@ -1128,13 +1328,6 @@ function createSparkles(x, y) {
     setTimeout(() => s.remove(), 1200);
   }
 }
-
-// Tap to create sparkles on book stage
-stage.addEventListener('click', (e) => {
-  if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
-    createSparkles(e.clientX, e.clientY);
-  }
-});
 
 // ============================================================
 // CONFETTI
