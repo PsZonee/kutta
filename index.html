@@ -402,28 +402,82 @@ function generatePageContent(pageNum) {
 
   // --- BODY APPRECIATION SECTION (Pages 601 - 700) ---
   if (pageNum >= BODY_SECTION_START) {
-    const features = [
-      { name: "Eyes 👁️✨", desc1: ["sparkle", "depth", "warmth", "light", "gentle kindness"], desc2: ["comfort", "magic", "peace", "joy"] },
-      { name: "Smile 🌸", desc1: ["sweetness", "radiance", "joy", "pure happiness"], desc2: ["light", "warmth", "cheer", "perfection"] },
-      { name: "Hands 🤍", desc1: ["softness", "gentleness", "care", "grace"], desc2: ["tenderness", "safety", "comfort", "peace"] },
-      { name: "Voice 🎶", desc1: ["melody", "calm", "sweet sound", "gentle tone"], desc2: ["peace", "comfort", "warmth", "happiness"] },
-      { name: "Chocolate 🍫", desc1: ["sweetness", "perfection", "our shared secret", "delight"], desc2: ["joy", "comfort", "happiness", "warmth"] },
-      { name: "Heart 💖", desc1: ["kindness", "pure love", "warmth", "beauty"], desc2: ["endless love", "grace", "care", "light"] }
+    const bodyFeatures = [
+      { name: "Eyes", icon: "👁️✨", qualities: ["sparkling depth", "warmth", "gentle light", "comforting gaze", "expressive beauty"] },
+      { name: "Smile", icon: "🌸", qualities: ["radiant joy", "sweetness", "contagious happiness", "bright light", "perfect curve"] },
+      { name: "Voice", icon: "🎶", qualities: ["calming melody", "soothing tone", "gentle sound", "peaceful rhythm", "sweet warmth"] },
+      { name: "Hands", icon: "🤍", qualities: ["soft touch", "gentle care", "comforting hold", "graceful movement", "safe embrace"] },
+      { name: "Mind", icon: "🧠✨", qualities: ["brilliant thoughts", "beautiful curiosity", "deep wisdom", "creative spark", "fascinating perspective"] },
+      { name: "Laugh", icon: "😄", qualities: ["pure delight", "musical chime", "joyful echo", "heartwarming sound", "unrestrained happiness"] },
+      { name: "Heart", icon: "💖", qualities: ["boundless compassion", "pure kindness", "deep empathy", "endless love", "beautiful grace"] },
+      { name: "Presence", icon: "✨", qualities: ["calming aura", "radiant energy", "comforting vibe", "magnetic charm", "peaceful stillness"] },
+      { name: "Hair", icon: "🎀", qualities: ["soft flow", "beautiful texture", "lovely scent", "perfect messiness", "gorgeous fall"] },
+      { name: "Soul", icon: "🕊️", qualities: ["pure light", "gentle spirit", "beautiful essence", "deep warmth", "radiant truth"] },
+      { name: "Feet", icon: "👣", qualities: ["cute steps", "gentle grace", "soft steps", "perfect little toes", "adorable presence"] }
     ];
 
-    let feature = pick(features, pageNum * 2.5);
-    let d1 = pick(feature.desc1, pageNum * 3.1);
-    let d2 = pick(feature.desc2, pageNum * 4.2);
+    const closingThoughts = [
+      "It's a small detail to the rest of the world, but to me, it's everything.",
+      "I could spend a lifetime just admiring this alone.",
+      "It makes my heart skip a beat every single time.",
+      "I didn't know it was possible to love a single detail this much.",
+      "It is just one of the millions of reasons you are perfect to me."
+    ];
+
+    let feature = pick(bodyFeatures, pageNum * 2.5);
+    let q1 = pick(feature.qualities, pageNum * 3.1);
+    let q2 = pick(feature.qualities, pageNum * 4.2);
+    
+    // Ensure we don't pick the exact same quality twice
+    if (q1 === q2) {
+      q2 = pick(feature.qualities, pageNum * 5.3 + 1);
+    }
+    
+    let closingThought = pick(closingThoughts, pageNum * 7.7);
+
+    // Pick a random paragraph pattern (0 to 3) to ensure variety
+    let patternSeed = Math.floor(rand(pageNum * 8.8) * 4);
+    let p1, p2, p3;
+
+    if (patternSeed === 0) {
+      p1 = `As we reach the final chapters of this book, I find myself thinking about your ${feature.name.toLowerCase()}.`;
+      p2 = `There is so much ${q1} in it. Every time I notice it, I am struck by the ${q2} it brings into my day.`;
+      p3 = closingThought;
+    } else if (patternSeed === 1) {
+      p1 = `Have I mentioned lately how much I adore your ${feature.name.toLowerCase()}?`;
+      p2 = `It holds such a ${q1}, something completely unique to you. When I experience its ${q2}, everything else fades away.`;
+      p3 = closingThought;
+    } else if (patternSeed === 2) {
+      p1 = `I could write an entirely separate book just about your ${feature.name.toLowerCase()}.`;
+      p2 = `The sheer ${q1} of it mesmerizes me. It is a perfect reflection of your ${q2}.`;
+      p3 = closingThought;
+    } else {
+      p1 = `Sometimes I just pause and marvel at your ${feature.name.toLowerCase()}.`;
+      p2 = `To you, it might just be a normal part of who you are, but to me, its ${q1} and ${q2} are purely magical.`;
+      p3 = closingThought;
+    }
+
+    let extraPoem = "";
+    if (Math.floor(rand(pageNum * 6.1) * 2) === 0) {
+      extraPoem = `
+      <div class="poem-block">
+        <p>Perfectly crafted,<br>flawlessly you.<br>Every detail is a masterpiece.</p>
+      </div>`;
+    } else {
+      extraPoem = `
+      <div class="poem-block">
+        <p>A million little things,<br>make up the one I love.<br>And this is one of my favorites.</p>
+      </div>`;
+    }
 
     return `
-      <div class="body-feature-heading">Your Beautiful ${feature.name.split(' ')[0]}</div>
-      <div class="body-feature-icon">${feature.name.split(' ')[1] || '✨'}</div>
+      <div class="body-feature-heading">Your Beautiful ${feature.name}</div>
+      <div class="body-feature-icon">${feature.icon}</div>
       ${memoryBlock}
-      <div class="page-text">As I get to the final chapters of this book, I can't help but admire your ${feature.name.split(' ')[0].toLowerCase()}. There is so much ${d1} there.</div>
-      <div class="page-text">Every time I notice it, I'm struck by the ${d2} it brings into my life. It's a small detail to the rest of the world, but to me, it's everything.</div>
-      <div class="poem-block">
-        <p>Perfectly crafted,<br>flawlessly you.<br>I could spend another 700 pages<br>just admiring this alone.</p>
-      </div>
+      <div class="page-text">${p1}</div>
+      <div class="page-text">${p2}</div>
+      <div class="page-text">${p3}</div>
+      ${extraPoem}
       <div class="divider">✦ ✦ ✦</div>
       <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">Page ${pageNum} — adoring every part of you.</div>
     `;
