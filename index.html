@@ -37,34 +37,22 @@
     position: relative;
   }
 
-  /* Floating elements background */
   .hearts-bg {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; overflow: hidden; z-index: 0;
   }
   .heart-float {
-    position: absolute;
-    font-size: 1.2rem;
-    opacity: 0.15;
-    animation: floatUp linear infinite;
-    bottom: -30px;
+    position: absolute; font-size: 1.2rem; opacity: 0.15;
+    animation: floatUp linear infinite; bottom: -30px;
   }
   @keyframes floatUp {
     0% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
     100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
   }
 
-  /* Sparkles */
   .sparkle {
-    position: fixed;
-    pointer-events: none;
-    font-size: 1rem;
-    z-index: 9999;
-    animation: sparkleAnim 0.8s forwards;
+    position: fixed; pointer-events: none; font-size: 1rem;
+    z-index: 9999; animation: sparkleAnim 0.8s forwards;
   }
   @keyframes sparkleAnim {
     0% { transform: scale(0) rotate(0deg); opacity: 1; }
@@ -72,773 +60,199 @@
     100% { transform: scale(0) rotate(360deg) translateY(-30px); opacity: 0; }
   }
 
-  /* ===========================
-     COVER SCREEN — Luna Style
-     =========================== */
   #cover-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     background: linear-gradient(160deg, #ffe0ec 0%, #fcd1e2 40%, #f9a8c0 100%);
   }
-
-  /* Wooden desk surface feel */
   #cover-screen::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 80%, rgba(210,160,100,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 20%, rgba(255,220,180,0.1) 0%, transparent 40%);
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 80%, rgba(210,160,100,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,220,180,0.1) 0%, transparent 40%);
     pointer-events: none;
   }
 
-  /* Fairy lights */
   .fairy-lights {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 18px;
-    padding-bottom: 8px;
-    z-index: 2;
+    position: absolute; top: 0; left: 0; right: 0; height: 60px;
+    display: flex; justify-content: center; align-items: flex-end;
+    gap: 18px; padding-bottom: 8px; z-index: 2;
   }
   .bulb {
-    width: 8px; height: 10px;
-    border-radius: 50% 50% 40% 40%;
-    position: relative;
-    animation: glowBulb 2s ease-in-out infinite;
+    width: 8px; height: 10px; border-radius: 50% 50% 40% 40%;
+    position: relative; animation: glowBulb 2s ease-in-out infinite;
   }
   .bulb:nth-child(odd) { animation-delay: 0.3s; }
   .bulb:nth-child(3n) { animation-delay: 0.7s; }
   .bulb-warm { background: #ffe066; box-shadow: 0 0 8px 3px rgba(255,220,80,0.7); }
   .bulb-pink { background: #ff99bb; box-shadow: 0 0 8px 3px rgba(255,120,160,0.6); }
   .bulb-white { background: #fff5dd; box-shadow: 0 0 8px 3px rgba(255,240,200,0.8); }
-  @keyframes glowBulb {
-    0%,100% { opacity: 0.8; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
-  }
-  /* Wire connecting bulbs */
+  @keyframes glowBulb { 0%,100% { opacity: 0.8; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
   .fairy-lights::before {
-    content: '';
-    position: absolute;
-    top: 12px; left: 5%; right: 5%;
-    height: 1.5px;
-    background: rgba(120,80,60,0.35);
-    z-index: -1;
+    content: ''; position: absolute; top: 12px; left: 5%; right: 5%;
+    height: 1.5px; background: rgba(120,80,60,0.35); z-index: -1;
   }
 
-  /* Floating flowers and lavender on sides */
   .side-deco {
-    position: absolute;
-    font-size: 1.4rem;
-    opacity: 0.6;
+    position: absolute; font-size: 1.4rem; opacity: 0.6;
     animation: gentleFloat 4s ease-in-out infinite;
   }
-  @keyframes gentleFloat {
-    0%,100% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-8px) rotate(5deg); }
-  }
+  @keyframes gentleFloat { 0%,100% { transform: translateY(0) rotate(-5deg); } 50% { transform: translateY(-8px) rotate(5deg); } }
 
-  .cover-book-wrap {
-    perspective: 1400px;
-    cursor: pointer;
-    user-select: none;
-    position: relative;
-    z-index: 3;
-  }
-
-  /* Luna-style book — pink, 3D, tilted */
+  .cover-book-wrap { perspective: 1400px; cursor: pointer; user-select: none; position: relative; z-index: 3; }
   .cover-book {
-    width: min(230px, 68vw);
-    height: min(310px, 50vh);
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg);
+    width: min(230px, 68vw); height: min(310px, 50vh); position: relative;
+    transform-style: preserve-3d; transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg);
     transition: transform 0.5s cubic-bezier(.34,1.56,.64,1);
     filter: drop-shadow(8px 20px 30px rgba(120,40,60,0.45));
   }
-  .cover-book-wrap:hover .cover-book {
-    transform: rotateX(8deg) rotateY(-8deg) rotateZ(-1deg) scale(1.04);
-  }
+  .cover-book-wrap:hover .cover-book { transform: rotateX(8deg) rotateY(-8deg) rotateZ(-1deg) scale(1.04); }
 
-  /* Main book face */
   .book-face {
-    position: absolute;
-    inset: 0;
-    border-radius: 4px 14px 14px 4px;
+    position: absolute; inset: 0; border-radius: 4px 14px 14px 4px;
     background: linear-gradient(160deg, var(--pink-cover-light) 0%, var(--pink-cover) 40%, var(--pink-cover-dark) 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 14px;
-    overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    padding: 16px 14px; overflow: hidden;
   }
-
-  /* Gold border frame on cover */
   .book-face::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 2.5px solid var(--gold-bright);
-    border-radius: 2px 10px 10px 2px;
-    opacity: 0.7;
-    pointer-events: none;
+    content: ''; position: absolute; inset: 8px; border: 2.5px solid var(--gold-bright);
+    border-radius: 2px 10px 10px 2px; opacity: 0.7; pointer-events: none;
   }
 
-  /* Stars in corner */
-  .cover-stars {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .cover-star {
-    position: absolute;
-    color: var(--gold-bright);
-    font-size: 0.9rem;
-    opacity: 0.8;
-    animation: twinkle 2s ease-in-out infinite;
-  }
-  @keyframes twinkle {
-    0%,100% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.3); }
-  }
+  .cover-stars { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .cover-star { position: absolute; color: var(--gold-bright); font-size: 0.9rem; opacity: 0.8; animation: twinkle 2s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.6; transform: scale(1); } 50% { opacity: 1; transform: scale(1.3); } }
 
-  .cover-title-area {
-    text-align: center;
-    z-index: 1;
-    position: relative;
-  }
+  .cover-title-area { text-align: center; z-index: 1; position: relative; }
   .cover-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.3rem, 5vw, 1.8rem);
-    color: var(--gold-bright);
-    text-shadow: 1px 2px 0 rgba(120,60,0,0.4), 0 0 12px rgba(255,220,80,0.4);
-    line-height: 1.2;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-family: 'Dancing Script', cursive; font-size: clamp(1.3rem, 5vw, 1.8rem);
+    color: var(--gold-bright); text-shadow: 1px 2px 0 rgba(120,60,0,0.4), 0 0 12px rgba(255,220,80,0.4);
+    line-height: 1.2; font-weight: 700; letter-spacing: 0.5px;
   }
 
-  /* Illustration box in the middle of cover */
   .cover-illustration {
-    width: 90%;
-    flex: 1;
-    margin: 8px 0;
-    border-radius: 6px;
+    width: 90%; flex: 1; margin: 8px 0; border-radius: 6px;
     background: linear-gradient(160deg, #1a0a2e 0%, #2d1660 40%, #1a2a50 100%);
-    border: 2px solid var(--gold);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
+    border: 2px solid var(--gold); position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; z-index: 1;
   }
-
-  /* Night sky in illustration */
   .cover-illustration::before {
-    content: '✦ ✧ ✦ ✧ ✦';
-    position: absolute;
-    top: 6px; left: 0; right: 0;
-    text-align: center;
-    font-size: 0.5rem;
-    color: rgba(255,255,255,0.6);
-    letter-spacing: 4px;
+    content: '✦ ✧ ✦ ✧ ✦'; position: absolute; top: 6px; left: 0; right: 0;
+    text-align: center; font-size: 0.5rem; color: rgba(255,255,255,0.6); letter-spacing: 4px;
   }
-
-  /* Moon */
-  .illus-moon {
-    position: absolute;
-    top: 12px; right: 18px;
-    font-size: 1rem;
-    filter: brightness(1.3);
-  }
-
-  /* Tree silhouette */
-  .illus-trees {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 55%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-around;
-    padding: 0 4px;
-  }
-  .illus-tree {
-    background: rgba(20,40,20,0.8);
-    border-radius: 50% 50% 0 0;
-    position: relative;
-  }
-
-  /* Glowing path */
-  .illus-path {
-    position: absolute;
-    bottom: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 30%;
-    height: 40%;
-    background: radial-gradient(ellipse at center bottom, rgba(100,220,100,0.3) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  /* Little girl */
+  .illus-moon { position: absolute; top: 12px; right: 18px; font-size: 1rem; filter: brightness(1.3); }
+  .illus-trees { position: absolute; bottom: 0; left: 0; right: 0; height: 55%; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 4px; }
+  .illus-tree { background: rgba(20,40,20,0.8); border-radius: 50% 50% 0 0; position: relative; }
+  .illus-path { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 30%; height: 40%; background: radial-gradient(ellipse at center bottom, rgba(100,220,100,0.3) 0%, transparent 70%); border-radius: 50%; }
   .illus-girl { font-size: 1.1rem; position: relative; z-index: 2; }
+  .illus-mushroom { position: absolute; font-size: 0.7rem; }
+  .illus-house { position: absolute; top: 18px; right: 8px; font-size: 0.9rem; opacity: 0.8; }
+  .illus-ground { position: absolute; bottom: 0; left: 0; right: 0; height: 25%; background: linear-gradient(to top, rgba(30,80,20,0.5) 0%, transparent 100%); }
 
-  /* Mushrooms */
-  .illus-mushroom {
-    position: absolute;
-    font-size: 0.7rem;
-  }
+  .cover-sub-title { font-family: 'Dancing Script', cursive; font-size: clamp(0.7rem, 2.5vw, 0.85rem); color: rgba(255,255,255,0.85); text-align: center; z-index: 1; line-height: 1.4; }
 
-  /* Tree house */
-  .illus-house {
-    position: absolute;
-    top: 18px; right: 8px;
-    font-size: 0.9rem;
-    opacity: 0.8;
-  }
+  .book-spine-3d { position: absolute; top: 0; left: -22px; width: 22px; height: 100%; transform-origin: right center; background: linear-gradient(to right, #8a1f40, #a83060); border-radius: 4px 0 0 4px; transform: rotateY(90deg); box-shadow: inset -4px 0 8px rgba(0,0,0,0.3); }
+  .book-bottom-3d { position: absolute; bottom: -10px; left: 0; right: 0; height: 10px; background: linear-gradient(to bottom, #c0446b, #9b2d4f); transform-origin: top center; transform: rotateX(-90deg); border-radius: 0 0 4px 4px; }
 
-  /* Ground glow */
-  .illus-ground {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 25%;
-    background: linear-gradient(to top, rgba(30,80,20,0.5) 0%, transparent 100%);
-  }
-
-  .cover-sub-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(0.7rem, 2.5vw, 0.85rem);
-    color: rgba(255,255,255,0.85);
-    text-align: center;
-    z-index: 1;
-    line-height: 1.4;
-  }
-
-  /* Book spine — left side */
-  .book-spine-3d {
-    position: absolute;
-    top: 0;
-    left: -22px;
-    width: 22px;
-    height: 100%;
-    transform-origin: right center;
-    background: linear-gradient(to right, #8a1f40, #a83060);
-    border-radius: 4px 0 0 4px;
-    transform: rotateY(90deg);
-    box-shadow: inset -4px 0 8px rgba(0,0,0,0.3);
-  }
-
-  /* Book bottom thickness */
-  .book-bottom-3d {
-    position: absolute;
-    bottom: -10px;
-    left: 0; right: 0;
-    height: 10px;
-    background: linear-gradient(to bottom, #c0446b, #9b2d4f);
-    transform-origin: top center;
-    transform: rotateX(-90deg);
-    border-radius: 0 0 4px 4px;
-  }
-
-  /* Gold star corners on cover */
-  .corner-star {
-    position: absolute;
-    font-size: 0.9rem;
-    color: var(--gold-bright);
-  }
+  .corner-star { position: absolute; font-size: 0.9rem; color: var(--gold-bright); }
   .corner-star.tl { top: 14px; left: 14px; }
   .corner-star.tr { top: 14px; right: 14px; }
   .corner-star.bl { bottom: 14px; left: 14px; }
   .corner-star.br { bottom: 14px; right: 14px; }
 
-  .tap-hint {
-    margin-top: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    animation: pulse 2s ease-in-out infinite;
-    z-index: 3;
-    position: relative;
-  }
+  .tap-hint { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 6px; animation: pulse 2s ease-in-out infinite; z-index: 3; position: relative; }
   @keyframes pulse { 0%,100% { opacity: 0.7; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-5px); } }
-  .tap-hint span {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.2rem;
-    color: var(--deep-rose);
-    text-shadow: 0 1px 4px rgba(255,255,255,0.6);
-  }
+  .tap-hint span { font-family: 'Dancing Script', cursive; font-size: 1.2rem; color: var(--deep-rose); text-shadow: 0 1px 4px rgba(255,255,255,0.6); }
 
-  /* Cover open animation */
-  .cover-opening .cover-book {
-    animation: bookOpenCover 1.2s cubic-bezier(.77,0,.18,1) forwards;
-  }
-  @keyframes bookOpenCover {
-    0% { transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg); }
-    40% { transform: rotateX(5deg) rotateY(-40deg) rotateZ(-2deg) scale(1.05); }
-    100% { transform: rotateX(0deg) rotateY(-100deg) rotateZ(0deg) scale(0.8) translateX(-40px); opacity: 0; }
-  }
-  .cover-opening {
-    animation: coverFade 1.3s forwards;
-  }
-  @keyframes coverFade {
-    0% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; pointer-events: none; }
-  }
+  .cover-opening .cover-book { animation: bookOpenCover 1.2s cubic-bezier(.77,0,.18,1) forwards; }
+  @keyframes bookOpenCover { 0% { transform: rotateX(12deg) rotateY(-18deg) rotateZ(-3deg); } 40% { transform: rotateX(5deg) rotateY(-40deg) rotateZ(-2deg) scale(1.05); } 100% { transform: rotateX(0deg) rotateY(-100deg) rotateZ(0deg) scale(0.8) translateX(-40px); opacity: 0; } }
+  .cover-opening { animation: coverFade 1.3s forwards; }
+  @keyframes coverFade { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; pointer-events: none; } }
 
-  /* ===========================
-     MAIN BOOK READER
-     =========================== */
-  #reader {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(160deg, #ffe0ec 0%, #fcd1e2 40%, #fbbdcf 100%);
-  }
+  #reader { position: fixed; inset: 0; z-index: 50; display: none; flex-direction: column; align-items: center; background: linear-gradient(160deg, #ffe0ec 0%, #fcd1e2 40%, #fbbdcf 100%); }
   #reader.visible { display: flex; }
 
-  /* Top bar */
-  .top-bar {
-    width: 100%;
-    padding: 10px 14px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(255,255,255,0.5);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(232,121,158,0.2);
-    flex-shrink: 0;
-  }
-  .top-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.3rem;
-    color: var(--deep-rose);
-  }
-  .page-jump-form {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.7);
-    border: 1.5px solid var(--rose);
-    border-radius: 20px;
-    padding: 3px 10px;
-  }
-  .page-jump-form input {
-    width: 52px;
-    border: none;
-    background: transparent;
-    font-family: 'Lora', serif;
-    font-size: 0.85rem;
-    color: var(--text);
-    outline: none;
-    text-align: center;
-  }
-  .page-jump-form button {
-    background: var(--rose);
-    border: none;
-    color: white;
-    border-radius: 50%;
-    width: 22px; height: 22px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .page-counter {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1rem;
-    color: var(--deep-rose);
-    min-width: 60px;
-    text-align: right;
-  }
+  .top-bar { width: 100%; padding: 10px 14px 8px; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.5); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(232,121,158,0.2); flex-shrink: 0; }
+  .top-title { font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: var(--deep-rose); }
+  .page-jump-form { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.7); border: 1.5px solid var(--rose); border-radius: 20px; padding: 3px 10px; }
+  .page-jump-form input { width: 52px; border: none; background: transparent; font-family: 'Lora', serif; font-size: 0.85rem; color: var(--text); outline: none; text-align: center; }
+  .page-jump-form button { background: var(--rose); border: none; color: white; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
+  .page-counter { font-family: 'Dancing Script', cursive; font-size: 1rem; color: var(--deep-rose); min-width: 60px; text-align: right; }
 
-  /* Book stage */
-  .book-stage {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1500px;
-    overflow: hidden;
-    position: relative;
-  }
+  .book-stage { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; perspective: 1500px; overflow: hidden; position: relative; }
 
-  /* ===========================
-     CUTE PAGE TURN — Fold from corner
-     =========================== */
-  .book {
-    width: min(340px, 95vw);
-    height: min(520px, calc(100vh - 130px));
-    position: relative;
-    transform-style: preserve-3d;
-  }
+  .book { width: min(340px, 95vw); height: min(520px, calc(100vh - 130px)); position: relative; transform-style: preserve-3d; }
+  .book::after { content: ''; position: absolute; bottom: -16px; left: 5%; right: 5%; height: 18px; background: radial-gradient(ellipse, rgba(192,68,107,0.25) 0%, transparent 70%); border-radius: 50%; }
 
-  /* Shadow under book */
-  .book::after {
-    content: '';
-    position: absolute;
-    bottom: -16px; left: 5%; right: 5%;
-    height: 18px;
-    background: radial-gradient(ellipse, rgba(192,68,107,0.25) 0%, transparent 70%);
-    border-radius: 50%;
-  }
+  .page-container { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .page { position: absolute; width: 100%; height: 100%; border-radius: 4px 16px 16px 4px; background: var(--cream); backface-visibility: hidden; overflow: hidden; box-shadow: 3px 0 12px rgba(192,68,107,0.12), 2px 4px 20px rgba(192,68,107,0.15), inset -2px 0 8px rgba(0,0,0,0.04); }
+  .page::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent, transparent 28px, rgba(232,121,158,0.06) 28px, rgba(232,121,158,0.06) 29px); pointer-events: none; }
 
-  .page-container {
-    position: absolute;
-    inset: 0;
-    transform-style: preserve-3d;
-  }
-
-  .page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 4px 16px 16px 4px;
-    background: var(--cream);
-    backface-visibility: hidden;
-    overflow: hidden;
-    box-shadow:
-      3px 0 12px rgba(192,68,107,0.12),
-      2px 4px 20px rgba(192,68,107,0.15),
-      inset -2px 0 8px rgba(0,0,0,0.04);
-  }
-
-  /* Subtle page lines */
-  .page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 28px,
-      rgba(232,121,158,0.06) 28px,
-      rgba(232,121,158,0.06) 29px
-    );
-    pointer-events: none;
-  }
-
-  .page-inner {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    padding: 28px 22px 80px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--soft) transparent;
-    position: relative;
-    z-index: 1;
-  }
+  .page-inner { width: 100%; height: 100%; overflow-y: auto; padding: 28px 22px 80px; scrollbar-width: thin; scrollbar-color: var(--soft) transparent; position: relative; z-index: 1; }
   .page-inner::-webkit-scrollbar { width: 3px; }
   .page-inner::-webkit-scrollbar-track { background: transparent; }
   .page-inner::-webkit-scrollbar-thumb { background: var(--soft); border-radius: 3px; }
 
-  /* ===========================
-     CUTE PAGE TURN ANIMATION
-     Fold from right edge — like real book
-     =========================== */
+  .flip-wrapper { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; }
 
-  /* Wrapper for the flip effect */
-  .flip-wrapper {
-    position: absolute;
-    inset: 0;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-  }
-
-  /* The curl shadow that appears while flipping */
   @keyframes cuteFlipForward {
-    0% {
-      transform: perspective(1200px) rotateY(0deg);
-      box-shadow: 3px 0 12px rgba(192,68,107,0.12);
-    }
-    15% {
-      transform: perspective(1200px) rotateY(-15deg);
-      box-shadow: 15px 0 30px rgba(192,68,107,0.25);
-    }
-    50% {
-      transform: perspective(1200px) rotateY(-90deg);
-      box-shadow: -20px 0 40px rgba(192,68,107,0.35);
-    }
-    85% {
-      transform: perspective(1200px) rotateY(-165deg);
-      box-shadow: -10px 0 20px rgba(192,68,107,0.15);
-    }
-    100% {
-      transform: perspective(1200px) rotateY(-180deg);
-      box-shadow: none;
-    }
+    0% { transform: perspective(1200px) rotateY(0deg); box-shadow: 3px 0 12px rgba(192,68,107,0.12); }
+    15% { transform: perspective(1200px) rotateY(-15deg); box-shadow: 15px 0 30px rgba(192,68,107,0.25); }
+    50% { transform: perspective(1200px) rotateY(-90deg); box-shadow: -20px 0 40px rgba(192,68,107,0.35); }
+    85% { transform: perspective(1200px) rotateY(-165deg); box-shadow: -10px 0 20px rgba(192,68,107,0.15); }
+    100% { transform: perspective(1200px) rotateY(-180deg); box-shadow: none; }
   }
-
   @keyframes cuteFlipBack {
-    0% {
-      transform: perspective(1200px) rotateY(0deg);
-    }
-    50% {
-      transform: perspective(1200px) rotateY(90deg);
-      box-shadow: 20px 0 40px rgba(192,68,107,0.35);
-    }
-    100% {
-      transform: perspective(1200px) rotateY(180deg);
-    }
+    0% { transform: perspective(1200px) rotateY(0deg); }
+    50% { transform: perspective(1200px) rotateY(90deg); box-shadow: 20px 0 40px rgba(192,68,107,0.35); }
+    100% { transform: perspective(1200px) rotateY(180deg); }
   }
 
-  /* Page curl animation on the container */
-  .book.flipping-forward .page-container {
-    animation: cuteFlipForward 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-    transform-origin: left center;
-  }
-  .book.flipping-back .page-container {
-    animation: cuteFlipBack 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-    transform-origin: left center;
-  }
+  .book.flipping-forward .page-container { animation: cuteFlipForward 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; transform-origin: left center; }
+  .book.flipping-back .page-container { animation: cuteFlipBack 0.65s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; transform-origin: left center; }
 
-  /* Page corner fold */
-  .page::after {
-    content: '';
-    position: absolute;
-    bottom: 0; right: 0;
-    width: 0; height: 0;
-    border-style: solid;
-    border-width: 0 0 22px 22px;
-    border-color: transparent transparent rgba(232,121,158,0.25) transparent;
-    transition: border-width 0.2s;
-  }
-  .page:hover::after {
-    border-width: 0 0 30px 30px;
-  }
+  .page::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 0; border-style: solid; border-width: 0 0 22px 22px; border-color: transparent transparent rgba(232,121,158,0.25) transparent; transition: border-width 0.2s; }
+  .page:hover::after { border-width: 0 0 30px 30px; }
 
-  /* Floating glitter sparkles on page turn */
-  .page-sparkle {
-    position: absolute;
-    pointer-events: none;
-    font-size: 0.8rem;
-    z-index: 100;
-    animation: pageSparkleAnim 0.6s forwards;
-  }
-  @keyframes pageSparkleAnim {
-    0% { transform: scale(0) translateY(0); opacity: 1; }
-    100% { transform: scale(1.2) translateY(-20px); opacity: 0; }
-  }
+  .page-sparkle { position: absolute; pointer-events: none; font-size: 0.8rem; z-index: 100; animation: pageSparkleAnim 0.6s forwards; }
+  @keyframes pageSparkleAnim { 0% { transform: scale(0) translateY(0); opacity: 1; } 100% { transform: scale(1.2) translateY(-20px); opacity: 0; } }
 
-  /* Page decorations */
-  .page-deco-top {
-    position: absolute;
-    top: 10px; left: 0; right: 0;
-    text-align: center;
-    font-size: 0.8rem;
-    color: var(--rose);
-    opacity: 0.4;
-    letter-spacing: 4px;
-  }
-  .page-deco-bottom {
-    position: absolute;
-    bottom: 14px; left: 0; right: 0;
-    text-align: center;
-    font-size: 0.75rem;
-    color: var(--rose);
-    opacity: 0.35;
-  }
-  .page-num-display {
-    position: absolute;
-    bottom: 14px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 0.9rem;
-    color: var(--rose);
-    opacity: 0.55;
-  }
+  .page-deco-top { position: absolute; top: 10px; left: 0; right: 0; text-align: center; font-size: 0.8rem; color: var(--rose); opacity: 0.4; letter-spacing: 4px; }
+  .page-deco-bottom { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 0.75rem; color: var(--rose); opacity: 0.35; }
+  .page-num-display { position: absolute; bottom: 14px; font-family: 'Dancing Script', cursive; font-size: 0.9rem; color: var(--rose); opacity: 0.55; }
   .page-num-display.left { left: 18px; }
   .page-num-display.right { right: 18px; }
 
-  /* Content styles */
-  .page-heading {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.3rem, 5vw, 1.7rem);
-    color: var(--deep-rose);
-    text-align: center;
-    margin-bottom: 16px;
-    line-height: 1.3;
-  }
-  .page-text {
-    font-family: 'Lora', serif;
-    font-size: clamp(0.82rem, 3.2vw, 0.95rem);
-    color: var(--text);
-    line-height: 1.85;
-    text-align: justify;
-    margin-bottom: 14px;
-  }
+  .page-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.3rem, 5vw, 1.7rem); color: var(--deep-rose); text-align: center; margin-bottom: 16px; line-height: 1.3; }
+  .page-text { font-family: 'Lora', serif; font-size: clamp(0.82rem, 3.2vw, 0.95rem); color: var(--text); line-height: 1.85; text-align: justify; margin-bottom: 14px; }
   .page-text.italic { font-style: italic; }
-  .poem-block {
-    background: linear-gradient(135deg, rgba(249,200,217,0.3), rgba(232,121,158,0.1));
-    border-left: 3px solid var(--rose);
-    border-radius: 0 10px 10px 0;
-    padding: 14px 16px;
-    margin: 14px 0;
-  }
-  .poem-block p {
-    font-family: 'Lora', serif;
-    font-style: italic;
-    font-size: clamp(0.8rem, 3vw, 0.9rem);
-    color: var(--deep-rose);
-    line-height: 2;
-    margin: 0;
-  }
-  .divider {
-    text-align: center;
-    margin: 16px 0;
-    color: var(--rose);
-    font-size: 1.1rem;
-    opacity: 0.6;
-    letter-spacing: 6px;
-  }
-  .highlight {
-    background: linear-gradient(120deg, rgba(249,200,217,0.5) 0%, rgba(249,200,217,0.5) 100%);
-    border-radius: 4px;
-    padding: 0 3px;
-    font-weight: 600;
-  }
-  .body-feature-heading {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(1.2rem, 4.5vw, 1.5rem);
-    color: var(--deep-rose);
-    text-align: center;
-    margin: 12px 0 10px;
-  }
-  .body-feature-icon {
-    text-align: center;
-    font-size: 1.8rem;
-    margin: 8px 0;
-  }
+  .poem-block { background: linear-gradient(135deg, rgba(249,200,217,0.3), rgba(232,121,158,0.1)); border-left: 3px solid var(--rose); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
+  .poem-block p { font-family: 'Lora', serif; font-style: italic; font-size: clamp(0.8rem, 3vw, 0.9rem); color: var(--deep-rose); line-height: 2; margin: 0; }
+  .divider { text-align: center; margin: 16px 0; color: var(--rose); font-size: 1.1rem; opacity: 0.6; letter-spacing: 6px; }
+  .body-feature-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.2rem, 4.5vw, 1.5rem); color: var(--deep-rose); text-align: center; margin: 12px 0 10px; }
+  .body-feature-icon { text-align: center; font-size: 1.8rem; margin: 8px 0; }
+  .memory-block { color: var(--deep-rose); font-style: italic; border-left: 2px solid var(--rose); padding-left: 10px; margin-bottom: 14px; font-size: 0.85rem; }
 
-  /* Nav buttons */
-  .nav-bar {
-    width: 100%;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    background: rgba(255,255,255,0.4);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(232,121,158,0.2);
-    flex-shrink: 0;
-  }
-  .nav-btn {
-    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
-    border: none;
-    color: white;
-    border-radius: 50px;
-    padding: 10px 28px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.05rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(192,68,107,0.3);
-    transition: all 0.2s;
-    display: flex; align-items: center; gap: 6px;
-    user-select: none;
-  }
+  .nav-bar { width: 100%; padding: 10px 20px; display: flex; align-items: center; justify-content: center; gap: 20px; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-top: 1px solid rgba(232,121,158,0.2); flex-shrink: 0; }
+  .nav-btn { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); border: none; color: white; border-radius: 50px; padding: 10px 28px; font-family: 'Dancing Script', cursive; font-size: 1.05rem; cursor: pointer; box-shadow: 0 4px 15px rgba(192,68,107,0.3); transition: all 0.2s; display: flex; align-items: center; gap: 6px; user-select: none; }
   .nav-btn:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(192,68,107,0.2); }
   .nav-btn:disabled { opacity: 0.4; cursor: default; }
 
-  /* Progress */
-  .progress-bar {
-    position: absolute;
-    bottom: 0; left: 0;
-    height: 2px;
-    background: linear-gradient(to right, var(--rose), var(--deep-rose));
-    transition: width 0.4s ease;
-    border-radius: 0 2px 2px 0;
-  }
+  .progress-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--rose), var(--deep-rose)); transition: width 0.4s ease; border-radius: 0 2px 2px 0; }
 
-  /* Swipe hint */
-  .swipe-hint {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(8px);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-family: 'Dancing Script', cursive;
-    color: var(--deep-rose);
-    font-size: 0.9rem;
-    animation: fadeInOut 3s 2s forwards;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  @keyframes fadeInOut {
-    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    20% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    70% { opacity: 1; }
-    100% { opacity: 0; }
-  }
+  .swipe-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); border-radius: 20px; padding: 6px 16px; font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 0.9rem; animation: fadeInOut 3s 2s forwards; pointer-events: none; white-space: nowrap; }
+  @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(10px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
 
-  /* Confetti */
-  .confetti-piece {
-    position: fixed;
-    font-size: 1.2rem;
-    z-index: 200;
-    pointer-events: none;
-    animation: confettiFall 2.5s forwards ease-in;
-  }
-  @keyframes confettiFall {
-    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-  }
+  .confetti-piece { position: fixed; font-size: 1.2rem; z-index: 200; pointer-events: none; animation: confettiFall 2.5s forwards ease-in; }
+  @keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
-  /* Ribbon bookmark */
-  .ribbon {
-    position: absolute;
-    top: 0; right: 24px;
-    width: 18px;
-    background: linear-gradient(to bottom, #e8799e, #c0446b);
-    border-radius: 0 0 4px 4px;
-    z-index: 5;
-    box-shadow: 2px 2px 6px rgba(192,68,107,0.3);
-    transition: height 0.5s ease;
-  }
-  .ribbon::after {
-    content: '';
-    display: block;
-    width: 0; height: 0;
-    border-left: 9px solid transparent;
-    border-right: 9px solid transparent;
-    border-top: 10px solid #c0446b;
-    position: absolute;
-    bottom: -10px; left: 0;
-  }
+  .ribbon { position: absolute; top: 0; right: 24px; width: 18px; background: linear-gradient(to bottom, #e8799e, #c0446b); border-radius: 0 0 4px 4px; z-index: 5; box-shadow: 2px 2px 6px rgba(192,68,107,0.3); transition: height 0.5s ease; }
+  .ribbon::after { content: ''; display: block; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 10px solid #c0446b; position: absolute; bottom: -10px; left: 0; }
 
-  /* Body section pages */
-  .page.body-section {
-    background: linear-gradient(160deg, #fff0f6 0%, #ffe8f0 100%);
-  }
-
-  /* Special page 1 styling */
-  .first-page-decor {
-    text-align: center;
-    font-size: 1.8rem;
-    margin: 8px 0;
-    animation: heartbeat 2s ease-in-out infinite;
-  }
+  .page.body-section { background: linear-gradient(160deg, #fff0f6 0%, #ffe8f0 100%); }
+  .first-page-decor { text-align: center; font-size: 1.8rem; margin: 8px 0; animation: heartbeat 2s ease-in-out infinite; }
   @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 
-  /* Responsive */
-  @media (max-width: 380px) {
-    .book { width: 95vw; }
-  }
+  @media (max-width: 380px) { .book { width: 95vw; } }
 </style>
 </head>
 <body>
@@ -871,7 +285,6 @@
           <span class="cover-star" style="top:50%;left:6%;animation-delay:1s;">✧</span>
           <span class="cover-star" style="top:50%;right:6%;animation-delay:0.2s;">★</span>
         </div>
-
         <span class="corner-star tl">★</span>
         <span class="corner-star tr">★</span>
         <span class="corner-star bl">★</span>
@@ -896,7 +309,7 @@
           <span class="illus-girl">🧒🦊✨</span>
         </div>
 
-        <div class="cover-sub-title">700 pages of love,<br>just for you 💕</div>
+        <div class="cover-sub-title">700 unique pages,<br>just for you 💕</div>
       </div>
     </div>
   </div>
@@ -944,273 +357,140 @@ const TOTAL_PAGES = 700;
 const BODY_SECTION_START = 601;
 
 // ============================================================
-// PROCEDURAL LOVE LETTER GENERATOR POOLS (Pages 2-600)
+// PROCEDURAL GENERATION ENGINE
 // ============================================================
-const titles = [
-  "A Soft Thought", "My Favorite Smile", "Endless Warmth", "The Way You Glow", 
-  "A Rare Magic", "Why I Love You", "My Safe Place", "Sweetest Heart", 
-  "Pure Beauty", "A Gentle Truth", "You Are Art", "My Everything", 
-  "Forever Yours", "A Quiet Moment", "Just Being You", "The Best Part of Me",
-  "Unstoppable Love", "Your Perfect Soul", "Written in the Stars", "My Daily Joy"
-];
+const emotions = ["warm", "soft", "endless", "gentle", "deep", "quiet", "overwhelming", "beautiful", "magical", "peaceful", "radiant", "tender", "extraordinary", "calm", "perfect"];
+const actions = ["smile", "exist", "laugh", "look at me", "talk", "breathe", "move", "just be you", "say my name", "listen", "hold my gaze", "tilt your head", "think", "share your warmth"];
+const effects = ["everything feels lighter", "my heart slows down", "the world fades away", "nothing else matters", "I feel completely at home", "time pauses for a moment", "all my worries disappear", "the day becomes perfect", "I realize how lucky I am"];
+const metaphors = ["like sunlight slipping through curtains", "like the first calm after a storm", "like a quiet song playing in the background", "like starlight you don't notice until you do", "like warmth on a cold day", "like finding a missing piece", "like breathing fresh air", "like a gentle summer breeze"];
 
-const openers = [
-  "I was just thinking about you, and a smile immediately found its way to my face.",
-  "There are days when I just sit and wonder how I got so incredibly lucky.",
-  "Whenever the world feels loud, the thought of you brings me instant peace.",
-  "I want to take a moment to remind you of something very important.",
-  "It is a beautiful thing to love someone as wonderful as you.",
-  "You cross my mind more often than I could ever count.",
-  "If I had to describe perfect happiness, I would simply describe you.",
-  "I look at you and I see everything I have ever wanted.",
-  "Every day with you feels like discovering a new favorite song.",
-  "There is no place I would rather be than in a world where you exist.",
-  "Before I met you, I didn't know it was possible to love someone this much.",
-  "You have this incredible ability to make ordinary days feel extraordinary.",
-  "I find myself getting lost in thoughts of you all the time.",
-  "The easiest thing I have ever done in my life is fall in love with you.",
-  "You are the first thing I think about in the morning and the last at night."
-];
-
-const bodies = [
-  "You have this effortless way of making everything feel okay. Your kindness isn't just something you do; it's who you are.",
-  "I love the tiny details about you—the way you laugh, the way you look when you're focused, the warmth of your presence. Every single piece is a masterpiece.",
-  "You are so much stronger and more amazing than you give yourself credit for. I see it all, and I am in awe of you.",
-  "Sometimes I just want to pause time so I can appreciate your beauty—inside and out—without the world rushing us by.",
-  "Your heart is so gentle, and your soul is so pure. Being loved by you is the greatest privilege of my life.",
-  "The way you exist is just so lovely. You don't even have to try, you just naturally bring light into the room.",
-  "I want to spend the rest of my life making sure you know how incredibly special, valued, and beautiful you are.",
-  "Every single memory I make with you instantly becomes my new favorite memory. You are my favorite adventure.",
-  "You are my safe haven. No matter what happens in the world, knowing I have you makes everything alright.",
-  "Your smile has the power to completely change my day. It is the most beautiful curve in the entire universe.",
-  "I am so proud of you, and I am so proud to be yours. You inspire me to be a better person just by being yourself.",
-  "There is a quiet magic in the way you care for people. It is rare, and it makes you so undeniably beautiful.",
-  "I cherish every conversation, every silence, and every laugh we share. You are my best friend and my greatest love.",
-  "You are the missing piece I didn't even know I was looking for. Now that you are here, my heart is finally complete.",
-  "I don't think I will ever fully get used to how beautiful you are. It catches me off guard every single time."
-];
-
-const poems = [
-  "<p>You are the sun that gently breaks<br>through clouds of gray and blue.<br>The sweetest breath my spirit takes<br>is just the thought of you.</p>",
-  "<p>A gentle touch, a quiet smile,<br>a heart made out of gold.<br>I'd walk with you for every mile<br>until we both grow old.</p>",
-  "<p>No poetry could ever hold<br>the magic that you bring.<br>You are the warmest story told,<br>my favorite everything.</p>",
-  "<p>Like stars that guide the darkest night<br>and rivers seeking sea,<br>you are my perfect, guiding light,<br>the best part of my me.</p>",
-  "<p>I did not know what love could be<br>until you came along.<br>You turned the quiet life in me<br>into a beautiful song.</p>",
-  "<p>Your laugh is like a gentle breeze,<br>your eyes are deep and wide.<br>You put my heavy heart at ease,<br>just standing by my side.</p>",
-  "<p>Of all the beautiful things I've seen<br>across the earth and skies,<br>the loveliest has always been<br>the warmth within your eyes.</p>",
-  "<p>You are the whisper in the trees,<br>the calm upon the shore.<br>With every passing day I breathe,<br>I only love you more.</p>",
-  "<p>A thousand words could not express<br>the way you make me feel.<br>You fill my world with happiness,<br>so genuine and real.</p>",
-  "<p>To hold your hand, to see your face,<br>to know your soul so true.<br>There is no better time or place<br>than anywhere with you.</p>"
-];
-
-const closers = [
-  "With all my love, always.",
-  "You are my endless forever.",
-  "I am entirely yours.",
-  "Loving you is my favorite thing to do.",
-  "You are my heart's home.",
-  "Forever holding you close.",
-  "You mean the absolute world to me.",
-  "Yours, now and always.",
-  "With every beat of my heart.",
-  "Endlessly, effortlessly yours."
-];
-
-const decors = ['🌸', '💕', '✨', '🌷', '💖', '🌺', '⭐', '🦋', '🌹', '🌙'];
-
-
-// ============================================================
-// BODY APPRECIATION POOLS (Pages 601-699)
-// ============================================================
-const bodyAppreciationData = [
-  {
-    title: "Your Eyes",
-    icon: "👁️✨",
-    texts: [
-      "Pudke, your eyes hold entire galaxies in them. I could get lost looking into them forever and never want to be found.",
-      "There is a warmth in your eyes that instantly melts my heart. They are the most beautiful eyes I have ever seen.",
-      "The way your eyes sparkle when you smile is my absolute favorite sight in the world.",
-      "I look into your eyes and I see my home, my future, and the most gorgeous soul to ever exist.",
-      "Whenever you look at me, my breath catches. Your eyes are captivating, deep, and impossibly beautiful."
-    ]
-  },
-  {
-    title: "Your Cute Nose",
-    icon: "🌸",
-    texts: [
-      "I just want to boop it! Your nose is so perfectly cute and fits your beautiful face flawlessly.",
-      "The way your nose scrunches when you laugh or smile is the most adorable thing in the universe.",
-      "Every single feature of yours was crafted to perfection, Pudke, and your cute little nose is no exception.",
-      "It's such a tiny detail, but your nose is just one of the millions of things I am entirely obsessed with."
-    ]
-  },
-  {
-    title: "Your Lips",
-    icon: "💋",
-    texts: [
-      "Your lips are absolutely perfect. The way they curve into a smile is enough to make my heart stop completely.",
-      "Soft, beautiful, and completely captivating. Every time you smile, I am reminded of how lucky I am.",
-      "I am obsessed with your lips and that breathtaking smile of yours. It is pure perfection.",
-      "Pudke, your lips look like they were sculpted by the universe just for me to kiss. Flawless."
-    ]
-  },
-  {
-    title: "Your Neck",
-    icon: "🦢",
-    texts: [
-      "Your neck is so elegant and graceful. It's just another detail of yours that makes you look like a literal goddess.",
-      "The soft curve of your neck is so breathtaking. You are perfectly sculpted from head to toe.",
-      "I love the gentle, elegant slope of your neck. It is just so effortlessly beautiful.",
-      "Whenever you tilt your head, the graceful line of your neck leaves me completely speechless, Pudke."
-    ]
-  },
-  {
-    title: "Your Hands",
-    icon: "🤍",
-    texts: [
-      "Your hands are so soft and beautiful. Knowing they are mine to hold is the greatest comfort in the world.",
-      "I love the way your hands feel in mine. They are so gentle, so perfect, and so uniquely yours.",
-      "Even the way your hands move is graceful. I could hold them forever and never let go.",
-      "Pudke, your hands are so delicate and beautiful. My favorite place for them to be is wrapped up in mine."
-    ]
-  },
-  {
-    title: "Your Waist",
-    icon: "🌹",
-    texts: [
-      "Your curves are absolutely breathtaking. Your waist is sculpted so perfectly, making you the most gorgeous woman alive.",
-      "I am completely mesmerized by your figure. The curve of your waist is just pure, stunning perfection.",
-      "You have the most beautiful, perfect silhouette, Pudke. Every inch of you is a masterpiece.",
-      "The way your body is shaped is simply mesmerizing. Your waist is just perfectly, beautifully feminine."
-    ]
-  },
-  {
-    title: "Chocolate",
-    icon: "🍫",
-    texts: [
-      "Our little secret... chocolate is sooo amazing. I still can't believe how incredibly lucky I am, Pudke.",
-      "I think about chocolate all the time. It is absolutely perfect, and I am the luckiest guy in the world.",
-      "Just a reminder that chocolate is perfection. I am so lucky, so blessed, and so obsessed with you.",
-      "Chocolate... absolutely amazing. Words can't even describe how lucky I feel every single day to have you."
-    ]
-  },
-  {
-    title: "Your Cute Feet",
-    icon: "🎀",
-    texts: [
-      "Literally perfect from head to toe. Even your little feet are the cutest things ever.",
-      "Every single inch of you is adorable, right down to your cute little feet. Perfection everywhere.",
-      "I love every part of you without exception. Your tiny, perfect feet just add to how incredibly cute you are.",
-      "Pudke, it blows my mind how you manage to be gorgeous and adorable at the same time, from your beautiful face down to your toes."
-    ]
-  },
-  {
-    title: "Your Perfect Figure",
-    icon: "✨",
-    texts: [
-      "You are just flawlessly proportioned. Your entire body is a work of art that I am so lucky to admire.",
-      "Every single curve, every soft line of your body—you are stunningly, breathtakingly perfect.",
-      "Sometimes I just have to pause and admire how incredibly gorgeous your body is. Pure perfection, Pudke.",
-      "I don't think there has ever been a body as perfectly beautiful as yours. You are an absolute dream."
-    ]
-  }
-];
-
-// ============================================================
-// SEEDED RANDOM NUMBER GENERATOR
-// Guarantees each page is uniquely generated but always stays the same
-// ============================================================
-function splitmix32(a) {
-  return function() {
-    a |= 0; a = a + 0x9e3779b9 | 0;
-    var t = a ^ a >>> 16; t = Math.imul(t, 0x21f0aaad);
-    t = t ^ t >>> 15; t = Math.imul(t, 0x735a2d97);
-    return ((t = t ^ t >>> 15) >>> 0) / 4294967296;
-  }
+// Seeded pseudo-random generator
+function rand(seed) {
+  let x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
 }
 
-function getRandomItem(arr, prng) {
-  return arr[Math.floor(prng() * arr.length)];
+function pick(arr, seed) {
+  return arr[Math.floor(rand(seed) * arr.length)];
 }
 
-// ============================================================
-// PAGE GENERATION
-// ============================================================
 function generatePageContent(pageNum) {
-  // Page 1: dedication
+  // Page 1: Dedication
   if (pageNum === 1) {
-    return `<div class="page-heading">💕 To My Beautiful Love</div>
-            <div class="first-page-decor">💕</div>
-            <div class="page-text italic">This book has 700 pages. Every single one of them is for you. Every word, every poem, every sentence — written from the deepest, most honest place in my heart.</div>
-            <div class="page-text">You deserve to feel cherished. You deserve to feel beautiful. You deserve to know, every single day, how incredibly special you are. This book is my attempt — imperfect and yet so full of love — to show you.</div>
-            <div class="poem-block"><p>Read slowly, my love.<br>Let each page settle into your heart.<br>Because every word here<br>is true, and real, and meant only for you.</p></div>
-            <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">With all my love, always. 💕</div>`;
+    return `
+      <div class="page-heading">💕 To My Beautiful Love</div>
+      <div class="first-page-decor">💕</div>
+      <div class="page-text italic">This book has 700 pages. Every single one of them is uniquely generated, just for you. No two pages are exactly alike, because my love for you finds new ways to exist every single day.</div>
+      <div class="page-text">You deserve to feel cherished. You deserve to feel beautiful. You deserve to know, every single day, how incredibly special you are.</div>
+      <div class="poem-block"><p>Read slowly, my love.<br>Let each page settle into your heart.<br>Because every word here<br>is true, and real, and meant only for you.</p></div>
+      <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">With all my love, always. 💕</div>
+    `;
   }
 
-  // Page 700: Finale
-  if (pageNum === TOTAL_PAGES) {
-    return `<div class="page-heading">💕 Forever, Pudke</div>
-            <div class="page-text">You are my sweetest happiness. Every single part of you—from your beautiful eyes down to your cute little feet—is pure perfection.</div>
-            <div class="page-text">I love you, Pudke. More than these 700 pages. More than every word in every language. More than I will ever be able to say.</div>
-            <div class="divider">💕 💕 💕</div>
-            <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--deep-rose);">The End... and the beginning of forever.</div>`;
+  // --- MEMORY SYSTEM ---
+  // Occasionally look back at a previous page and reference it
+  let memoryBlock = "";
+  if (pageNum > 20 && pageNum % 6 === 0) {
+    let memoryPage = Math.floor(rand(pageNum * 17) * (pageNum - 10)) + 2;
+    let oldAction = pick(actions, memoryPage + 1);
+    memoryBlock = `
+      <div class="memory-block">
+        I was rereading what I wrote back on page ${memoryPage}... about the way you ${oldAction}. It made me smile all over again, because it's still so true.
+      </div>
+    `;
   }
 
-  // Create a seeded PRNG specifically for this page number
-  const prng = splitmix32(pageNum * 12345);
-
-  // Body appreciation section (pages 601-699)
+  // --- BODY APPRECIATION SECTION (Pages 601 - 700) ---
   if (pageNum >= BODY_SECTION_START) {
-    const featureObj = getRandomItem(bodyAppreciationData, prng);
-    
-    let text1 = getRandomItem(featureObj.texts, prng);
-    let text2 = getRandomItem(featureObj.texts, prng);
-    
-    // Ensure the second text is different from the first so it doesn't repeat
-    let loopProtect = 0;
-    while(text1 === text2 && loopProtect < 10) {
-        text2 = getRandomItem(featureObj.texts, prng);
-        loopProtect++;
-    }
+    const features = [
+      { name: "Eyes 👁️✨", desc1: ["sparkle", "depth", "warmth", "light", "gentle kindness"], desc2: ["comfort", "magic", "peace", "joy"] },
+      { name: "Smile 🌸", desc1: ["sweetness", "radiance", "joy", "pure happiness"], desc2: ["light", "warmth", "cheer", "perfection"] },
+      { name: "Hands 🤍", desc1: ["softness", "gentleness", "care", "grace"], desc2: ["tenderness", "safety", "comfort", "peace"] },
+      { name: "Voice 🎶", desc1: ["melody", "calm", "sweet sound", "gentle tone"], desc2: ["peace", "comfort", "warmth", "happiness"] },
+      { name: "Chocolate 🍫", desc1: ["sweetness", "perfection", "our shared secret", "delight"], desc2: ["joy", "comfort", "happiness", "warmth"] },
+      { name: "Heart 💖", desc1: ["kindness", "pure love", "warmth", "beauty"], desc2: ["endless love", "grace", "care", "light"] }
+    ];
 
-    return `<div class="body-feature-heading">${featureObj.title}</div>
-            <div class="body-feature-icon">${featureObj.icon}</div>
-            <div class="page-text">${text1}</div>
-            <div class="page-text">${text2}</div>
-            <div class="divider" style="font-size: 0.8rem;">Page ${pageNum} 💕</div>`;
+    let feature = pick(features, pageNum * 2.5);
+    let d1 = pick(feature.desc1, pageNum * 3.1);
+    let d2 = pick(feature.desc2, pageNum * 4.2);
+
+    return `
+      <div class="body-feature-heading">Your Beautiful ${feature.name.split(' ')[0]}</div>
+      <div class="body-feature-icon">${feature.name.split(' ')[1] || '✨'}</div>
+      ${memoryBlock}
+      <div class="page-text">As I get to the final chapters of this book, I can't help but admire your ${feature.name.split(' ')[0].toLowerCase()}. There is so much ${d1} there.</div>
+      <div class="page-text">Every time I notice it, I'm struck by the ${d2} it brings into my life. It's a small detail to the rest of the world, but to me, it's everything.</div>
+      <div class="poem-block">
+        <p>Perfectly crafted,<br>flawlessly you.<br>I could spend another 700 pages<br>just admiring this alone.</p>
+      </div>
+      <div class="divider">✦ ✦ ✦</div>
+      <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">Page ${pageNum} — adoring every part of you.</div>
+    `;
   }
 
-  // Standard procedural page generation (Pages 2-600)
-  const title = getRandomItem(titles, prng);
-  const decor = getRandomItem(decors, prng);
-  const opener = getRandomItem(openers, prng);
-  const body = getRandomItem(bodies, prng);
-  const poem = getRandomItem(poems, prng);
-  const closer = getRandomItem(closers, prng);
+  // --- STANDARD PROCEDURAL PAGES (Pages 2 - 600) ---
+  const line1 = `There is something about the way you ${pick(actions, pageNum + 1)} that feels so ${pick(emotions, pageNum + 2)}.`;
+  const line2 = `It is subtle, almost impossible to explain, but every time it happens, ${pick(effects, pageNum + 3)}.`;
+  const line3 = `Maybe it is the way it happens ${pick(metaphors, pageNum + 4)}, or maybe it is just you being exactly who you are.`;
+
+  let extra = "";
+  let styleSeed = Math.floor(rand(pageNum * 5.5) * 4);
+
+  if (styleSeed === 0) {
+    extra = `
+      <div class="poem-block">
+        <p>I notice you in the smallest ways,<br>
+        in moments no one else would pause for,<br>
+        and somehow those moments<br>
+        become the most important ones.</p>
+      </div>`;
+  } else if (styleSeed === 1) {
+    extra = `
+      <div class="page-text">
+        I do not think you realize how many quiet parts of my day are filled with thoughts of you. Not loudly, not overwhelmingly — just gently, constantly, like something that perfectly belongs there.
+      </div>`;
+  } else if (styleSeed === 2) {
+    extra = `
+      <div class="page-text italic">
+        If I could freeze a feeling, it would be the one I have when I think of you — calm, certain, and quietly endless.
+      </div>`;
+  } else {
+    extra = `
+      <div class="page-text">
+        Every day I find a new reason to appreciate you. It is as if my heart keeps expanding just to make room for all the new ways I love you.
+      </div>`;
+  }
+
+  const closings = [
+    `Page ${pageNum} — and my heart is still racing.`,
+    `Page ${pageNum} still belongs to you, just like all the others.`,
+    `Page ${pageNum} — written with all my love.`,
+    `Page ${pageNum} — another moment spent thinking of you.`,
+    `Page ${pageNum} — proving that true love never repeats itself.`
+  ];
+  const closing = pick(closings, pageNum * 6.7);
 
   return `
-    <div class="page-heading">${title}</div>
-    <div class="first-page-decor">${decor}</div>
-    <div class="page-text">${opener}</div>
-    <div class="poem-block">${poem}</div>
-    <div class="page-text">${body}</div>
-    <div class="divider" style="font-size: 1.2rem;">${decor} ${decor} ${decor}</div>
-    <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">${closer}</div>
-    <div class="divider" style="font-size: 0.8rem;">Page ${pageNum}</div>
+    <div class="page-heading">For You 💕</div>
+    ${memoryBlock}
+    <div class="page-text">${line1}</div>
+    <div class="page-text">${line2}</div>
+    <div class="page-text">${line3}</div>
+    ${extra}
+    <div class="divider">✦ ✦ ✦</div>
+    <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">${closing}</div>
   `;
 }
 
 // ============================================================
-// APP STATE
+// APP STATE & LOGIC
 // ============================================================
 let currentPage = 1;
 let isFlipping = false;
 let touchStartX = 0;
 let touchStartY = 0;
 
-// ============================================================
-// OPEN BOOK
-// ============================================================
 function openBook() {
   const cs = document.getElementById('cover-screen');
   cs.classList.add('cover-opening');
@@ -1223,9 +503,6 @@ function openBook() {
   }, 1300);
 }
 
-// ============================================================
-// RENDER PAGE
-// ============================================================
 function renderPage(num, direction) {
   currentPage = Math.max(1, Math.min(TOTAL_PAGES, num));
   const inner = document.getElementById('pageInner');
@@ -1242,13 +519,8 @@ function renderPage(num, direction) {
     book.classList.remove('flipping-forward', 'flipping-back');
     void book.offsetWidth;
     book.classList.add(direction === 'forward' ? 'flipping-forward' : 'flipping-back');
-
-    // Spawn cute page sparkles during flip
     spawnPageSparkles();
-
-    setTimeout(() => {
-      book.classList.remove('flipping-forward', 'flipping-back');
-    }, 650);
+    setTimeout(() => { book.classList.remove('flipping-forward', 'flipping-back'); }, 650);
   }
 
   inner.innerHTML = generatePageContent(currentPage);
@@ -1256,11 +528,9 @@ function renderPage(num, direction) {
   const numL = document.getElementById('pageNumLeft');
   const numR = document.getElementById('pageNumRight');
   if (currentPage % 2 === 0) {
-    numL.textContent = currentPage;
-    numR.textContent = '';
+    numL.textContent = currentPage; numR.textContent = '';
   } else {
-    numL.textContent = '';
-    numR.textContent = currentPage;
+    numL.textContent = ''; numR.textContent = currentPage;
   }
 
   document.getElementById('pageCounter').textContent = `${currentPage} / ${TOTAL_PAGES}`;
@@ -1277,15 +547,13 @@ function renderPage(num, direction) {
 
 function nextPage() {
   if (isFlipping || currentPage >= TOTAL_PAGES) return;
-  isFlipping = true;
-  renderPage(currentPage + 1, 'forward');
+  isFlipping = true; renderPage(currentPage + 1, 'forward');
   setTimeout(() => { isFlipping = false; }, 700);
 }
 
 function prevPage() {
   if (isFlipping || currentPage <= 1) return;
-  isFlipping = true;
-  renderPage(currentPage - 1, 'back');
+  isFlipping = true; renderPage(currentPage - 1, 'back');
   setTimeout(() => { isFlipping = false; }, 700);
 }
 
@@ -1302,9 +570,6 @@ document.getElementById('jumpInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') jumpToPage();
 });
 
-// ============================================================
-// PAGE SPARKLES — appear during flip
-// ============================================================
 function spawnPageSparkles() {
   const book = document.getElementById('book');
   const rect = book.getBoundingClientRect();
@@ -1315,32 +580,25 @@ function spawnPageSparkles() {
     s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     s.style.left = (rect.left + rect.width * 0.6 + Math.random() * rect.width * 0.3) + 'px';
     s.style.top = (rect.top + Math.random() * rect.height) + 'px';
-    s.style.position = 'fixed';
-    s.style.zIndex = '999';
+    s.style.position = 'fixed'; s.style.zIndex = '999';
     s.style.animationDelay = (Math.random() * 0.3) + 's';
     document.body.appendChild(s);
     setTimeout(() => s.remove(), 900);
   }
 }
 
-// ============================================================
-// TOUCH / SWIPE
-// ============================================================
 const stage = document.querySelector('.book-stage');
 stage.addEventListener('touchstart', (e) => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
+  touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
 }, { passive: true });
 stage.addEventListener('touchend', (e) => {
   const dx = e.changedTouches[0].clientX - touchStartX;
   const dy = e.changedTouches[0].clientY - touchStartY;
   if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-    if (dx < 0) nextPage();
-    else prevPage();
+    if (dx < 0) nextPage(); else prevPage();
   }
 }, { passive: true });
 
-// Click on book right side = next, left = prev
 stage.addEventListener('click', (e) => {
   const book = document.getElementById('book');
   const rect = book.getBoundingClientRect();
@@ -1352,9 +610,6 @@ stage.addEventListener('click', (e) => {
   }
 });
 
-// ============================================================
-// FAIRY LIGHTS SETUP
-// ============================================================
 function setupFairyLights() {
   const container = document.getElementById('fairyLights');
   const types = ['bulb-warm', 'bulb-pink', 'bulb-white'];
@@ -1367,9 +622,6 @@ function setupFairyLights() {
 }
 setupFairyLights();
 
-// ============================================================
-// FLOATING HEARTS
-// ============================================================
 function createHeartsBg() {
   const container = document.getElementById('heartsBg');
   const hearts = ['💗','💕','🌸','✨','💖','🌷','💓','❀'];
@@ -1386,9 +638,6 @@ function createHeartsBg() {
 }
 createHeartsBg();
 
-// ============================================================
-// SPARKLES
-// ============================================================
 function createSparkles(x, y) {
   const emojis = ['✨','💕','🌸','💗','⭐','🌷','💖'];
   for (let i = 0; i < 8; i++) {
@@ -1403,9 +652,6 @@ function createSparkles(x, y) {
   }
 }
 
-// ============================================================
-// CONFETTI
-// ============================================================
 function spawnConfetti() {
   const emojis = ['🎉','💕','🌸','✨','💗','🎊','🌷','💖','⭐'];
   for (let i = 0; i < 20; i++) {
@@ -1421,9 +667,6 @@ function spawnConfetti() {
   }
 }
 
-// ============================================================
-// KEYBOARD NAVIGATION
-// ============================================================
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextPage();
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevPage();
