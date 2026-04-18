@@ -180,7 +180,7 @@
 
   .book-stage { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; perspective: 1500px; overflow: hidden; position: relative; }
 
-  .book { width: min(340px, 95vw); height: min(520px, calc(100vh - 130px)); position: relative; transform-style: preserve-3d; }
+  .book { width: min(340px, 95vw); height: min(560px, calc(100vh - 120px)); position: relative; transform-style: preserve-3d; }
   .book::after { content: ''; position: absolute; bottom: -16px; left: 5%; right: 5%; height: 18px; background: radial-gradient(ellipse, rgba(192,68,107,0.25) 0%, transparent 70%); border-radius: 50%; }
 
   .page-container { position: absolute; inset: 0; transform-style: preserve-3d; }
@@ -222,24 +222,28 @@
   .page-num-display.left { left: 18px; }
   .page-num-display.right { right: 18px; }
 
-  .page-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.3rem, 5vw, 1.7rem); color: var(--deep-rose); text-align: center; margin-bottom: 16px; line-height: 1.3; }
-  .page-text { font-family: 'Lora', serif; font-size: clamp(0.82rem, 3.2vw, 0.95rem); color: var(--text); line-height: 1.85; text-align: justify; margin-bottom: 14px; }
+  .page-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.4rem, 5vw, 1.8rem); color: var(--deep-rose); text-align: center; margin-bottom: 18px; line-height: 1.3; font-weight: 700; text-shadow: 0 1px 2px rgba(255,255,255,0.8); }
+  .page-text { font-family: 'Lora', serif; font-size: clamp(0.85rem, 3.2vw, 0.98rem); color: var(--text); line-height: 1.9; text-align: justify; margin-bottom: 16px; }
   .page-text.italic { font-style: italic; }
-  .poem-block { background: linear-gradient(135deg, rgba(249,200,217,0.3), rgba(232,121,158,0.1)); border-left: 3px solid var(--rose); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
-  .poem-block p { font-family: 'Lora', serif; font-style: italic; font-size: clamp(0.8rem, 3vw, 0.9rem); color: var(--deep-rose); line-height: 2; margin: 0; text-align: center; }
-  .divider { text-align: center; margin: 16px 0; color: var(--rose); font-size: 1.1rem; opacity: 0.6; letter-spacing: 6px; }
-  .body-feature-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.2rem, 4.5vw, 1.5rem); color: var(--deep-rose); text-align: center; margin: 12px 0 10px; }
-  .body-feature-icon { text-align: center; font-size: 1.8rem; margin: 8px 0; }
-  .memory-block { color: var(--deep-rose); font-style: italic; border-left: 2px solid var(--rose); padding-left: 10px; margin-bottom: 14px; font-size: 0.85rem; }
+  
+  .flirty-callout { font-family: 'Lora', serif; font-size: 0.95rem; color: var(--deep-rose); font-weight: 600; text-align: center; margin: 18px 0; padding: 10px; border-top: 1px dashed var(--rose); border-bottom: 1px dashed var(--rose); }
+  
+  .poem-block { background: linear-gradient(135deg, rgba(249,200,217,0.35), rgba(232,121,158,0.15)); border-left: 3px solid var(--rose); border-radius: 0 12px 12px 0; padding: 18px 20px; margin: 20px 0; box-shadow: 2px 4px 10px rgba(192,68,107,0.05); }
+  .poem-block p { font-family: 'Lora', serif; font-style: italic; font-size: clamp(0.85rem, 3vw, 0.95rem); color: var(--deep-rose); line-height: 2.2; margin: 0; text-align: center; }
+  
+  .divider { text-align: center; margin: 20px 0; color: var(--rose); font-size: 1.2rem; opacity: 0.6; letter-spacing: 6px; }
+  .body-feature-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.4rem, 4.5vw, 1.7rem); color: var(--deep-rose); text-align: center; margin: 14px 0 12px; font-weight: 700; }
+  .body-feature-icon { text-align: center; font-size: 2rem; margin: 10px 0; animation: gentleFloat 3s ease-in-out infinite; }
+  .memory-block { color: var(--deep-rose); font-style: italic; border-left: 2px solid var(--rose); padding-left: 12px; margin-bottom: 18px; font-size: 0.9rem; background: rgba(255,255,255,0.4); padding: 10px 12px; border-radius: 0 8px 8px 0; }
 
   .nav-bar { width: 100%; padding: 10px 20px; display: flex; align-items: center; justify-content: center; gap: 20px; background: rgba(255,255,255,0.4); backdrop-filter: blur(10px); border-top: 1px solid rgba(232,121,158,0.2); flex-shrink: 0; }
   .nav-btn { background: linear-gradient(135deg, var(--rose), var(--deep-rose)); border: none; color: white; border-radius: 50px; padding: 10px 28px; font-family: 'Dancing Script', cursive; font-size: 1.05rem; cursor: pointer; box-shadow: 0 4px 15px rgba(192,68,107,0.3); transition: all 0.2s; display: flex; align-items: center; gap: 6px; user-select: none; }
   .nav-btn:active { transform: scale(0.95); box-shadow: 0 2px 8px rgba(192,68,107,0.2); }
   .nav-btn:disabled { opacity: 0.4; cursor: default; }
 
-  .progress-bar { position: absolute; bottom: 0; left: 0; height: 2px; background: linear-gradient(to right, var(--rose), var(--deep-rose)); transition: width 0.4s ease; border-radius: 0 2px 2px 0; }
+  .progress-bar { position: absolute; bottom: 0; left: 0; height: 3px; background: linear-gradient(to right, #ff99bb, var(--deep-rose)); transition: width 0.4s ease; border-radius: 0 2px 2px 0; }
 
-  .swipe-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.75); backdrop-filter: blur(8px); border-radius: 20px; padding: 6px 16px; font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 0.9rem; animation: fadeInOut 3s 2s forwards; pointer-events: none; white-space: nowrap; }
+  .swipe-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-radius: 20px; padding: 6px 16px; font-family: 'Dancing Script', cursive; color: var(--deep-rose); font-size: 0.95rem; animation: fadeInOut 3s 2s forwards; pointer-events: none; white-space: nowrap; box-shadow: 0 2px 10px rgba(192,68,107,0.15); }
   @keyframes fadeInOut { 0% { opacity: 0; transform: translateX(-50%) translateY(10px); } 20% { opacity: 1; transform: translateX(-50%) translateY(0); } 70% { opacity: 1; } 100% { opacity: 0; } }
 
   .confetti-piece { position: fixed; font-size: 1.2rem; z-index: 200; pointer-events: none; animation: confettiFall 2.5s forwards ease-in; }
@@ -249,8 +253,8 @@
   .ribbon::after { content: ''; display: block; width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 10px solid #c0446b; position: absolute; bottom: -10px; left: 0; }
 
   .page.body-section { background: linear-gradient(160deg, #fff0f6 0%, #ffe8f0 100%); }
-  .first-page-decor { text-align: center; font-size: 1.8rem; margin: 8px 0; animation: heartbeat 2s ease-in-out infinite; }
-  @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+  .first-page-decor { text-align: center; font-size: 2.2rem; margin: 12px 0; animation: heartbeat 2s ease-in-out infinite; }
+  @keyframes heartbeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 
   @media (max-width: 380px) { .book { width: 95vw; } }
 </style>
@@ -357,57 +361,77 @@ const TOTAL_PAGES = 700;
 const BODY_SECTION_START = 601;
 
 // ============================================================
-// PROCEDURAL GENERATION ENGINE
+// EXPANDED PROCEDURAL GENERATION ENGINE
 // ============================================================
-const emotions = ["warm", "soft", "endless", "gentle", "deep", "quiet", "overwhelming", "beautiful", "magical", "peaceful", "radiant", "tender", "extraordinary", "calm", "perfect"];
-const actions = ["smile", "exist", "laugh", "look at me", "talk", "breathe", "move", "just be you", "say my name", "listen", "hold my gaze", "tilt your head", "think", "share your warmth"];
-const effects = ["everything feels lighter", "my heart slows down", "the world fades away", "nothing else matters", "I feel completely at home", "time pauses for a moment", "all my worries disappear", "the day becomes perfect", "I realize how lucky I am"];
-const metaphors = ["like sunlight slipping through curtains", "like the first calm after a storm", "like a quiet song playing in the background", "like starlight you don't notice until you do", "like warmth on a cold day", "like finding a missing piece", "like breathing fresh air", "like a gentle summer breeze"];
 
-// === POEM GENERATION ARRAYS ===
+// The Setup: What are you doing?
+const actions = [
+  "bite your lip when you're thinking", "tuck your hair behind your ear", "give me that specific, knowing look", 
+  "laugh at my terrible jokes", "lean into my touch", "steal a glance at me when you think I'm not looking", 
+  "say my name in that soft, quiet tone", "just exist in the same room as me", "smile that incredibly distracting smile",
+  "breathe softly while you're resting", "tilt your head and look up at me", "get all passionate about something you love",
+  "playfully roll your eyes at me", "hold my gaze just a second longer than normal", "casually touch my arm"
+];
+
+// The Emotion: How does it feel?
+const emotions = [
+  "intoxicating", "maddeningly cute", "breath-taking", "deeply comforting", "wildly magnetic", 
+  "undeniably perfect", "soul-soothing", "completely overwhelming in the best way", "heart-stopping",
+  "insanely attractive", "warm and endlessly safe", "purely magical", "dangerously distracting", "effortlessly beautiful"
+];
+
+// The Impact: What does it do to me?
+const effects = [
+  "I forget how to form coherent sentences", "I just want to pull you close and never let go", 
+  "my heart does this ridiculous, erratic little flip", "I realize I am completely ruined for anyone else",
+  "the rest of the world just fades out to static", "I catch myself grinning like an absolute idiot",
+  "my chest gets tight with how much I adore you", "I lose my train of thought completely",
+  "I feel an overwhelming urge to just kiss you", "I am reminded exactly why I fell for you in the first place"
+];
+
+// The Metaphor: What is it like?
+const metaphors = [
+  "like gravity pulling me directly to you", "like an addictive melody I can't get out of my head", 
+  "like coming home to a warm fire after a freezing day", "like the rush of a first kiss all over again",
+  "like finding the one piece of the puzzle I didn't know was missing", "like sunlight suddenly breaking through dark clouds",
+  "like a quiet secret only the two of us know", "like a sudden drop on a roller coaster, but in my heart"
+];
+
+// The Flirty Confession: Direct addressing
+const flirtyThoughts = [
+  "Honestly, it's completely unfair how gorgeous you are.",
+  "I spend an embarrassing amount of time thinking about your lips.",
+  "You have this ridiculous power over me, and the crazy part is, I absolutely love it.",
+  "If you keep looking at me like that, I won't be held responsible for how many times I kiss you.",
+  "Just a warning: I am hopelessly, irreversibly obsessed with you.",
+  "I don't think you realize how desperately I want to pull you into my arms right now.",
+  "You are entirely too tempting for my own good.",
+  "Every time you get close, it takes all my willpower to behave myself.",
+  "I could stare at you for hours and still feel like I haven't had enough."
+];
+
+// The Lingering Thought: Romantic conclusion
+const deepThoughts = [
+  "I never knew a single person could take up so much space in my mind, but I wouldn't have it any other way.",
+  "You are the best part of my every day. Not just the good days, but all of them.",
+  "I look at you and I see everything I could ever want in this life.",
+  "Loving you isn't just something I do; it's become a fundamental part of who I am.",
+  "I am so entirely yours, in ways I don't even know how to explain.",
+  "I hope you can feel how much I love you, even in the quiet moments between us."
+];
+
+// === 4-LINE POEM GENERATION ARRAYS ===
 const poemLine1 = [
-  "Like a gentle morning breeze,",
-  "In the softest evening light,",
-  "Whenever you look my way,",
-  "Just the thought of your smile,",
-  "Hidden in a quiet moment,",
-  "When the stars begin to shine,",
-  "Like a sweet, familiar song,",
-  "With every single breath,",
-  "More beautiful than words,",
-  "A warmth across the room,",
-  "Like magic in the air,",
-  "Whenever you say my name,"
+  "A single glance, a heavy breath,", "The way the light falls on your skin,", "A whispered word, a gentle touch,", "When quiet moments pull me in,", "A shifting gaze, a sudden spark,", "Your silhouette against the light,"
 ];
-
 const poemLine2 = [
-  "the world just softly pauses,",
-  "my heart skips a tiny beat,",
-  "everything turns to gold,",
-  "all my worries simply fade,",
-  "a sweet peace fills my soul,",
-  "time itself slows right down,",
-  "the universe feels so small,",
-  "sunlight dances around us,",
-  "my favorite dream comes true,",
-  "everything perfectly aligns,",
-  "my spirit instantly lifts,",
-  "the shadows slip away,"
+  "The rhythm of my racing chest,", "A sweet surrender I begin,", "My defenses slowly crumbling down,", "I lose exactly where I end,", "A fire ignites inside the dark,", "My favorite kind of sleepless night,"
 ];
-
 const poemLine3 = [
-  "and I am perfectly yours.",
-  "just simply because of you.",
-  "forever completely in love.",
-  "and nothing else matters now.",
-  "showing me what love means.",
-  "and I wouldn't change a thing.",
-  "proving you are my dream.",
-  "and my world becomes whole.",
-  "and my heart finds its home.",
-  "because you are my everything.",
-  "wrapped entirely in your love.",
-  "and I am exactly where I belong."
+  "You draw me near without a sound,", "I lean into the warmth you bring,", "My eyes are locked, I cannot move,", "A perfect, sweet captivity,", "You smile and steal my breath away,", "I crave the taste of your embrace,"
+];
+const poemLine4 = [
+  "And in your gravity, I am bound.", "You are my absolute everything.", "I'm captivated by your groove.", "And I am exactly where I need to be.", "And I would have it no other way.", "And nothing else could take your place."
 ];
 
 // Seeded pseudo-random generator
@@ -415,19 +439,19 @@ function rand(seed) {
   let x = Math.sin(seed) * 10000;
   return x - Math.floor(x);
 }
-
 function pick(arr, seed) {
   return arr[Math.floor(rand(seed) * arr.length)];
 }
 
-// Generates the unique cute poem for a given page
+// Generates the unique 4-line poem for a given page
 function generatePoem(pageNum) {
   let l1 = pick(poemLine1, pageNum * 12.1);
   let l2 = pick(poemLine2, pageNum * 15.3);
   let l3 = pick(poemLine3, pageNum * 18.7);
+  let l4 = pick(poemLine4, pageNum * 21.4);
   return `
     <div class="poem-block">
-      <p>${l1}<br>${l2}<br>${l3}</p>
+      <p>${l1}<br>${l2}<br>${l3}<br>${l4}</p>
     </div>
   `;
 }
@@ -437,150 +461,115 @@ function generatePageContent(pageNum) {
   if (pageNum === 1) {
     return `
       <div class="page-heading">💕 To My Beautiful Love</div>
-      <div class="first-page-decor">💕</div>
-      <div class="page-text italic">This book has 700 pages. Every single one of them is uniquely generated, just for you. No two pages are exactly alike, because my love for you finds new ways to exist every single day.</div>
-      <div class="page-text">You deserve to feel cherished. You deserve to feel beautiful. You deserve to know, every single day, how incredibly special you are.</div>
-      <div class="poem-block"><p>Read slowly, my love.<br>Let each page settle into your heart.<br>Because every word here<br>is true, and real, and meant only for you.</p></div>
-      <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);">With all my love, always. 💕</div>
+      <div class="first-page-decor">💖</div>
+      <div class="page-text italic">This book contains exactly 700 pages. Every single one of them is uniquely generated, crafted just for you. No two pages are alike, because my love for you constantly reinvents itself.</div>
+      <div class="page-text">You deserve to feel cherished. You deserve to feel overwhelmingly desired, admired, and entirely loved. I wanted to make something that could remind you of that, anytime you need it.</div>
+      <div class="page-text">Take your time with these pages. Read them when you wake up, when you're bored, or when you just need to know that someone out there is completely crazy about you.</div>
+      <div class="poem-block"><p>A million words could not contain<br>The rush I feel when you are near.<br>So turn the page and let me show<br>Exactly why I hold you dear.</p></div>
+      <div class="page-text italic" style="text-align:center;font-family:'Dancing Script',cursive;font-size:1.4rem;color:var(--deep-rose);margin-top:20px;">With all my love, forever. 💕</div>
     `;
   }
 
   // --- MEMORY SYSTEM ---
-  // Occasionally look back at a previous page and reference it
   let memoryBlock = "";
-  if (pageNum > 20 && pageNum % 6 === 0) {
-    let memoryPage = Math.floor(rand(pageNum * 17) * (pageNum - 10)) + 2;
+  if (pageNum > 25 && pageNum % 7 === 0) {
+    let memoryPage = Math.floor(rand(pageNum * 17) * (pageNum - 15)) + 5;
     let oldAction = pick(actions, memoryPage + 1);
     memoryBlock = `
       <div class="memory-block">
-        I was rereading what I wrote back on page ${memoryPage}... about the way you ${oldAction}. It made me smile all over again, because it's still so true.
+        I was just thinking back to page ${memoryPage}... about when you ${oldAction}. Honestly? It still gives me butterflies just thinking about it.
       </div>
     `;
   }
 
-  // Generate the uniquely seeded cute poem for this specific page
   let uniquePoem = generatePoem(pageNum);
 
   // --- BODY APPRECIATION SECTION (Pages 601 - 700) ---
   if (pageNum >= BODY_SECTION_START) {
     const bodyFeatures = [
-      { name: "Eyes", icon: "👁️✨", qualities: ["sparkling depth", "warmth", "gentle light", "comforting gaze", "expressive beauty"] },
-      { name: "Smile", icon: "🌸", qualities: ["radiant joy", "sweetness", "contagious happiness", "bright light", "perfect curve"] },
-      { name: "Voice", icon: "🎶", qualities: ["calming melody", "soothing tone", "gentle sound", "peaceful rhythm", "sweet warmth"] },
-      { name: "Hands", icon: "🤍", qualities: ["soft touch", "gentle care", "comforting hold", "graceful movement", "safe embrace"] },
-      { name: "Mind", icon: "🧠✨", qualities: ["brilliant thoughts", "beautiful curiosity", "deep wisdom", "creative spark", "fascinating perspective"] },
-      { name: "Laugh", icon: "😄", qualities: ["pure delight", "musical chime", "joyful echo", "heartwarming sound", "unrestrained happiness"] },
-      { name: "Heart", icon: "💖", qualities: ["boundless compassion", "pure kindness", "deep empathy", "endless love", "beautiful grace"] },
-      { name: "Presence", icon: "✨", qualities: ["calming aura", "radiant energy", "comforting vibe", "magnetic charm", "peaceful stillness"] },
-      { name: "Hair", icon: "🎀", qualities: ["soft flow", "beautiful texture", "lovely scent", "perfect messiness", "gorgeous fall"] },
-      { name: "Soul", icon: "🕊️", qualities: ["pure light", "gentle spirit", "beautiful essence", "deep warmth", "radiant truth"] },
-      { name: "Feet", icon: "👣", qualities: ["cute steps", "gentle grace", "soft steps", "perfect little toes", "adorable presence"] }
-    ];
-
-    const closingThoughts = [
-      "It's a small detail to the rest of the world, but to me, it's everything.",
-      "I could spend a lifetime just admiring this alone.",
-      "It makes my heart skip a beat every single time.",
-      "I didn't know it was possible to love a single detail this much.",
-      "It is just one of the millions of reasons you are perfect to me."
+      { name: "Eyes", icon: "👁️✨", qualities: ["hypnotic depth", "warm, inviting light", "dangerous spark", "gorgeous shape", "intense, beautiful gaze"] },
+      { name: "Lips", icon: "💋", qualities: ["perfect softness", "maddening curve", "sweetest taste", "undeniable temptation", "beautiful pout"] },
+      { name: "Smile", icon: "🌸", qualities: ["radiant, breathless joy", "cheeky, knowing smirk", "sweetest brightness", "heart-melting curve", "contagious, gorgeous light"] },
+      { name: "Voice", icon: "🎶", qualities: ["sensual, calming tone", "sweet, addictive melody", "soft, breathless whisper", "gorgeous rhythm", "comforting, sexy rasp"] },
+      { name: "Hands", icon: "🤍", qualities: ["gentle, electric touch", "soft caress", "perfect, comforting grip", "graceful movement", "maddeningly sweet hold"] },
+      { name: "Mind", icon: "🧠✨", qualities: ["brilliant, sexy intellect", "beautifully chaotic thoughts", "sharp, witty humor", "deep, fascinating perspective", "gorgeous imagination"] },
+      { name: "Laugh", icon: "😄", qualities: ["pure, uninhibited joy", "musical, addictive chime", "gorgeous, throaty sound", "heartwarming melody", "the best sound on earth"] },
+      { name: "Collarbone & Neck", icon: "✨", qualities: ["delicate, gorgeous line", "maddeningly kissable skin", "soft, beautiful curve", "elegant, breathless grace", "perfectly sculpted shape"] },
+      { name: "Hair", icon: "🎀", qualities: ["soft, beautiful mess", "gorgeous, silky flow", "intoxicating scent", "perfectly touchable texture", "stunningly effortless look"] }
     ];
 
     let feature = pick(bodyFeatures, pageNum * 2.5);
     let q1 = pick(feature.qualities, pageNum * 3.1);
     let q2 = pick(feature.qualities, pageNum * 4.2);
+    if (q1 === q2) q2 = pick(feature.qualities, pageNum * 5.3 + 1);
     
-    // Ensure we don't pick the exact same quality twice
-    if (q1 === q2) {
-      q2 = pick(feature.qualities, pageNum * 5.3 + 1);
-    }
-    
-    let closingThought = pick(closingThoughts, pageNum * 7.7);
-
-    // Pick a random paragraph pattern (0 to 3) to ensure variety
-    let patternSeed = Math.floor(rand(pageNum * 8.8) * 4);
-    let p1, p2, p3;
-
-    if (patternSeed === 0) {
-      p1 = `As we reach the final chapters of this book, I find myself thinking about your ${feature.name.toLowerCase()}.`;
-      p2 = `There is so much ${q1} in it. Every time I notice it, I am struck by the ${q2} it brings into my day.`;
-      p3 = closingThought;
-    } else if (patternSeed === 1) {
-      p1 = `Have I mentioned lately how much I adore your ${feature.name.toLowerCase()}?`;
-      p2 = `It holds such a ${q1}, something completely unique to you. When I experience its ${q2}, everything else fades away.`;
-      p3 = closingThought;
-    } else if (patternSeed === 2) {
-      p1 = `I could write an entirely separate book just about your ${feature.name.toLowerCase()}.`;
-      p2 = `The sheer ${q1} of it mesmerizes me. It is a perfect reflection of your ${q2}.`;
-      p3 = closingThought;
-    } else {
-      p1 = `Sometimes I just pause and marvel at your ${feature.name.toLowerCase()}.`;
-      p2 = `To you, it might just be a normal part of who you are, but to me, its ${q1} and ${q2} are purely magical.`;
-      p3 = closingThought;
-    }
+    let flirtyBodyThought = pick([
+      "It takes a ridiculous amount of self-control for me not to just kiss you every time I notice it.",
+      "I am completely, entirely obsessed with it. And with you.",
+      "It does things to my heart that I can't even begin to explain.",
+      "Just thinking about it makes me want to pull you close right now.",
+      "It is absolutely unfair to the rest of the world that you get to look this good."
+    ], pageNum * 7.7);
 
     return `
-      <div class="body-feature-heading">Your Beautiful ${feature.name}</div>
+      <div class="body-feature-heading">Your Gorgeous ${feature.name}</div>
       <div class="body-feature-icon">${feature.icon}</div>
       ${memoryBlock}
-      <div class="page-text">${p1}</div>
-      <div class="page-text">${p2}</div>
-      <div class="page-text">${p3}</div>
+      <div class="page-text">As we get closer to the end of this book, I need to take a moment to be completely honest about your ${feature.name.toLowerCase()}.</div>
+      <div class="page-text">There is this ${q1} to it that completely wrecks me. Every single time I catch a glimpse of its ${q2}, the rest of the room could catch fire and I wouldn't even notice.</div>
+      <div class="flirty-callout">" ${flirtyBodyThought} "</div>
+      <div class="page-text">You probably don't even think twice about it, but to me, it's a masterpiece. It's just one of the million physical and emotional reasons why I am so deeply, helplessly drawn to you.</div>
       ${uniquePoem}
       <div class="divider">✦ ✦ ✦</div>
-      <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">Page ${pageNum} — adoring every part of you.</div>
+      <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">Page ${pageNum} — completely mesmerized by you.</div>
     `;
   }
 
   // --- STANDARD PROCEDURAL PAGES (Pages 2 - 600) ---
   
-  // Grab the random words for this page
   const action = pick(actions, pageNum + 1);
   const emotion = pick(emotions, pageNum + 2);
   const effect = pick(effects, pageNum + 3);
   const metaphor = pick(metaphors, pageNum + 4);
+  const flirty = pick(flirtyThoughts, pageNum + 5);
+  const deep = pick(deepThoughts, pageNum + 6);
 
-  // Pick a random paragraph pattern (0 to 4) to ensure variety
-  const patternSeed = Math.floor(rand(pageNum * 8.2) * 5);
-  let line1, line2, line3;
+  // Paragraph patterns to keep the reading experience fresh
+  const patternSeed = Math.floor(rand(pageNum * 8.2) * 3);
+  let p1, p2, p3;
 
   if (patternSeed === 0) {
-    line1 = `There is something about the way you ${action} that feels so ${emotion}.`;
-    line2 = `It is subtle, almost impossible to explain, but every time it happens, ${effect}.`;
-    line3 = `Maybe it is the way it happens ${metaphor}, or maybe it is just you being exactly who you are.`;
+    p1 = `I was replaying a moment in my head earlier—just the simple way you ${action}. It sounds so minor, but it is actually so ${emotion} to me.`;
+    p2 = `It happens in a split second, but every time you do it, ${effect}. It hits me ${metaphor}, and I have to pause just to collect myself.`;
+    p3 = `I don't think you fully grasp the effect you have on me. Every little movement, every breath you take around me... it all matters.`;
   } else if (patternSeed === 1) {
-    line1 = `I caught myself thinking earlier about how you ${action}.`;
-    line2 = `It's such a ${emotion} thing to witness. I don't think you even realize that when you do it, ${effect}.`;
-    line3 = `It hits me ${metaphor}, reminding me of how deeply I care for you.`;
-  } else if (patternSeed === 2) {
-    line1 = `When you ${action}, the whole world seems to just slow down for a second.`;
-    line2 = `It feels ${metaphor}. A quiet, ${emotion} pause in my day that I always look forward to.`;
-    line3 = `Because in those tiny moments, ${effect}.`;
-  } else if (patternSeed === 3) {
-    line1 = `Have I ever told you how absolutely ${emotion} you are when you ${action}?`;
-    line2 = `You do it so naturally, but for me, ${effect}.`;
-    line3 = `It feels ${metaphor}, wrapping around my heart and making everything brighter.`;
+    p1 = `Have I ever really explained what happens to me when you ${action}? It is genuinely ${emotion}.`;
+    p2 = `You do it so naturally, without even trying, but for me, ${effect}. It feels ${metaphor}, wrapping completely around my senses.`;
+    p3 = `It's in these tiny, seemingly insignificant moments that I realize just how deep I am in this. I wouldn't trade that feeling for anything.`;
   } else {
-    line1 = `Just you. Just the way you ${action}. That's really all it takes.`;
-    line2 = `It brings this ${emotion} wave over me. ${metaphor}, it changes my entire mood for the better.`;
-    line3 = `I watch you, and suddenly ${effect}.`;
+    p1 = `There is a specific kind of magic in the way you ${action}. Just you, being exactly who you are, is absolutely ${emotion}.`;
+    p2 = `I watch you, and suddenly ${effect}. It sweeps over me ${metaphor}, completely changing the trajectory of my entire day.`;
+    p3 = `Sometimes I just want to pause time so I can appreciate you a little bit longer. You are an absolute vision.`;
   }
 
   const closings = [
     `Page ${pageNum} — and my heart is still racing.`,
-    `Page ${pageNum} still belongs to you, just like all the others.`,
-    `Page ${pageNum} — written with all my love.`,
-    `Page ${pageNum} — another moment spent thinking of you.`,
-    `Page ${pageNum} — proving that true love never repeats itself.`
+    `Page ${pageNum} — wishing you were right here with me.`,
+    `Page ${pageNum} — written with an embarrassing amount of love.`,
+    `Page ${pageNum} — completely, undeniably yours.`,
+    `Page ${pageNum} — and I am still falling for you.`
   ];
   const closing = pick(closings, pageNum * 6.7);
 
   return `
-    <div class="page-heading">For You 💕</div>
+    <div class="page-heading">Thinking Of You 💕</div>
     ${memoryBlock}
-    <div class="page-text">${line1}</div>
-    <div class="page-text">${line2}</div>
-    <div class="page-text">${line3}</div>
+    <div class="page-text">${p1}</div>
+    <div class="page-text">${p2}</div>
+    <div class="flirty-callout">" ${flirty} "</div>
+    <div class="page-text">${p3}</div>
     ${uniquePoem}
+    <div class="page-text italic">${deep}</div>
     <div class="divider">✦ ✦ ✦</div>
     <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">${closing}</div>
   `;
@@ -676,8 +665,8 @@ document.getElementById('jumpInput').addEventListener('keydown', function(e) {
 function spawnPageSparkles() {
   const book = document.getElementById('book');
   const rect = book.getBoundingClientRect();
-  const emojis = ['✨','💕','🌸','💗','⭐','🌷','💫'];
-  for (let i = 0; i < 5; i++) {
+  const emojis = ['✨','💕','🌸','💗','⭐','🌷','💫','🔥'];
+  for (let i = 0; i < 6; i++) {
     const s = document.createElement('div');
     s.className = 'page-sparkle';
     s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -727,8 +716,8 @@ setupFairyLights();
 
 function createHeartsBg() {
   const container = document.getElementById('heartsBg');
-  const hearts = ['💗','💕','🌸','✨','💖','🌷','💓','❀'];
-  for (let i = 0; i < 20; i++) {
+  const hearts = ['💗','💕','🌸','✨','💖','🌷','💓','🔥'];
+  for (let i = 0; i < 22; i++) {
     const h = document.createElement('div');
     h.className = 'heart-float';
     h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
@@ -757,7 +746,7 @@ function createSparkles(x, y) {
 
 function spawnConfetti() {
   const emojis = ['🎉','💕','🌸','✨','💗','🎊','🌷','💖','⭐'];
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 25; i++) {
     const c = document.createElement('div');
     c.className = 'confetti-piece';
     c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
