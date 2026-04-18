@@ -226,7 +226,7 @@
   .page-text { font-family: 'Lora', serif; font-size: clamp(0.82rem, 3.2vw, 0.95rem); color: var(--text); line-height: 1.85; text-align: justify; margin-bottom: 14px; }
   .page-text.italic { font-style: italic; }
   .poem-block { background: linear-gradient(135deg, rgba(249,200,217,0.3), rgba(232,121,158,0.1)); border-left: 3px solid var(--rose); border-radius: 0 10px 10px 0; padding: 14px 16px; margin: 14px 0; }
-  .poem-block p { font-family: 'Lora', serif; font-style: italic; font-size: clamp(0.8rem, 3vw, 0.9rem); color: var(--deep-rose); line-height: 2; margin: 0; }
+  .poem-block p { font-family: 'Lora', serif; font-style: italic; font-size: clamp(0.8rem, 3vw, 0.9rem); color: var(--deep-rose); line-height: 2; margin: 0; text-align: center; }
   .divider { text-align: center; margin: 16px 0; color: var(--rose); font-size: 1.1rem; opacity: 0.6; letter-spacing: 6px; }
   .body-feature-heading { font-family: 'Dancing Script', cursive; font-size: clamp(1.2rem, 4.5vw, 1.5rem); color: var(--deep-rose); text-align: center; margin: 12px 0 10px; }
   .body-feature-icon { text-align: center; font-size: 1.8rem; margin: 8px 0; }
@@ -364,6 +364,52 @@ const actions = ["smile", "exist", "laugh", "look at me", "talk", "breathe", "mo
 const effects = ["everything feels lighter", "my heart slows down", "the world fades away", "nothing else matters", "I feel completely at home", "time pauses for a moment", "all my worries disappear", "the day becomes perfect", "I realize how lucky I am"];
 const metaphors = ["like sunlight slipping through curtains", "like the first calm after a storm", "like a quiet song playing in the background", "like starlight you don't notice until you do", "like warmth on a cold day", "like finding a missing piece", "like breathing fresh air", "like a gentle summer breeze"];
 
+// === POEM GENERATION ARRAYS ===
+const poemLine1 = [
+  "Like a gentle morning breeze,",
+  "In the softest evening light,",
+  "Whenever you look my way,",
+  "Just the thought of your smile,",
+  "Hidden in a quiet moment,",
+  "When the stars begin to shine,",
+  "Like a sweet, familiar song,",
+  "With every single breath,",
+  "More beautiful than words,",
+  "A warmth across the room,",
+  "Like magic in the air,",
+  "Whenever you say my name,"
+];
+
+const poemLine2 = [
+  "the world just softly pauses,",
+  "my heart skips a tiny beat,",
+  "everything turns to gold,",
+  "all my worries simply fade,",
+  "a sweet peace fills my soul,",
+  "time itself slows right down,",
+  "the universe feels so small,",
+  "sunlight dances around us,",
+  "my favorite dream comes true,",
+  "everything perfectly aligns,",
+  "my spirit instantly lifts,",
+  "the shadows slip away,"
+];
+
+const poemLine3 = [
+  "and I am perfectly yours.",
+  "just simply because of you.",
+  "forever completely in love.",
+  "and nothing else matters now.",
+  "showing me what love means.",
+  "and I wouldn't change a thing.",
+  "proving you are my dream.",
+  "and my world becomes whole.",
+  "and my heart finds its home.",
+  "because you are my everything.",
+  "wrapped entirely in your love.",
+  "and I am exactly where I belong."
+];
+
 // Seeded pseudo-random generator
 function rand(seed) {
   let x = Math.sin(seed) * 10000;
@@ -372,6 +418,18 @@ function rand(seed) {
 
 function pick(arr, seed) {
   return arr[Math.floor(rand(seed) * arr.length)];
+}
+
+// Generates the unique cute poem for a given page
+function generatePoem(pageNum) {
+  let l1 = pick(poemLine1, pageNum * 12.1);
+  let l2 = pick(poemLine2, pageNum * 15.3);
+  let l3 = pick(poemLine3, pageNum * 18.7);
+  return `
+    <div class="poem-block">
+      <p>${l1}<br>${l2}<br>${l3}</p>
+    </div>
+  `;
 }
 
 function generatePageContent(pageNum) {
@@ -399,6 +457,9 @@ function generatePageContent(pageNum) {
       </div>
     `;
   }
+
+  // Generate the uniquely seeded cute poem for this specific page
+  let uniquePoem = generatePoem(pageNum);
 
   // --- BODY APPRECIATION SECTION (Pages 601 - 700) ---
   if (pageNum >= BODY_SECTION_START) {
@@ -457,19 +518,6 @@ function generatePageContent(pageNum) {
       p3 = closingThought;
     }
 
-    let extraPoem = "";
-    if (Math.floor(rand(pageNum * 6.1) * 2) === 0) {
-      extraPoem = `
-      <div class="poem-block">
-        <p>Perfectly crafted,<br>flawlessly you.<br>Every detail is a masterpiece.</p>
-      </div>`;
-    } else {
-      extraPoem = `
-      <div class="poem-block">
-        <p>A million little things,<br>make up the one I love.<br>And this is one of my favorites.</p>
-      </div>`;
-    }
-
     return `
       <div class="body-feature-heading">Your Beautiful ${feature.name}</div>
       <div class="body-feature-icon">${feature.icon}</div>
@@ -477,7 +525,7 @@ function generatePageContent(pageNum) {
       <div class="page-text">${p1}</div>
       <div class="page-text">${p2}</div>
       <div class="page-text">${p3}</div>
-      ${extraPoem}
+      ${uniquePoem}
       <div class="divider">✦ ✦ ✦</div>
       <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">Page ${pageNum} — adoring every part of you.</div>
     `;
@@ -517,34 +565,6 @@ function generatePageContent(pageNum) {
     line3 = `I watch you, and suddenly ${effect}.`;
   }
 
-  let extra = "";
-  let styleSeed = Math.floor(rand(pageNum * 5.5) * 4);
-
-  if (styleSeed === 0) {
-    extra = `
-      <div class="poem-block">
-        <p>I notice you in the smallest ways,<br>
-        in moments no one else would pause for,<br>
-        and somehow those moments<br>
-        become the most important ones.</p>
-      </div>`;
-  } else if (styleSeed === 1) {
-    extra = `
-      <div class="page-text">
-        I do not think you realize how many quiet parts of my day are filled with thoughts of you. Not loudly, not overwhelmingly — just gently, constantly, like something that perfectly belongs there.
-      </div>`;
-  } else if (styleSeed === 2) {
-    extra = `
-      <div class="page-text italic">
-        If I could freeze a feeling, it would be the one I have when I think of you — calm, certain, and quietly endless.
-      </div>`;
-  } else {
-    extra = `
-      <div class="page-text">
-        Every day I find a new reason to appreciate you. It is as if my heart keeps expanding just to make room for all the new ways I love you.
-      </div>`;
-  }
-
   const closings = [
     `Page ${pageNum} — and my heart is still racing.`,
     `Page ${pageNum} still belongs to you, just like all the others.`,
@@ -560,7 +580,7 @@ function generatePageContent(pageNum) {
     <div class="page-text">${line1}</div>
     <div class="page-text">${line2}</div>
     <div class="page-text">${line3}</div>
-    ${extra}
+    ${uniquePoem}
     <div class="divider">✦ ✦ ✦</div>
     <div class="page-text" style="text-align:center; font-size: 0.85rem; font-style: italic;">${closing}</div>
   `;
