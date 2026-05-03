@@ -1,319 +1,710 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>A Book Just For You 💕</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-<style>
-  :root{--rose:#e8799e;--deep-rose:#c0446b;--cream:#fff8fa;--gold:#d4a873;--gold-bright:#f5c842;--text:#5a2a3a;--soft:#f0b8cb;--pink-cover:#e0607a;--pink-cover-dark:#c84060;--pink-cover-light:#f07a95;}
-  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{background:linear-gradient(135deg,#ffe0ec,#fcd1e2,#fbbdcf,#f9a8c0);min-height:100vh;font-family:'Lora',serif;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
-  .hearts-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0}
-  .heart-float{position:absolute;font-size:1.2rem;opacity:0.15;animation:floatUp linear infinite;bottom:-30px}
-  @keyframes floatUp{0%{transform:translateY(0) rotate(0deg);opacity:.15}100%{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-  .sparkle{position:fixed;pointer-events:none;font-size:1rem;z-index:9999;animation:sparkleAnim .8s forwards}
-  @keyframes sparkleAnim{0%{transform:scale(0) rotate(0deg);opacity:1}50%{transform:scale(1.5) rotate(180deg);opacity:1}100%{transform:scale(0) rotate(360deg) translateY(-30px);opacity:0}}
-  #cover-screen{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(160deg,#ffe0ec,#fcd1e2,#f9a8c0)}
-  .fairy-lights{position:absolute;top:0;left:0;right:0;height:60px;display:flex;justify-content:center;align-items:flex-end;gap:18px;padding-bottom:8px;z-index:2}
-  .fairy-lights::before{content:'';position:absolute;top:12px;left:5%;right:5%;height:1.5px;background:rgba(120,80,60,.35);z-index:-1}
-  .bulb{width:8px;height:10px;border-radius:50% 50% 40% 40%;animation:glowBulb 2s ease-in-out infinite}
-  .bulb:nth-child(odd){animation-delay:.3s}.bulb:nth-child(3n){animation-delay:.7s}
-  .bulb-warm{background:#ffe066;box-shadow:0 0 8px 3px rgba(255,220,80,.7)}.bulb-pink{background:#ff99bb;box-shadow:0 0 8px 3px rgba(255,120,160,.6)}.bulb-white{background:#fff5dd;box-shadow:0 0 8px 3px rgba(255,240,200,.8)}
-  @keyframes glowBulb{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
-  .side-deco{position:absolute;font-size:1.4rem;opacity:.6;animation:gentleFloat 4s ease-in-out infinite}
-  @keyframes gentleFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
-  .cover-book-wrap{perspective:1400px;cursor:pointer;user-select:none;position:relative;z-index:3}
-  .cover-book{width:min(230px,68vw);height:min(310px,50vh);position:relative;transform-style:preserve-3d;transform:rotateX(12deg) rotateY(-18deg) rotateZ(-3deg);transition:transform .5s cubic-bezier(.34,1.56,.64,1);filter:drop-shadow(8px 20px 30px rgba(120,40,60,.45))}
-  .cover-book-wrap:hover .cover-book{transform:rotateX(8deg) rotateY(-8deg) rotateZ(-1deg) scale(1.04)}
-  .book-face{position:absolute;inset:0;border-radius:4px 14px 14px 4px;background:linear-gradient(160deg,var(--pink-cover-light),var(--pink-cover),var(--pink-cover-dark));display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:16px 14px;overflow:hidden}
-  .book-face::before{content:'';position:absolute;inset:8px;border:2.5px solid var(--gold-bright);border-radius:2px 10px 10px 2px;opacity:.7;pointer-events:none}
-  .cover-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-  .cover-star{position:absolute;color:var(--gold-bright);font-size:.9rem;opacity:.8;animation:twinkle 2s ease-in-out infinite}
-  @keyframes twinkle{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
-  .cover-title{font-family:'Dancing Script',cursive;font-size:clamp(1.3rem,5vw,1.8rem);color:var(--gold-bright);text-shadow:1px 2px 0 rgba(120,60,0,.4),0 0 12px rgba(255,220,80,.4);line-height:1.2;font-weight:700;text-align:center;z-index:1;position:relative}
-  .cover-illustration{width:90%;flex:1;margin:8px 0;border-radius:6px;background:linear-gradient(160deg,#1a0a2e,#2d1660,#1a2a50);border:2px solid var(--gold);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;z-index:1}
-  .cover-illustration::before{content:'✦ ✧ ✦ ✧ ✦';position:absolute;top:6px;left:0;right:0;text-align:center;font-size:.5rem;color:rgba(255,255,255,.6);letter-spacing:4px}
-  .illus-moon{position:absolute;top:12px;right:18px;font-size:1rem;filter:brightness(1.3)}
-  .illus-trees{position:absolute;bottom:0;left:0;right:0;height:55%;display:flex;align-items:flex-end;justify-content:space-around;padding:0 4px}
-  .illus-tree{background:rgba(20,40,20,.8);border-radius:50% 50% 0 0}
-  .illus-path{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:30%;height:40%;background:radial-gradient(ellipse at center bottom,rgba(100,220,100,.3),transparent 70%);border-radius:50%}
-  .illus-girl{font-size:1.1rem;position:relative;z-index:2}
-  .illus-mushroom{position:absolute;font-size:.7rem}
-  .illus-house{position:absolute;top:18px;right:8px;font-size:.9rem;opacity:.8}
-  .illus-ground{position:absolute;bottom:0;left:0;right:0;height:25%;background:linear-gradient(to top,rgba(30,80,20,.5),transparent)}
-  .cover-sub-title{font-family:'Dancing Script',cursive;font-size:clamp(.7rem,2.5vw,.85rem);color:rgba(255,255,255,.85);text-align:center;z-index:1;line-height:1.4}
-  .book-spine-3d{position:absolute;top:0;left:-22px;width:22px;height:100%;transform-origin:right center;background:linear-gradient(to right,#8a1f40,#a83060);border-radius:4px 0 0 4px;transform:rotateY(90deg);box-shadow:inset -4px 0 8px rgba(0,0,0,.3)}
-  .book-bottom-3d{position:absolute;bottom:-10px;left:0;right:0;height:10px;background:linear-gradient(to bottom,#c0446b,#9b2d4f);transform-origin:top center;transform:rotateX(-90deg);border-radius:0 0 4px 4px}
-  .corner-star{position:absolute;font-size:.9rem;color:var(--gold-bright)}
-  .corner-star.tl{top:14px;left:14px}.corner-star.tr{top:14px;right:14px}.corner-star.bl{bottom:14px;left:14px}.corner-star.br{bottom:14px;right:14px}
-  .tap-hint{margin-top:32px;display:flex;align-items:center;animation:pulse 2s ease-in-out infinite;z-index:3;position:relative}
-  @keyframes pulse{0%,100%{opacity:.7;transform:translateY(0)}50%{opacity:1;transform:translateY(-5px)}}
-  .tap-hint span{font-family:'Dancing Script',cursive;font-size:1.2rem;color:var(--deep-rose);text-shadow:0 1px 4px rgba(255,255,255,.6)}
-  .cover-opening .cover-book{animation:bookOpenCover 1.2s cubic-bezier(.77,0,.18,1) forwards}
-  @keyframes bookOpenCover{0%{transform:rotateX(12deg) rotateY(-18deg) rotateZ(-3deg)}40%{transform:rotateX(5deg) rotateY(-40deg) rotateZ(-2deg) scale(1.05)}100%{transform:rotateX(0) rotateY(-100deg) rotateZ(0) scale(.8) translateX(-40px);opacity:0}}
-  .cover-opening{animation:coverFade 1.3s forwards}
-  @keyframes coverFade{0%{opacity:1}80%{opacity:1}100%{opacity:0;pointer-events:none}}
-  #reader{position:fixed;inset:0;z-index:50;display:none;flex-direction:column;align-items:center;background:linear-gradient(160deg,#ffe0ec,#fcd1e2,#fbbdcf)}
-  #reader.visible{display:flex}
-  .top-bar{width:100%;padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.5);backdrop-filter:blur(10px);border-bottom:1px solid rgba(232,121,158,.2);flex-shrink:0}
-  .top-title{font-family:'Dancing Script',cursive;font-size:1.3rem;color:var(--deep-rose)}
-  .page-jump-form{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.7);border:1.5px solid var(--rose);border-radius:20px;padding:3px 10px}
-  .page-jump-form input{width:52px;border:none;background:transparent;font-family:'Lora',serif;font-size:.85rem;color:var(--text);outline:none;text-align:center}
-  .page-jump-form button{background:var(--rose);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center}
-  .page-counter{font-family:'Dancing Script',cursive;font-size:1rem;color:var(--deep-rose);min-width:60px;text-align:right}
-  .book-stage{flex:1;width:100%;display:flex;align-items:center;justify-content:center;perspective:1500px;overflow:hidden;position:relative}
-  .book{width:min(340px,95vw);height:min(520px,calc(100vh - 130px));position:relative;transform-style:preserve-3d}
-  .book::after{content:'';position:absolute;bottom:-16px;left:5%;right:5%;height:18px;background:radial-gradient(ellipse,rgba(192,68,107,.25),transparent 70%);border-radius:50%}
-  .page-container{position:absolute;inset:0;transform-style:preserve-3d}
-  .page{position:absolute;width:100%;height:100%;border-radius:4px 16px 16px 4px;background:var(--cream);backface-visibility:hidden;overflow:hidden;box-shadow:3px 0 12px rgba(192,68,107,.12),2px 4px 20px rgba(192,68,107,.15),inset -2px 0 8px rgba(0,0,0,.04)}
-  .page::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(to bottom,transparent,transparent 28px,rgba(232,121,158,.06) 28px,rgba(232,121,158,.06) 29px);pointer-events:none}
-  .page-inner{width:100%;height:100%;overflow-y:auto;padding:28px 22px 80px;scrollbar-width:thin;scrollbar-color:var(--soft) transparent;position:relative;z-index:1}
-  .page-inner::-webkit-scrollbar{width:3px}.page-inner::-webkit-scrollbar-track{background:transparent}.page-inner::-webkit-scrollbar-thumb{background:var(--soft);border-radius:3px}
-  @keyframes cuteFlipForward{0%{transform:perspective(1200px) rotateY(0);box-shadow:3px 0 12px rgba(192,68,107,.12)}15%{transform:perspective(1200px) rotateY(-15deg);box-shadow:15px 0 30px rgba(192,68,107,.25)}50%{transform:perspective(1200px) rotateY(-90deg);box-shadow:-20px 0 40px rgba(192,68,107,.35)}85%{transform:perspective(1200px) rotateY(-165deg);box-shadow:-10px 0 20px rgba(192,68,107,.15)}100%{transform:perspective(1200px) rotateY(-180deg);box-shadow:none}}
-  @keyframes cuteFlipBack{0%{transform:perspective(1200px) rotateY(0)}50%{transform:perspective(1200px) rotateY(90deg);box-shadow:20px 0 40px rgba(192,68,107,.35)}100%{transform:perspective(1200px) rotateY(180deg)}}
-  .book.flipping-forward .page-container{animation:cuteFlipForward .65s cubic-bezier(.645,.045,.355,1) forwards;transform-origin:left center}
-  .book.flipping-back .page-container{animation:cuteFlipBack .65s cubic-bezier(.645,.045,.355,1) forwards;transform-origin:left center}
-  .page::after{content:'';position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 22px 22px;border-color:transparent transparent rgba(232,121,158,.25) transparent;transition:border-width .2s}
-  .page:hover::after{border-width:0 0 30px 30px}
-  .page-sparkle{position:fixed;pointer-events:none;font-size:.8rem;z-index:999;animation:psAnim .7s forwards}
-  @keyframes psAnim{0%{transform:scale(0) translateY(0);opacity:1}100%{transform:scale(1.3) translateY(-25px);opacity:0}}
-  .page-deco-top{position:absolute;top:10px;left:0;right:0;text-align:center;font-size:.8rem;color:var(--rose);opacity:.4;letter-spacing:4px}
-  .page-deco-bottom{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:.75rem;color:var(--rose);opacity:.35}
-  .page-num-display{position:absolute;bottom:14px;font-family:'Dancing Script',cursive;font-size:.9rem;color:var(--rose);opacity:.55}
-  .page-num-display.left{left:18px}.page-num-display.right{right:18px}
-  .page-heading{font-family:'Dancing Script',cursive;font-size:clamp(1.3rem,5vw,1.75rem);color:var(--deep-rose);text-align:center;margin-bottom:18px;line-height:1.3}
-  .page-text{font-family:'Lora',serif;font-size:clamp(.83rem,3.2vw,.96rem);color:var(--text);line-height:1.95;text-align:justify;margin-bottom:15px}
-  .page-text.italic{font-style:italic}.page-text.centered{text-align:center}
-  .poem-block{background:linear-gradient(135deg,rgba(249,200,217,.32),rgba(232,121,158,.08));border-left:3px solid var(--rose);border-radius:0 10px 10px 0;padding:16px 18px;margin:16px 0}
-  .poem-block p{font-family:'Lora',serif;font-style:italic;font-size:clamp(.82rem,3vw,.93rem);color:var(--deep-rose);line-height:2.1;margin:0}
-  .lyrical-stanza{font-family:'Dancing Script',cursive;font-size:clamp(1.15rem,4.2vw,1.4rem);color:var(--deep-rose);text-align:center;line-height:1.75;margin:22px 0}
-  .divider{text-align:center;margin:18px 0;color:var(--rose);font-size:1.1rem;opacity:.55;letter-spacing:6px}
-  .pull-quote{background:rgba(249,200,217,.28);border-radius:10px;padding:12px 16px;margin:14px 0;text-align:center;font-family:'Lora',serif;font-style:italic;color:var(--deep-rose);font-size:clamp(.85rem,3.1vw,.97rem);line-height:1.85}
-  .body-feature-heading{font-family:'Dancing Script',cursive;font-size:clamp(1.25rem,4.5vw,1.6rem);color:var(--deep-rose);text-align:center;margin:14px 0 8px}
-  .body-feature-icon{text-align:center;font-size:2rem;margin:8px 0 4px}
-  .first-page-decor{text-align:center;font-size:1.8rem;margin:10px 0;animation:heartbeat 2s ease-in-out infinite}
-  @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-  .page.body-section{background:linear-gradient(160deg,#fff0f6,#ffe8f0)}
-  .nav-bar{width:100%;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:20px;background:rgba(255,255,255,.4);backdrop-filter:blur(10px);border-top:1px solid rgba(232,121,158,.2);flex-shrink:0}
-  .nav-btn{background:linear-gradient(135deg,var(--rose),var(--deep-rose));border:none;color:#fff;border-radius:50px;padding:10px 28px;font-family:'Dancing Script',cursive;font-size:1.05rem;cursor:pointer;box-shadow:0 4px 15px rgba(192,68,107,.3);transition:all .2s;display:flex;align-items:center;gap:6px;user-select:none}
-  .nav-btn:active{transform:scale(.95)}.nav-btn:disabled{opacity:.4;cursor:default}
-  .progress-bar{position:absolute;bottom:0;left:0;height:2px;background:linear-gradient(to right,var(--rose),var(--deep-rose));transition:width .4s ease;border-radius:0 2px 2px 0}
-  .swipe-hint{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.75);backdrop-filter:blur(8px);border-radius:20px;padding:6px 16px;font-family:'Dancing Script',cursive;color:var(--deep-rose);font-size:.9rem;animation:fadeInOut 3s 2s forwards;pointer-events:none;white-space:nowrap}
-  @keyframes fadeInOut{0%{opacity:0;transform:translateX(-50%) translateY(10px)}20%{opacity:1;transform:translateX(-50%) translateY(0)}70%{opacity:1}100%{opacity:0}}
-  .confetti-piece{position:fixed;font-size:1.2rem;z-index:200;pointer-events:none;animation:confettiFall 2.5s forwards ease-in}
-  @keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
-  .ribbon{position:absolute;top:0;right:24px;width:18px;background:linear-gradient(to bottom,#e8799e,#c0446b);border-radius:0 0 4px 4px;z-index:5;box-shadow:2px 2px 6px rgba(192,68,107,.3);transition:height .5s ease}
-  .ribbon::after{content:'';display:block;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:10px solid #c0446b;position:absolute;bottom:-10px;left:0}
-  @media(max-width:380px){.book{width:95vw}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FUN DEMO</title>
+
+    <style>
+        :root {
+            --bg: #0b141a;
+            --header-bg: #1f2c33;
+            --chat-bg: #0b141a;
+            --msg-her: #1f2c33;
+            --msg-me: #005c4b;
+            --typing-color: #8696a0;
+            --btn-green: #25d366;
+            --btn-dark: #1a2329;
+            --text-light: #e9edef;
+            --text-dim: #8696a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            height: 100dvh;
+            /* dynamic viewport height for mobile */;
+        }
+
+        /* Mobile phone frame */
+        .phone-frame {
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(37, 211, 102, 0.08);
+        }
+
+        @media (min-width: 431px) {
+            .phone-frame {
+                height: 93vh;
+                height: 93dvh;
+                max-height: 850px;
+                border-radius: 28px;
+                margin: 0 10px;
+            }
+            body {
+                background: #0a0f14;
+            }
+        }
+
+        /* Notch / status bar spacer */
+        .status-bar-spacer {
+            height: env(safe-area-inset-top, 8px);
+            min-height: 8px;
+            background: var(--header-bg);
+            flex-shrink: 0;
+        }
+
+        /* Header */
+        .header {
+            background: var(--header-bg);
+            color: var(--text-light);
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            letter-spacing: 0.2px;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .back-arrow {
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            padding: 4px 2px;
+        }
+        .back-arrow:active {
+            opacity: 1;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e87ba8, #c7648a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .header-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .header-name {
+            font-size: 15px;
+            line-height: 1.1;
+        }
+        .header-status {
+            font-size: 11px;
+            color: var(--typing-color);
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        .header-status.online {
+            color: #25d366;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 14px;
+            font-size: 18px;
+            opacity: 0.7;
+        }
+        .header-icons span {
+            cursor: pointer;
+            padding: 2px;
+            transition: opacity 0.2s;
+        }
+        .header-icons span:active {
+            opacity: 1;
+        }
+
+        /* Chat area */
+        .chat {
+            flex: 1;
+            padding: 12px 12px 8px 12px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            background: var(--chat-bg);
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(37, 211, 102, 0.015) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 30%, rgba(37, 211, 102, 0.01) 0%, transparent 60%);
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        .chat::-webkit-scrollbar {
+            width: 3px;
+        }
+        .chat::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+        }
+
+        /* Date divider */
+        .date-divider {
+            text-align: center;
+            margin: 8px 0 12px;
+        }
+        .date-divider span {
+            background: #1a2c33;
+            color: #8696a0;
+            font-size: 11px;
+            padding: 5px 14px;
+            border-radius: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Messages */
+        .msg {
+            max-width: 78%;
+            padding: 9px 13px;
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 14.5px;
+            line-height: 1.45;
+            opacity: 0;
+            animation: fadeInUp 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            position: relative;
+            word-wrap: break-word;
+            letter-spacing: 0.1px;
+            transition: transform 0.15s ease;
+        }
+
+        .msg:active {
+            transform: scale(0.97);
+            transition: transform 0.08s ease;
+        }
+
+        .me {
+            background: var(--msg-me);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .her {
+            background: var(--msg-her);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Wobble animation for emotional messages */
+        .msg.wobble {
+            animation: fadeInUp 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards,
+                wobble 0.6s ease-out 0.45s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(0.94);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes wobble {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+            20% {
+                transform: translateX(-3px);
+            }
+            40% {
+                transform: translateX(3px);
+            }
+            60% {
+                transform: translateX(-2px);
+            }
+            80% {
+                transform: translateX(1px);
+            }
+        }
+
+        /* Typing indicator */
+        .typing {
+            max-width: 70%;
+            padding: 10px 14px;
+            margin: 2px 0;
+            border-radius: 8px;
+            background: var(--msg-her);
+            color: var(--typing-color);
+            align-self: flex-start;
+            font-size: 13px;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            animation: fadeInUp 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+            letter-spacing: 0.2px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+        }
+        .typing-dots span {
+            width: 7px;
+            height: 7px;
+            background: #8696a0;
+            border-radius: 50%;
+            animation: bounce 1.2s infinite;
+        }
+        .typing-dots span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .typing-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+
+        /* Footer / Button area */
+        .footer {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom, 8px));
+            background: var(--header-bg);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .input-mock {
+            flex: 1;
+            background: #2a3942;
+            border-radius: 24px;
+            padding: 10px 16px;
+            color: #8696a0;
+            font-size: 14px;
+            cursor: default;
+            letter-spacing: 0.2px;
+        }
+
+        .mic-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2a3942;
+            border: none;
+            color: #8696a0;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .mic-btn:active {
+            background: #354550;
+            transform: scale(0.93);
+        }
+
+        /* Surprise heart burst */
+        .heart-burst {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: floatUp 1.8s ease-out forwards;
+            font-size: 24px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-60px) scale(1.4) rotate(15deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-140px) scale(0.3) rotate(-20deg);
+            }
+        }
+
+        /* Tap ripple */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.25);
+            transform: scale(0);
+            animation: rippleEffect 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Seen receipt */
+        .seen-receipt {
+            align-self: flex-end;
+            font-size: 10px;
+            color: #8696a0;
+            margin-top: -2px;
+            margin-right: 4px;
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: fadeInUp 0.4s forwards;
+            letter-spacing: 0.3px;
+        }
+    </style>
 </head>
+
 <body>
-<div class="hearts-bg" id="heartsBg"></div>
-<div id="cover-screen">
-  <div class="fairy-lights" id="fairyLights"></div>
-  <div class="side-deco" style="top:20%;left:5%;animation-delay:0s">🌸</div>
-  <div class="side-deco" style="top:30%;left:8%;animation-delay:1s">🌿</div>
-  <div class="side-deco" style="top:65%;left:4%;animation-delay:.5s">💐</div>
-  <div class="side-deco" style="top:75%;left:10%;animation-delay:1.5s">🌼</div>
-  <div class="side-deco" style="top:20%;right:5%;animation-delay:.3s">🌷</div>
-  <div class="side-deco" style="top:35%;right:8%;animation-delay:.8s">🌿</div>
-  <div class="side-deco" style="top:60%;right:4%;animation-delay:1.2s">🌸</div>
-  <div class="side-deco" style="top:78%;right:9%;animation-delay:.1s">🌼</div>
-  <div class="cover-book-wrap" onclick="openBook()">
-    <div class="cover-book">
-      <div class="book-spine-3d"></div><div class="book-bottom-3d"></div>
-      <div class="book-face">
-        <div class="cover-stars">
-          <span class="cover-star" style="top:10%;left:10%">★</span>
-          <span class="cover-star" style="top:8%;right:12%;animation-delay:.4s">✦</span>
-          <span class="cover-star" style="top:18%;left:20%;animation-delay:.8s">✧</span>
-          <span class="cover-star" style="bottom:22%;left:8%;animation-delay:.3s">★</span>
-          <span class="cover-star" style="bottom:20%;right:10%;animation-delay:.6s">✦</span>
-          <span class="cover-star" style="top:50%;left:6%;animation-delay:1s">✧</span>
-          <span class="cover-star" style="top:50%;right:6%;animation-delay:.2s">★</span>
+
+    <div class="phone-frame">
+        <!-- Status bar spacer for notched phones -->
+        <div class="status-bar-spacer"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <span class="back-arrow">←</span>
+            <div class="avatar">🐥</div>
+            <div class="header-info">
+                <div class="header-name">Madam</div>
+                <div class="header-status online" id="headerStatus">online</div>
+            </div>
+            <div class="header-icons">
+                <span>📞</span>
+                <span>⋮</span>
+            </div>
         </div>
-        <span class="corner-star tl">★</span><span class="corner-star tr">★</span>
-        <span class="corner-star bl">★</span><span class="corner-star br">★</span>
-        <div class="cover-title">A Book<br>Written Only<br>For You</div>
-        <div class="cover-illustration">
-          <span class="illus-moon">🌙</span><span class="illus-house">🏠</span>
-          <div class="illus-ground"></div>
-          <div class="illus-trees">
-            <div class="illus-tree" style="width:28px;height:55px"></div>
-            <div class="illus-tree" style="width:22px;height:45px;margin-bottom:3px"></div>
-            <div class="illus-tree" style="width:30px;height:60px"></div>
-          </div>
-          <div class="illus-path"></div>
-          <span class="illus-mushroom" style="bottom:12px;left:14px">🍄</span>
-          <span class="illus-mushroom" style="bottom:8px;right:12px">🍄</span>
-          <span class="illus-girl">🧒🦊✨</span>
+
+        <!-- Chat -->
+        <div class="chat" id="chat">
+            <div class="date-divider"><span>TODAY</span></div>
         </div>
-        <div class="cover-sub-title">700 pages of love,<br>written only for you 💕</div>
-      </div>
-    </div>
-  </div>
-  <div class="tap-hint"><span>💗 Tap the book to open 💗</span></div>
-</div>
-<div id="reader">
-  <div class="top-bar">
-    <div class="top-title">💕 For You</div>
-    <div class="page-jump-form">
-      <input type="number" id="jumpInput" min="1" max="700" placeholder="pg #">
-      <button onclick="jumpToPage()">→</button>
-    </div>
-    <div class="page-counter" id="pageCounter">1 / 700</div>
-  </div>
-  <div class="book-stage">
-    <div class="book" id="book">
-      <div class="page-container" id="pageContainer">
-        <div class="page" id="currentPage">
-          <div class="ribbon" id="ribbon" style="height:60px"></div>
-          <div class="page-deco-top">✦ ✦ ✦</div>
-          <div class="page-inner" id="pageInner"></div>
-          <div class="page-deco-bottom">💕</div>
-          <div class="page-num-display left" id="pageNumLeft"></div>
-          <div class="page-num-display right" id="pageNumRight"></div>
-          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="input-mock">Type a message...</div>
+            <button class="mic-btn" id="micBtn" aria-label="Send love">🎤</button>
         </div>
-      </div>
     </div>
-    <div class="swipe-hint">← swipe to turn pages →</div>
-  </div>
-  <div class="nav-bar">
-    <button class="nav-btn" id="prevBtn" onclick="prevPage()">← prev</button>
-    <button class="nav-btn" id="nextBtn" onclick="nextPage()">next →</button>
-  </div>
-</div>
-<script>
-const TOTAL_PAGES=700,BODY_START=601;
-function rand(s){let x=Math.sin(s+1.3)*10000;return x-Math.floor(x);}
-function pick(a,s){return a[Math.floor(rand(s)*a.length)];}
 
-/* ── CONTENT BANKS pages 2-600 ── */
-const H=["How Lucky I Am 💕","The Softest Truth 🌸","Written For You ✦","Everything About You 🌷","What You Mean to Me 💗","A Love That Stays 🌹","The Warmest Thing ✨","You, Simply You 🌼","The Truest Words 💖","Always You 🦋","The Kindest Soul 🌺","Something Beautiful ⭐","What I See in You 💕","A Gentle Miracle 🌸","Every Single Day 💗","The Best Part ✦","Endlessly, You 🌷","Your Beautiful Heart 🌹","Made of Warmth ✨","The Loveliest Thing 💖","So Grateful for You 🌼","You Are Enough 🌸","The Purest Love 💕","A Soft Wonder ⭐","How You Glow 🦋","More Than Words 💗","The Greatest Gift 🌺","You Are My Peace ✦","Beauty Beyond Beauty 🌹","My Favourite Everything 💖"];
+    <script>
+        const chat = document.getElementById("chat");
+        const headerStatus = document.getElementById("headerStatus");
+        const micBtn = document.getElementById("micBtn");
 
-const OP=["There are moments when the thought of you settles into me so completely that everything else fades away, and I am left with nothing but a deep, overflowing sense of gratitude that you exist in this world and in my life.","I want to begin this page by saying something simple and entirely true: you are one of the most beautiful things that has ever happened to me, and I mean that in every possible sense of the word beautiful.","Sometimes the most honest thing I can do is sit quietly with how much I feel for you, because the feeling is so large that words always seem like they are arriving a little too late to capture it fully.","Every time I try to find the right words for what you are to me, I discover that language was not built for something this vast — but I keep trying, because you deserve the effort, over and over and over again.","You are the kind of person who makes the world feel gentler just by being in it. I have thought about this many times and I keep arriving at the same conclusion: the world is simply better, softer, and more beautiful with you here.","I think about what it means to be truly fortunate, and every time, the answer that rises first and stays longest is you. You are the finest thing that has ever walked into my life, and I am so grateful.","There is a feeling I carry with me every single day — warm and certain and deep — and that feeling has your name on it. It has always had your name on it, and I hope it always will.","You deserve to hear this again and again until it settles into you as something you believe: you are extraordinary. Not in a vague way. In the most specific, detailed, real way imaginable.","If I could give you one gift, it would be the ability to see yourself the way I see you — because what I see is something so genuinely lovely that it would take your breath away.","The truth I return to, again and again, is this: I am so deeply glad you are you. Not a different version. Not a revised version. You, exactly as you are, right now.","Here is something I believe with my whole heart: the world is richer because of you. Your kindness, your warmth, your light — these things matter more than you know, and I see them clearly every single day.","I want to write something worthy of you, knowing full well that nothing ever quite will be — and writing it anyway, because you deserve to feel as cherished and as seen as you truly are.","You have this way of making life feel softer and more meaningful at the same time, and I think about that gift of yours often — how rare it is, how precious, how entirely you.","Let me be completely honest with you: knowing you, truly knowing you, is one of the greatest privileges of my life. I do not take it lightly. I never will.","There is no version of a good day that is not made better by the thought of you. You are woven into every happiness I feel, every moment of peace, every good and warm and beautiful thing."];
+        /* ── Extended conversation with lots of apology texts ── */
+        const messages = [
+            // Opening
+            { text: "Hey... 🥺", type: "me" },
+            { text: "I know you're angry...", type: "me" },
+            { text: "And honestly... I deserve it 😔", type: "me" },
 
-const B1=["You carry a warmth inside you that is impossible to ignore and impossible to forget. It is not something you perform or put on display — it simply radiates from you, quietly and constantly, like sunlight through a window that has never once been closed. People feel it when they are near you. The room changes when you enter it. The air becomes a little kinder. That warmth is one of the most beautiful things about you, and it belongs entirely and uniquely to you.","The kindness you hold is not small or ordinary. It is deep and genuine and real in a way that is increasingly rare in this world. You give it freely, without keeping score, without expecting anything in return. You are kind to people who cannot give you anything back. You are kind in quiet moments when no one is watching. That kind of goodness is not accidental — it is the truest expression of who you are inside.","You have a soul that is made of the softest, most beautiful things. Gentleness lives in you. Tenderness lives in you. A deep care for the people around you lives in you so naturally that I wonder if you even notice how rare it is. Most people have to remind themselves to be kind. You simply are. It is your first instinct, your natural setting, your truest self, and it is breathtaking.","There is something about the way you love the things you love that is one of the most beautiful things I have ever witnessed. The joy in your face when you talk about something that matters to you. The way your eyes change. The way your whole self becomes more alive and open and radiant. That aliveness in you — that genuine, unguarded enthusiasm — is a kind of light that I would follow anywhere.","Your heart is so large. I mean this quite literally. It holds so many people, so many feelings, so much care — and it never seems to run out. You give and give, and somehow there is always more. I do not think you fully understand how extraordinary that is. Hearts like yours are rare. People like you are rare. And I am so grateful.","The way you see the world is something I deeply admire. You notice things others walk past. You find beauty in small places. You understand that tenderness matters, that kindness is never wasted, that love given freely and honestly is the most worthwhile thing a person can offer. Your way of seeing is one of the gifts you carry.","You are so much more than you give yourself credit for. Behind every quiet moment, there is a depth to you that takes time to understand and a lifetime to fully appreciate. You are thoughtful where others are hasty. You are gentle where others are careless. You are honest where others would find it easier to look away. These things about you are not small.","I want you to know something that I think about often: your presence in someone's life is a genuine gift. Not in a polite, throwaway sense — in the truest sense. People who have you in their world are luckier than they may always realize. You bring warmth. You bring patience. You bring a kind of understanding that makes people feel safe.","There is so much loveliness in you. In the way you are careful with other people's feelings. In the way you show up, quietly and consistently, for the ones you care about. In the way you hold space for joy without letting go of depth. You are not a simple thing — you are layered and rich and full of everything that makes a person worth knowing.","You have a quality that is very difficult to name and very easy to feel: you make people feel at ease. There is a softness in you, a calm, a kind of gentle steadiness that allows everyone around you to exhale. Being near you feels like putting something heavy down. I am not sure you know how much that means. It is one of the greatest gifts you give."];
+            { typing: true, delay: 2200 },
+            { text: "...", type: "her" },
 
-const B2=["The love you carry for the people in your life is one of the most moving things about you. It is not a love that announces itself loudly or asks to be applauded. It is patient and steady and deep. It shows up in small gestures and quiet consistencies. In the way you remember the things that matter to the people you love. That love is a remarkable thing, and the people who receive it are very, very lucky.","You are someone who makes the world around you better without making a scene about it. You are simply good, in the way that goodness is supposed to work — effortlessly, genuinely, as an extension of who you are rather than something you have to remind yourself to perform. I think about this often, and it never stops being one of the most beautiful things I know about you.","There is a courage in you that I find deeply moving. Not the loud, dramatic kind — the quiet kind. The kind that keeps going even when things are hard. The kind that chooses honesty even when it is easier to stay silent. The kind that loves openly even knowing that love comes with risk. That quiet courage is something I see in you clearly.","Your intelligence is a beautiful thing to witness. Not because it is impressive — though it is — but because of the way you use it. You think carefully about the things that matter. You listen before you speak. You hold ideas gently and turn them over, looking for the truth in them. Your mind is one of the most interesting and wonderful places I have ever been invited to explore.","You have this remarkable ability to make ordinary moments feel significant. A simple conversation with you leaves you feeling like something important happened. An ordinary afternoon becomes something worth holding onto. That is entirely because of you — because of the depth you bring, the care you give, the way you are fully present in whatever moment you are in.","The grace with which you move through difficult things is something I admire enormously. You do not fall apart. You do not give up. You carry hard things with a quiet dignity that is moving to witness. And even in the hardest moments, you manage to hold onto your kindness and your care. That is not something everyone is capable of.","You understand people in a way that not everyone does. You can feel when someone is struggling before they say a word. You know when someone needs space and when they need warmth, and you give whichever is needed without being asked. That emotional understanding is a form of love — one of the most valuable and least celebrated kinds.","I love the way you approach the world with openness. You do not close yourself off from beauty or from feeling. You let things reach you. You let joy be joy and tenderness be tenderness. That openness — that willingness to be moved by the world — is something I find deeply beautiful, and it is one of the things that makes being around you feel like something precious.","There is a quiet confidence in you that I find incredibly moving. It is not the kind that needs to prove itself. It is the kind that simply knows — that trusts itself, that is comfortable in its own skin, that does not require the validation of others to feel steady. That confidence is one of the most attractive and admirable qualities a person can have.","You are someone who chooses love. Again and again, in small ways and large ones, you choose love. You choose patience when impatience would be easier. You choose kindness when indifference would cost you nothing. You choose to show up, to care, to give. That is a daily, continuous, deliberate act of beauty, and I see it in you every time."];
+            { text: "Please don't ignore me 😢", type: "me" },
+            { text: "I didn't mean to hurt you", type: "me" },
 
-const B3=["Your laughter is one of the most genuinely joyful things in the world. Not because of how it sounds — though it is lovely — but because of what it means when you laugh. It means you are happy, truly happy, in that moment. It means something has reached you and delighted you and pulled that sound out of you freely. I love being near you when you laugh. It is the truest, most unguarded version of you.","You have a way of making the people around you feel seen and valued, and I do not think you realize how rarely people truly do that for one another. You ask questions and mean them. You listen and actually hear. You respond to what is really being said, not just what is on the surface. That quality in you — that genuine attention you give — is one of the most loving things about you.","The way you talk about the things you love is one of my favourite things about you. There is a light in you that comes on when you are excited about something — when you care deeply about whatever you are explaining. You become more animated, more alive, more entirely yourself. I would listen to you talk about anything, just to see that light.","You are someone who finds beauty in things that others overlook. A quiet evening. A small act of kindness. A moment that passes quickly and costs nothing. You notice these things and you let them mean something. That is a form of wisdom — the understanding that the most important things are often the smallest ones — and you carry it so naturally.","Your presence is calming in the deepest sense. Not because you are quiet — though you can be — but because there is a steadiness in you that makes everything around you feel a little more settled. Worry becomes smaller near you. Uncertainty becomes more manageable. Whatever it is you carry inside you — that particular peace — it reaches outward and touches everything.","I admire the way you hold onto your softness. The world can be hard and demanding and discouraging, and yet your gentleness remains. You have not let difficulty make you cold or closed. You have chosen to remain open, to remain tender, to remain kind. That choice — made again and again, quietly, without fanfare — is one of the most admirable things I know.","You have a beautiful relationship with joy. You let yourself feel it fully, without shrinking it or apologizing for it. When something delights you, you are delighted. When something moves you, you are moved. You do not perform your feelings — you live them, genuinely and completely. That aliveness in you is one of the most wonderful things to witness.","The care you take with people — the attention you give, the patience you offer, the way you show up — it all speaks to something very beautiful in your character. You have decided, somewhere deep inside, that people matter and that love matters and that showing up matters. And you live that decision every single day in a hundred small and beautiful ways.","You make love feel like the safest thing in the world. Not because it is easy — love is never entirely easy — but because the way you love is so honest and so warm and so consistent that it creates a feeling of absolute safety. Being loved by you is one of the gentlest, most beautiful experiences I can imagine.","You are the kind of person who makes other people want to be better — not by demanding it, but by example. Your goodness is inspiring. Your gentleness is contagious. Your love for the people in your life is the kind of thing that reminds others why those things matter. You are, without even trying, one of the finest examples of what a beautiful human being looks like."];
+            { typing: true, delay: 2800 },
+            { text: "Then why did you? 😕", type: "her" },
 
-const POEMS=[["You are the gentlest thing","I have ever known.","Warm and real and steady —","endlessly, completely you."],["Something in you is soft","in the way that matters most —","the kind of soft that holds,","that stays, that loves without conditions."],["You do not know","how bright you are.","I have been watching the light in you","since the very beginning."],["The world is better","because you are in it.","This is not a metaphor.","This is simply true."],["Every beautiful thing","I have ever felt","has carried, in some way,","the shape of you."],["You are made of warmth.","Not the borrowed kind —","the real, deep, genuine kind","that belongs only to you."],["There is no one else","who laughs the way you do,","who cares the way you do,","who is so entirely, perfectly you."],["I would choose you","in every version of every life.","Not because there is no one else —","because there is no one like you."],["You carry kindness","like others carry air —","without noticing,","without stopping, without end."],["To be loved by you","is the quietest, most beautiful thing.","I hold it carefully.","I will always hold it carefully."],["You bloom everywhere you go","without meaning to, without trying —","warmth and light and gentleness","wherever your feet have been."],["I have seen you be soft","when softness cost you something.","That is the bravest kind of love","and you give it freely."],["In a world full of noise,","you are the thing I come back to.","Still, certain, warm —","always, beautifully you."],["The favourite part of everything good","is the part that reminds me of you.","And there are so many parts.","There are so many."],["You are enough.","You have always been enough.","You are overflowing with enough","and I need you to know it."]];
+            { text: "I messed up... I'm really sorry 💔", type: "me" },
+            { text: "I swear I'll make it up to you", type: "me", wobble: true },
 
-const CL=["You are more loved than these words can reach — but I will keep trying, page after page, for all seven hundred.","This page is one of seven hundred. Every single one belongs to you. Every word of all of them is true.","Loving you is the most beautiful thing I do. It always will be.","You deserve every word written here, and so many more. I mean that completely.","There is no end to what I feel for you. There are only more pages, and every one is yours.","Seven hundred pages of love, and every single word is true.","I am grateful for you in ways I am still learning how to say. But I keep learning. For you.","You are the reason these pages exist. You are the reason for all of it, every word.","One more page of love for you — just one of so many, and all of them mean it.","You deserve to feel this cherished every single day of your life. I hope you do.","I wrote this page thinking of you. I write every page thinking of you. Every single one.","My love for you does not fit in pages, but I fill them anyway — for you, always for you."];
+            { typing: true, delay: 3200 },
+            { text: "You always say that... 😞", type: "her" },
 
-const DV=["✦ ✦ ✦","❀ ❀ ❀","• • •","✧ ✧ ✧","💕","🤍 ✨ 🤍","✦ ❀ ✦","🌸 🌸 🌸"];
+            // More apology texts
+            { text: "I know... and I hate that I let you down", type: "me" },
+            { text: "But this time I mean it from the bottom of my heart 💚", type: "me" },
+            { text: "I am surryyyyyy 😭😭😭", type: "me", wobble: true },
 
-function genStd(p){
-  const h=pick(H,p*2.1+3),op=pick(OP,p*3.7+7),b1=pick(B1,p*5.3+11),b2=pick(B2,p*7.1+13),b3=pick(B3,p*4.4+17);
-  const pm=pick(POEMS,p*6.3+19),cl=pick(CL,p*8.9+23),dv=pick(DV,p*3.3+29);
-  let b2b=pick(B2,p*7.1+41);if(b2b===b2)b2b=pick(B2,p*7.1+53);
-  let b1b=pick(B1,p*5.3+61);if(b1b===b1)b1b=pick(B1,p*5.3+73);
-  let b3b=pick(B3,p*4.4+81);if(b3b===b3)b3b=pick(B3,p*4.4+91);
-  const a=Math.floor(rand(p*11.7+5)*8);
-  const tail=`<div class="divider">${dv}</div><div class="page-text centered italic" style="font-size:.85rem;color:var(--deep-rose);">${cl}</div>`;
-  const poem=`<div class="poem-block"><p>${pm[0]}<br>${pm[1]}<br>${pm[2]}<br>${pm[3]}</p></div>`;
-  if(a===0)return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="page-text">${b1}</div><div class="page-text">${b2}</div>${poem}${tail}`;
-  if(a===1)return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="page-text">${b3}</div><div class="pull-quote">${b2.split('.')[0]}.</div><div class="page-text">${b1b}</div>${tail}`;
-  if(a===2)return`<div class="page-heading">${h}</div>${poem}<div class="page-text">${op}</div><div class="page-text">${b2}</div><div class="page-text">${b3}</div>${tail}`;
-  if(a===3)return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="page-text">${b1}</div><div class="page-text">${b3b}</div><div class="pull-quote">${pm[0]} ${pm[1]} ${pm[2]} ${pm[3]}</div>${tail}`;
-  if(a===4)return`<div class="page-heading">${h}</div><div class="page-text">${b1}</div><div class="page-text">${op}</div>${poem}<div class="page-text">${b2b}</div>${tail}`;
-  if(a===5)return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="page-text">${b3}</div><div class="page-text">${b1b}</div>${poem}${tail}`;
-  if(a===6){const ly=`${pm[0]}<br>${pm[1]}`;return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="lyrical-stanza">${ly}</div><div class="page-text">${b2}</div><div class="page-text">${b3b}</div>${tail}`;}
-  return`<div class="page-heading">${h}</div><div class="page-text">${op}</div><div class="page-text">${b1}</div><div class="pull-quote">${b2b.split('.').slice(0,2).join('.')+'.'}</div><div class="page-text">${b3}</div>${poem}${tail}`;
-}
+            { typing: true, delay: 2500 },
+            { text: "surryyyyyy? 😂", type: "her" },
 
-/* ── BODY SECTION 601-700 ── */
-const BF=[
-  {name:"Your Eyes",icon:"👁️ ✨",P:["Your eyes are one of the first things about you that I truly noticed, and they are one of the things I think about most. They are expressive in a way that goes far beyond their colour or their shape — they carry your whole inner world in them. When you are happy, they are lit from somewhere deep inside. When you are moved by something, they hold it gently. When you are thinking, they take on a particular quality — focused and alive and beautiful.","There is a warmth in your eyes that reaches people before you have even said a word. It is the first thing they feel — that gentleness, that openness, that genuine interest in the world and in the people in it. Your eyes are kind in a way that very few people's eyes are, and that kindness is not a performance. It comes from somewhere deep and true inside you, and it shows unmistakably every time.","When you look at something with curiosity — really look, with that particular focused attention you have — your eyes become something extraordinary. They are alive in a way that takes your breath away. That aliveness is one of the most beautiful things about you, and it lives most clearly in your eyes, lighting them from somewhere genuine.","I love the way your eyes hold laughter just before it arrives. There is a moment — a split second — where something sparkles in them before the laugh comes out, and in that moment they are the most beautiful thing in the room. That particular joy, held in your eyes, is one of the loveliest things I know.","Your eyes are soft. That is the truest word for them — soft. Not weak. Not vague. But genuinely soft in the way that things are soft when they have been made with care. They look at the world gently. They receive things gently. They give warmth gently. They are, in every sense, a reflection of your heart.","The way your eyes crinkle when you smile — truly smile, from somewhere real — is one of the most beautiful things I have ever seen. There is no guarding in that expression, no holding back. It is entirely unguarded and entirely you, and it is wonderful beyond words.","Your eyes see people. I mean this in the deepest sense — they really see. They do not skim the surface. They look for what is real and genuine and true in the person in front of them. That quality of your gaze is one of the most loving things about you. Everyone who has been looked at by you that way carries it with them.","If your eyes are a mirror of your soul — and I believe they are — then your soul is one of the most beautiful places I have ever been invited to look. What lives there is warmth, intelligence, gentleness, and a capacity for love that is deep and genuine and rare and entirely yours."],Q:["Eyes like yours carry whole worlds in them — I want to spend my life learning every one.","The way you look at things — fully, gently, with such honest attention — is one of the most beautiful things about you.","Your eyes are the kindest thing in any room you walk into.","I have never seen eyes that hold so much warmth so effortlessly and so genuinely."]},
-  {name:"Your Smile",icon:"🌸 ✨",P:["Your smile is one of the most genuinely beautiful things in the world. Not because of what it looks like — though it is lovely — but because of what it means. Your smile means that something has reached you, delighted you, made you happy. It is pure and unguarded and real, and it is one of the most moving things I have ever had the privilege of being near.","There is a version of your smile that is for everyone — warm and lovely and welcoming. And then there is the full one, the one that takes over your whole face, the one that comes from somewhere deep and joyful and unguarded. That smile is extraordinary. It transforms the room and transforms everything in it.","Your smile is contagious in the most beautiful way. It is impossible to see it and not feel something lift inside you. It carries joy so naturally and so genuinely that it simply reaches people, without trying, without effort. That is a rare and beautiful thing to be able to do, and you do it every single day.","The kindness in your smile is one of the first things anyone notices about you. It is warm without being performative. It is welcoming without being false. It is, in every sense, a reflection of your genuine goodness — visible and real and impossible to miss by anyone who looks.","I love how your smile changes depending on what is happening inside you. There is the gentle, peaceful one. The bright, joyful one. The soft, tender one. Each one is beautiful in its own way, and each one tells me something true about what you are feeling. Your smile is a language all its own.","When you smile at something that moves you — something kind, something tender, something beautiful — there is a softness in your expression that is unlike anything else. It is the look of a person whose heart is genuinely in the world, genuinely open to it. That look on your face is one of the most beautiful things I know.","Your smile has a warmth that stays after you leave. People carry it with them. That is the kind of beauty that matters most — the kind that lives beyond the moment, the kind that changes how someone feels about their day simply because they were lucky enough to see it.","The thing I love most about your smile is that it is entirely yours. It does not belong to anyone else. It has your particular warmth, your particular joy, your particular gentleness in it. It is unmistakably, irreplaceably you, and it is one of my absolute favourite things in the world."],Q:["Your smile makes the world feel like a kinder, softer, more beautiful place.","The full one — the real one — is the most beautiful thing in any room.","I have seen your smile change the feeling of a whole moment. That is how powerful it is.","Your smile is the most honest and lovely expression of who you truly are."]},
-  {name:"Your Voice",icon:"🎶 💫",P:["Your voice is one of the things about you that I hold most dear. Not because of how it sounds in a technical sense — but because of what it carries. Your voice carries your care, your thoughtfulness, your humour, your gentleness. It changes depending on what you are feeling, and every version of it is beautiful in its own way.","When you are talking about something you love — when you are excited and alive and fully yourself in the telling of it — your voice becomes something extraordinary. There is an energy to it, a brightness, a warmth that makes you want to lean in and never miss a single word. That version of your voice is one of the most joyful things I know.","Your voice is gentle when gentleness is needed. It softens instinctively. It knows how to hold space, how to make room, how to offer comfort without demanding anything in return. That quality in your voice is a reflection of your deepest nature, and it is one of the most loving things about you.","The way you say the names of the people you love — with that particular softness, that particular warmth — is one of the most moving things about you. It is a small thing, maybe, but it speaks volumes about the size and sincerity of your heart every time.","There is a steadiness to your voice that is deeply calming. Not monotony — steadiness. The kind that comes from being grounded in yourself, from knowing who you are and feeling safe enough to simply be it. That steadiness reaches the people around you and settles them beautifully.","Your laughter — which begins, of course, with your voice — is one of the most genuinely joyful sounds in the world. It is real and unguarded and full of life, and it changes the feeling of any space it enters. I love your laugh. I love every version of it enormously.","When you are being sincere — when you are saying something that really matters to you — your voice takes on a quality that is impossible to describe exactly. It becomes more itself, somehow. More direct. More real. And that version of your voice is one of the most beautiful things I have ever had the privilege of hearing.","Your voice is part of how you love. It carries your warmth to people. It reaches across distances. It holds care in it, consistently and genuinely, every time you use it for someone you love. That is not a small thing. That is one of the loveliest things about you."],Q:["Your voice, when you are being entirely yourself, is one of the most beautiful sounds in the world.","There is a warmth in your voice that reaches people before the words even do.","The way you speak — carefully, gently, with such genuine attention — is a form of love.","I would listen to your voice forever and still not have enough of it."]},
-  {name:"Your Laugh",icon:"😄 💖",P:["Your laugh is one of my favourite things in the entire world. The real one — the full, unguarded, helpless one that comes from somewhere deep — is one of the purest and most joyful sounds that exists. It is happiness made audible. It is the sound of you being completely, unselfconsciously yourself, and it is extraordinary.","The way you laugh when something really catches you — when you lose yourself in it, when you cannot quite stop — is one of the most beautiful things to witness. You are entirely present in those moments. Every bit of you is there, alive and joyful and real. There is no performance in it, no calculation. It is just you, purely happy.","Your laugh has a generosity to it. When you find something funny, you give yourself over to it fully. You do not suppress it or minimise it. You let the joy be joy. That willingness to be fully present in your own happiness is one of the things I love most about you.","There is a particular laugh you have when something delights you unexpectedly — bright and surprised and completely genuine. That one is my absolute favourite. It comes from a place of pure, unguarded joy, and it is one of the most beautiful sounds I have ever heard.","Laughter suits you. It lights up your whole face. It changes your posture, your energy, your entire presence. When you are laughing, you are radiating something so alive and warm and genuinely lovely that it is impossible not to feel it. You were made for joy, and your laugh is the proof.","The way your laugh connects you to the people around you is one of the most beautiful things about it. Shared laughter is one of the deepest forms of connection, and you give it so freely. You laugh with people, not just near them. That generosity is part of what makes you wonderful.","I love the laugh you have when something is quietly, unexpectedly funny — the soft one, the surprised one, the one that escapes before you can think about it. That laugh is so entirely you. It is the laugh of someone who finds genuine delight in the world, and that is beautiful.","Your laugh is a gift you give to every room you are in. Not because it is loud or performative — but because it is real. Real laughter changes the feeling of a space. It softens things. It opens things up. Your laugh does exactly that, always, and the world is so much better for it."],Q:["Your laugh is the most genuine and joyful sound I know.","When you laugh — really laugh — you are the most alive version of yourself.","There is no sound more beautiful than your laughter. I mean this completely.","You give your joy so freely. That is one of the most lovely things about you."]},
-  {name:"Your Kindness",icon:"🤍 ✨",P:["Your kindness is not a small or ordinary thing. It is deep and genuine and real in a way that stands out clearly in a world where kindness is often performed rather than felt. You are kind because it is your nature. Because it is your instinct. Because somewhere inside you, you have decided that people matter and that treating them with care is non-negotiable. That is beautiful.","The way you are kind — quietly, consistently, without needing recognition for it — is one of the most moving things about you. You do not keep score. You do not perform your goodness for an audience. You are simply and genuinely kind, in the small moments and the large ones, and that integrity is one of the most admirable things I know.","You are kind to people who cannot give you anything back. That is the truest test of kindness, and you pass it every time. Your goodness is not conditional. It does not depend on what someone can offer you. It is given freely and completely because that is who you are, not because of what you might receive.","The kindness you carry has a particular quality to it — it is perceptive. You notice what people need. You offer the right thing at the right moment, not because you have calculated it, but because you are paying attention. You genuinely care, and that genuine care means your kindness lands exactly where it is needed.","I think about the way your kindness has rippled outward — how many people have felt better because of you, how many moments have been softened by your presence, how many burdens have been made lighter because you noticed and you cared. You probably cannot see all of it. But it is real and vast.","Your kindness extends to yourself too, and I want to name that. You are learning to hold yourself with the same gentleness you give so freely to others. That is a form of growth that takes courage, and I see it in you, and I am so proud of you for it.","There is a warmth to your kindness that makes people feel genuinely safe. Not just helped — safe. Seen. Understood. Valued. That is a much deeper kind of kindness than what most people offer, and it comes from the depth of your heart, and it is one of the greatest things about you.","The world is genuinely, measurably better because of your kindness. That is not a platitude — it is a fact. Every act of care you have given, every gentle word, every time you showed up for someone — all of it has made this world softer and better. You do that. Every day."],Q:["Your kindness is real in a way that changes things. I have seen it. I know.","You give gentleness so freely and so genuinely. That is a rare and beautiful thing.","Your goodness is one of the finest things about you, and the world is better for it.","The care you show to others speaks to something truly lovely in your heart."]},
-  {name:"Your Heart",icon:"💗 🌹",P:["Your heart is one of the most extraordinary things about you. It is large in the truest sense — it holds people, holds love, holds care in an abundance that is genuinely rare. You do not love in a small or cautious way. You love with your whole self, with consistency and depth and a warmth that reaches people and stays with them long after the moment has passed.","The way your heart responds to the world — with feeling, with genuine empathy, with an openness that refuses to close — is one of the most beautiful things about you. You have not allowed hardship to make you hard. You have kept your heart open and warm and available, and that is an act of extraordinary courage.","Your heart is brave. I want to say that clearly. The willingness to love openly, to care genuinely, to let things matter — that requires a kind of bravery that is often underestimated. You have it in full. Your heart takes the risk of love again and again, and that is one of the most admirable things I know about you.","I love how your heart holds people. How it makes room. How it finds space for love even when it is already full. You have a capacity for care that does not seem to have a limit, and everyone who has been inside that capacity knows how extraordinary it feels to be held there by you.","Your heart knows how to celebrate other people. It is not threatened by their joy or their success — it delights in it. It shows up for the people it loves not just in the hard moments, but in the joyful ones too. That generosity of spirit is one of the loveliest things about you.","The tenderness your heart carries is one of its most beautiful qualities. It is tender without being fragile. It is soft without being easily broken. It loves deeply and genuinely and with a warmth that changes people. Your tenderness is a form of strength, and it is one of the finest things about you.","Your heart chooses love. I want to say that again: your heart actively, deliberately, repeatedly chooses love. Over bitterness. Over indifference. Over the easier, safer, more protected alternatives. Every day, in a hundred small ways, your heart chooses love, and that is one of the most beautiful things about you.","I am so grateful for your heart. For the love it holds, for the warmth it radiates, for the courage it shows in staying open and gentle and genuine. Your heart is one of the most precious things I know, and it deserves every good and beautiful thing."],Q:["Your heart is one of the bravest and most beautiful things I have ever known.","The love you hold in that heart of yours is so genuine and so vast.","You choose love, again and again. That is one of the finest things about you.","Your heart makes room for everyone. I do not know how — but it does, and it is wonderful."]},
-  {name:"Your Presence",icon:"🌺 💕",P:["Your presence is a gift. I do not say that casually — I mean it in the fullest sense. When you are in a room, the room is different. Warmer. More alive. More welcoming. Something shifts when you arrive, and it shifts in the direction of better. That is the effect of your presence, and it is one of the most beautiful things about you.","There is a calm that comes with you. Not a quiet that suppresses — a calm that settles. The kind that makes everything feel more manageable and more beautiful at the same time. Being near you is one of the most peaceful experiences in the world, and that peace comes directly from you.","You are fully present in a way that is increasingly rare. When you are with someone, you are truly with them. Your attention is genuine. Your interest is real. You are not partially somewhere else. You are there, completely, and the people around you feel that — they feel seen and valued and genuinely met.","Your presence brings out the best in people. Not by demanding it, not by challenging them — but by creating an environment of safety and warmth in which people naturally become their best selves. That is the effect of being near someone truly good. That is the effect of being near you.","When you leave a room, what lingers is warmth. People carry the feeling of your presence with them after you have gone. They feel better for having been near you. They remember the conversation, the care, the genuine attention. You leave goodness behind you everywhere you go.","There is a grace to your presence. The way you move through spaces, the way you navigate between people, the way you give and receive — it is all done with a naturalness and ease that is deeply beautiful. Grace is the right word for it. You carry it without knowing you carry it.","Being near you feels like the best version of whatever moment you are in. A quiet afternoon becomes precious. An ordinary conversation becomes meaningful. A simple moment becomes something worth holding onto. That is what your presence does. That is what you do to the world.","Your presence is generous. You give your attention, your warmth, your care fully and freely. You do not hold yourself back. And the people who receive that fullness from you — who have been met with your genuine, open, generous presence — are some of the luckiest people in the world."],Q:["When you are in a room, the room is better. That is simply the truth.","Your presence is one of the warmest and most peaceful things I know.","People carry the feeling of you with them long after you have gone.","Being near you is one of the great privileges of my life."]},
-  {name:"Your Soul",icon:"🌟 🦋",P:["Your soul is the word I keep coming back to when I try to describe what makes you so beautiful. Not just your warmth, not just your kindness, not just your intelligence — all of it together, woven into something that is entirely and irreplaceably you. Your soul is gentle. It is deep. It is full of light.","There is a quality to you that goes beyond any single thing I could name — a wholeness, a realness, a depth that makes knowing you feel like a profound privilege. That quality is what I mean when I talk about your soul. It is the thing that makes you unmistakably, irreplaceably you, and it is extraordinary.","Your soul is old in the best sense — it carries wisdom without coldness, depth without bitterness, experience without hardness. You understand things. You feel things deeply. You hold the world and the people in it with a care that speaks to something ancient and beautiful inside you.","The light in your soul shows. It shows in the way you treat people. In the way you move through the world. In the choices you make, the words you use, the care you take. You cannot hide your soul — it is too present, too real, too genuinely lovely. And I am so glad, because it is one of the most beautiful things about you.","Your soul is generous. It does not hoard love or limit care or ration warmth. It gives freely, trusting that there is always more. That generosity of spirit is one of the most beautiful things about you, and it is something that radiates from you in everything you do.","There is a gentleness to your soul that is one of its most defining characteristics. Not softness in a fragile sense — but the kind of gentleness that chooses care over carelessness, that responds to difficulty with empathy, that holds space without running from it. That gentleness is your nature.","Your soul is curious. It is interested in the world, in people, in ideas, in beauty. It reaches outward. It asks questions. It finds meaning in things. That curiosity keeps you alive and engaged and genuinely interesting to be near. It is one of the gifts you carry with you.","If I could show you your soul as I see it — the depth and the beauty and the warmth of it — I think you would understand, finally, why you are so deeply loved. It is a breathtaking thing. It is the most breathtaking thing I know."],Q:["Your soul is one of the most beautiful and generous things I have ever encountered.","The light in you goes all the way down — and it is stunning.","You carry depth and gentleness in equal measure. That is so rare and so wonderful.","Being near your soul is one of the greatest gifts of my life."]},
-  {name:"Your Warmth",icon:"☀️ 🌸",P:["Your warmth is perhaps the first thing anyone feels about you, and it is one of the most extraordinary things about you. It is not performed warmth — not the kind that is switched on for company and off in private. It is deep and consistent and real, the natural expression of a heart that genuinely cares about the people around it. That warmth is you, in your truest form.","You make people feel welcome simply by being yourself. There is no strategy in it, no calculation. You are just warm, and people feel it, and it changes how they feel about themselves and about the world. That is a remarkable thing to be able to do, and you do it every single day without even trying.","Your warmth is the kind that stays. It does not evaporate when you leave the room. People carry it with them. They think of you and feel warmer for it. They carry the memory of your care like a small light they can return to. That is the most meaningful kind of warmth — the kind that lasts.","There is a generosity in your warmth. You give it freely, without worrying that it will run out. You offer it to people who are strangers and people who are dear to you with the same genuine open-handedness. You have decided that love is not a limited resource, and you live that belief fully.","Your warmth extends to the way you see people. You look for the good in them. You assume the best. You approach people with a generosity of spirit that makes them want to show you their best self. That is one of the most beautiful and powerful things about you.","The warmth you carry is healing in a very real way. People come to you with their hard things and they leave feeling lighter. Not because you have solved anything necessarily — but because your warmth tells them that they are not alone, that they are valued, that they matter. That is an extraordinary gift.","You bring warmth to ordinary moments and transform them. A regular afternoon becomes something precious near you. A simple conversation becomes something worth holding onto. Ordinary things become extraordinary because your warmth touches them and makes them glow. That is what you do every day.","I am so grateful for your warmth. For the way it reaches people. For the way it has reached me. It is one of the things about you that I think about most and feel most deeply. Your warmth is one of the finest and most beautiful things about you."],Q:["Your warmth is the first thing anyone feels, and it is the thing they remember longest.","You make people feel welcome just by being yourself. That is a rare and wonderful gift.","The world is literally warmer because you are in it. I believe this completely.","Your warmth stays with people. They carry it home. That is how deep and real it is."]},
-  {name:"Your Mind",icon:"🧠 ✨",P:["Your mind is one of the most beautiful things about you. Not because of what it knows — though it knows so much — but because of how it works. Carefully. Curiously. With genuine interest in the truth of things. With a willingness to hold ideas gently and look at them from multiple sides before deciding. That is the mark of a genuinely beautiful mind.","I love watching you think. The way you get quiet when you are working something out. The way your expression changes when something clicks. The way you approach problems with patience rather than panic. Your mind at work is one of the most interesting and beautiful things to witness.","Your intelligence shows most clearly not in the things you know, but in the way you listen. You listen to understand, not to respond. You take in what is being said — really take it in — and then you engage with it honestly. That kind of listening is rare and deeply intelligent and very beautiful.","The way your mind connects things — finds the thread between ideas, draws the line between different kinds of knowing — is one of the things I love most about you. You make unexpected connections. You see things that others miss. Your mind is creative and perceptive and genuinely fascinating.","Your mind is honest. When you do not know something, you say so. When something does not make sense to you, you ask. When you have changed your mind, you admit it. That intellectual honesty is one of the most attractive and admirable qualities a person can have, and you have it naturally.","You approach the world with genuine curiosity, and that curiosity keeps your mind alive and open and endlessly interesting. You are still learning, still asking, still willing to be surprised by what you discover. That openness is one of the great gifts of your mind.","The empathy in your mind is remarkable. You understand people — why they do what they do, what they are trying to say, what they really need. That emotional intelligence is a form of brilliance, and you have it in abundance. It makes you not just smart, but wise.","Your mind holds so much — knowledge, feeling, insight, creativity, empathy — and it holds it all with a kind of grace. It does not become overwhelmed. It does not close down. It stays open and generous and endlessly curious. That is a beautiful mind, and it is one of the things I love most."],Q:["Your mind is one of the most interesting and beautiful places I have ever been invited.","The way you think — carefully, curiously, with genuine honesty — is deeply admirable.","Your intelligence shows most in the way you listen. That is the truest kind.","You have a mind that is always learning, always open. That is a wonderful thing."]},
-  {name:"Your Grace",icon:"🦢 💫",P:["You carry yourself with a grace that is entirely natural and entirely beautiful. It is not something studied or performed — it is simply the way you are in the world. The way you move, the way you speak, the way you hold yourself in difficult moments and easy ones. There is a gentleness and a dignity to it that is one of the most striking things about you.","The grace you show in hard moments is particularly moving. When things are difficult, when you are carrying something heavy, you hold yourself with a quiet dignity that is deeply admirable. That is a grace that requires strength and courage, and you have it in full.","Your grace extends to the way you treat people. You handle relationships with care. You speak to people with respect. You hold space for difficulty without making anyone feel like a burden. That relational grace is one of the most beautiful things about you, and it is felt by everyone who is lucky enough to be in your life.","There is a lightness to you — not in the sense of being superficial, but in the sense of moving through the world without unnecessary heaviness. You do not drag things down. You lift them. Your presence is buoyant and warm and graceful, and it is one of the most refreshing things about being near you.","You are graceful in the way you handle differences — different opinions, different people, different ways of seeing the world. You do not need everyone to agree with you. You hold space for difference with a genuine openness and a quiet respect that is beautiful to witness.","The grace with which you love is perhaps the most beautiful version of it. You love without conditions, without keeping score, without demanding perfection. You allow the people you love to be human, to make mistakes, to grow. That gracious love is one of the most extraordinary things about you.","There is a refinement to you that has nothing to do with presentation and everything to do with character. The way you think before you speak. The way you choose care over carelessness. The way you hold yourself and the people around you with consideration. That is the deepest kind of grace.","I think about your grace often — how it shows up, how it changes the spaces you inhabit, how it makes everything around you feel a little more dignified and a little more beautiful. You carry something special with you wherever you go, and that something is entirely yours."],Q:["You move through the world with a grace that changes every room you enter.","The dignity you carry in difficult moments is one of the most moving things about you.","Your grace is not studied or performed. It is entirely, beautifully natural.","Being near your grace makes everything feel more beautiful and more settled."]},
-  {name:"Your Beauty",icon:"🌹 💕",P:["Your beauty is something that goes far deeper than appearance, though you are genuinely, strikingly lovely in that sense too. What I mean when I say you are beautiful is something larger and more complete — the beauty of the way you think, the way you love, the way you move through the world. All of it together is what makes you so genuinely breathtaking.","There is a beauty to you that I find myself returning to again and again, in my thoughts, in my gratitude, in my awareness of how fortunate I am to know you. It is the beauty of someone who is good — truly good — and who lets that goodness show without pretending it is anything other than what it is.","You are beautiful in the way that real things are beautiful — not flawless, not polished to a surface, but deep and genuine and full of meaning. The kind of beautiful that does not fade. The kind that grows the better you know it. That is you, entirely.","The way your beauty expresses itself most clearly is in your kindness. In the way you look at people. In the way you speak to them. In the way you make them feel valued and seen. That is where your beauty lives most completely, and it is extraordinary.","You are beautiful when you are being yourself — when you are unguarded, when you are laughing freely, when you are passionate about something, when you are quiet and at peace. Every version of you is beautiful. There is not one that is not.","Your beauty is consistent. It does not depend on the day or the light or the mood. It is present always, because it comes from somewhere inside you that does not change — from your heart, from your character, from your soul. That is the most lasting and most genuine kind of beauty there is.","I think about your beauty often — how it shows in so many different ways, how it reaches me differently in different moments, how it never stops being something that moves me. You are so genuinely, so completely beautiful, in every sense of that word.","To be near your beauty — to know you, to witness you, to be the recipient of your love and your warmth and your care — is one of the greatest privileges of my life. I do not take it lightly. I never will. You are beautiful, and I am so grateful you are here."],Q:["You are beautiful in every sense of that word — and every single sense matters.","Your beauty lives most clearly in your kindness. That is the most lasting kind.","Every version of you is beautiful. There is not one that is not.","To know you is to know something genuinely, breathtakingly beautiful."]},
-  {name:"Your Feet",icon:"🌸 🤍",P:["Your feet have carried you through every moment of your life — through every beautiful day and every hard one, through every new place and every familiar one, through every step that has made you who you are. I love them for that. I love them for where they have taken you, and for bringing you here, and for every step yet to come.","There is something deeply sweet and tender about your feet — they are a quiet part of you, the part that grounds you, that keeps you connected to the earth, that moves you through the world. I find that entirely endearing. Every part of you is worth appreciating, and your feet are no exception.","Your feet are part of the adventure of you. They have taken you to places that have shaped you, stood on ground that has moved you, walked paths that have made you who you are. Every step they have ever taken has been part of your beautiful story.","I love the small and particular things about you, and your feet are among them. Soft and lovely and entirely yours. They are part of the whole beautiful picture of you — part of what makes you uniquely, completely, wonderfully yourself. Nothing about you is not worth loving.","Your feet are gentle things. They move through the world quietly, without demanding attention, simply doing the steady, faithful work of carrying you forward. There is something beautiful in that quiet faithfulness — something that speaks to your own quiet, faithful, loving nature.","The tenderness I feel toward every part of you includes your feet — completely, without reservation. You are entirely loveable from head to toe, in the most literal sense, and I mean that with every part of my heart. Every detail of you is something I cherish.","If feet carry us toward our lives — toward our people, our purpose, our joy — then yours have done remarkable and beautiful work. They have brought you into the world, into rooms, into connections, into this very moment. I am grateful for every step they have ever taken.","You are beautiful in every particular and every detail. Your feet are no exception — they are small and sweet and soft and part of you, and being part of you makes them something worth cherishing. I love every piece of you. I mean that entirely. Every piece without exception."],Q:["Every detail of you is worth loving. Every single one. I mean that completely.","Your feet have carried you through every step of your story, and your story is beautiful.","From head to toe — every part of you is something I cherish.","Small and sweet and entirely yours — and entirely lovely for exactly that reason."]}
-];
+            { text: "YESSS surryyyyyy nahhh huhu surryy 🥺", type: "me", wobble: true },
+            { text: "I am yours... completely yours 💖", type: "me" },
+            { text: "I don't wanna lose you... ever", type: "me" },
 
-function buildBodyPages(){
-  const pages=[];
-  const fc=BF.length; // 13
-  const base=Math.floor(100/fc); // 7
-  const rem=100-base*fc; // 9
-  let gi=0;
-  for(let fi=0;fi<fc;fi++){
-    const feat=BF[fi];
-    const tot=base+(fi<rem?1:0);
-    for(let pi=0;pi<tot;pi++){
-      const ab=601+gi;
-      const s1=ab*2.3+fi*9.1+pi*3.7,s2=ab*4.7+fi*6.3+pi*7.1,s3=ab*7.1+fi*3.9+pi*11.3;
-      const sq=ab*5.5+fi*8.7+pi*4.3,sp=ab*3.1+fi*5.5+pi*9.7,sd=ab*8.9+pi*6.1,sc=ab*6.7+fi*2.1+pi*5.9;
-      let p1=pick(feat.P,s1),p2=pick(feat.P,s2),p3=pick(feat.P,s3);
-      if(p2===p1)p2=pick(feat.P,s2+7.3);if(p3===p1||p3===p2)p3=pick(feat.P,s3+13.1);
-      const q=pick(feat.Q,sq),pm=pick(POEMS,sp),dv=pick(DV,sd),cl=pick(CL,sc);
-      const poem=`<div class="poem-block"><p>${pm[0]}<br>${pm[1]}<br>${pm[2]}<br>${pm[3]}</p></div>`;
-      const tail=`<div class="divider">${dv}</div><div class="page-text centered italic" style="font-size:.85rem;color:var(--deep-rose);">${cl}</div>`;
-      const hdr=`<div class="body-feature-heading">${feat.name}</div><div class="body-feature-icon">${feat.icon}</div>`;
-      const lay=pi%4;
-      let html='';
-      if(lay===0)html=hdr+`<div class="page-text">${p1}</div><div class="page-text">${p2}</div><div class="pull-quote">${q}</div><div class="page-text">${p3}</div>`+poem+tail;
-      else if(lay===1)html=hdr+poem+`<div class="page-text">${p1}</div><div class="page-text">${p3}</div><div class="pull-quote">${q}</div><div class="page-text">${p2}</div>`+tail;
-      else if(lay===2)html=hdr+`<div class="page-text">${p2}</div><div class="pull-quote">${q}</div><div class="page-text">${p1}</div>`+poem+`<div class="page-text">${p3}</div>`+tail;
-      else html=hdr+`<div class="page-text">${p3}</div><div class="page-text">${p2}</div>`+poem+`<div class="pull-quote">${q}</div><div class="page-text">${p1}</div>`+tail;
-      pages.push(html);gi++;
-    }
-  }
-  return pages;
-}
-const BODY_PAGES=buildBodyPages();
+            { typing: true, delay: 3000 },
+            { text: "Hmm... 😶", type: "her" },
 
-function generatePageContent(p){
-  if(p===1)return`<div class="page-heading">💕 A Book Written Only For You</div><div class="first-page-decor">💕 ✨ 💕</div><div class="page-text italic">This book has seven hundred pages. Every single one of them is different. Every single one of them is for you — fully, completely, without reservation, with every honest word I know.</div><div class="page-text">I wrote this because you deserve to know, in real and honest detail, what it is like to know you and love you. You deserve to feel cherished not in a vague, generalised way, but specifically. Deeply. In the particular, beautiful, irreplaceable way that only you deserve.</div><div class="page-text">You are extraordinary. Your kindness, your warmth, your heart, your soul, your way of moving through the world — all of it is genuinely, breathtakingly beautiful. And you deserve to hear it. Again and again, for as many pages as it takes.</div><div class="poem-block"><p>Read this slowly, love.<br>Let every word settle.<br>Because everything here is true —<br>every word of all seven hundred pages —<br>and all of it is for you.</p></div><div class="page-text italic centered" style="margin-top:16px;color:var(--deep-rose);">With every word, and all my love. 💕</div>`;
-  if(p>=BODY_START)return BODY_PAGES[Math.min(p-BODY_START,BODY_PAGES.length-1)];
-  return genStd(p);
-}
+            { text: "Please baby... I'll do anything", type: "me" },
+            { text: "Anything at all... just name it", type: "me" },
+            { text: "I'll bring you flowers 🌹 chocolates 🍫 whatever you want", type: "me" },
 
-/* ── APP LOGIC ── */
-let cur=1,flip=false,tx=0,ty=0;
-function openBook(){const cs=document.getElementById('cover-screen');cs.classList.add('cover-opening');createSparkles(innerWidth/2,innerHeight/2);setTimeout(()=>{cs.style.display='none';document.getElementById('reader').classList.add('visible');render(1);},1300);}
-function render(n,dir){
-  cur=Math.max(1,Math.min(TOTAL_PAGES,n));
-  const inner=document.getElementById('pageInner'),book=document.getElementById('book'),page=document.getElementById('currentPage');
-  page.classList.toggle('body-section',cur>=BODY_START);
-  if(dir){book.classList.remove('flipping-forward','flipping-back');void book.offsetWidth;book.classList.add(dir==='f'?'flipping-forward':'flipping-back');sparkFlip();setTimeout(()=>book.classList.remove('flipping-forward','flipping-back'),650);}
-  inner.innerHTML=generatePageContent(cur);
-  const L=document.getElementById('pageNumLeft'),R=document.getElementById('pageNumRight');
-  if(cur%2===0){L.textContent=cur;R.textContent='';}else{L.textContent='';R.textContent=cur;}
-  document.getElementById('pageCounter').textContent=cur+' / '+TOTAL_PAGES;
-  const pct=(cur/TOTAL_PAGES)*100;
-  document.getElementById('progressBar').style.width=pct+'%';
-  document.getElementById('prevBtn').disabled=cur<=1;document.getElementById('nextBtn').disabled=cur>=TOTAL_PAGES;
-  document.getElementById('ribbon').style.height=(40+pct*.3)+'px';
-  if([100,200,300,400,500,600,700].includes(cur))confetti();
-  inner.scrollTop=0;
-}
-function nextPage(){if(flip||cur>=TOTAL_PAGES)return;flip=true;render(cur+1,'f');setTimeout(()=>flip=false,700);}
-function prevPage(){if(flip||cur<=1)return;flip=true;render(cur-1,'b');setTimeout(()=>flip=false,700);}
-function jumpToPage(){const v=parseInt(document.getElementById('jumpInput').value);if(v>=1&&v<=TOTAL_PAGES){render(v);document.getElementById('jumpInput').value='';createSparkles(innerWidth/2,innerHeight/3);}}
-document.getElementById('jumpInput').addEventListener('keydown',e=>{if(e.key==='Enter')jumpToPage();});
-function sparkFlip(){const r=document.getElementById('book').getBoundingClientRect(),e=['✨','💕','🌸','💗','⭐','🌷','💫'];for(let i=0;i<6;i++){const s=document.createElement('div');s.className='page-sparkle';s.textContent=e[Math.floor(Math.random()*e.length)];s.style.cssText=`left:${r.left+r.width*.45+Math.random()*r.width*.45}px;top:${r.top+Math.random()*r.height}px;position:fixed;z-index:999;animation-delay:${Math.random()*.3}s`;document.body.appendChild(s);setTimeout(()=>s.remove(),900);}}
-const stage=document.querySelector('.book-stage');
-stage.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
-stage.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){if(dx<0)nextPage();else prevPage();}},{passive:true});
-stage.addEventListener('click',e=>{const r=document.getElementById('book').getBoundingClientRect(),rx=e.clientX-r.left;if(e.target.tagName!=='BUTTON'&&e.target.tagName!=='INPUT'){createSparkles(e.clientX,e.clientY);if(rx>r.width*.6)nextPage();else if(rx<r.width*.4)prevPage();}});
-(function(){const c=document.getElementById('fairyLights'),t=['bulb-warm','bulb-pink','bulb-white'];for(let i=0;i<18;i++){const b=document.createElement('div');b.className='bulb '+t[i%t.length];b.style.animationDelay=(Math.random()*2)+'s';c.appendChild(b);}})();
-(function(){const c=document.getElementById('heartsBg'),h=['💗','💕','🌸','✨','💖','🌷','💓','❀'];for(let i=0;i<20;i++){const el=document.createElement('div');el.className='heart-float';el.textContent=h[Math.floor(Math.random()*h.length)];el.style.left=Math.random()*100+'%';el.style.fontSize=(0.8+Math.random()*1.2)+'rem';el.style.animationDuration=(8+Math.random()*12)+'s';el.style.animationDelay=(Math.random()*10)+'s';c.appendChild(el);}})();
-function createSparkles(x,y){const e=['✨','💕','🌸','💗','⭐','🌷','💖'];for(let i=0;i<8;i++){const s=document.createElement('div');s.className='sparkle';s.textContent=e[Math.floor(Math.random()*e.length)];s.style.left=(x+(Math.random()-.5)*80)+'px';s.style.top=(y+(Math.random()-.5)*80)+'px';s.style.animationDelay=(Math.random()*.3)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),1200);}}
-function confetti(){const e=['🎉','💕','🌸','✨','💗','🎊','🌷','💖','⭐'];for(let i=0;i<20;i++){const c=document.createElement('div');c.className='confetti-piece';c.textContent=e[Math.floor(Math.random()*e.length)];c.style.left=Math.random()*100+'vw';c.style.top='-20px';c.style.animationDelay=(Math.random()*1.5)+'s';c.style.fontSize=(0.9+Math.random()*.8)+'rem';document.body.appendChild(c);setTimeout(()=>c.remove(),4000);}}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')nextPage();if(e.key==='ArrowLeft'||e.key==='ArrowUp')prevPage();});
-</script>
+            { typing: true, delay: 2800 },
+            { text: "Anything? 🤨", type: "her" },
+
+            { text: "Yes anything!!! I promise 💯", type: "me", wobble: true },
+            { text: "I am surryyyyyy I am yours nahhh huhu surryy 😭💚", type: "me", wobble: true },
+
+            { typing: true, delay: 3500 },
+            { text: "You're so dramatic... 😅", type: "her" },
+
+            { text: "Dramatic for you only 🥰", type: "me" },
+            { text: "Because you mean the world to me 🌍💖", type: "me" },
+            { text: "I can't imagine a day without you", type: "me" },
+
+            { typing: true, delay: 3000 },
+            { text: "You really hurt me though... 💔", type: "her" },
+
+            { text: "I know... and I'll carry that guilt", type: "me" },
+            { text: "But I'll also spend every day making it right", type: "me" },
+            { text: "I am yours... nahhh huhu... I'm so sorry 😢", type: "me", wobble: true },
+            { text: "Please give me one chance... just one 🥺🙏", type: "me" },
+
+            { typing: true, delay: 4000 },
+            { text: "...", type: "her" },
+            { typing: true, delay: 2500 },
+            { text: "Okay... one chance 😤💚", type: "her" },
+
+            { text: "REALLY?! 😭😭😭💖💖💖", type: "me", wobble: true },
+            { text: "THANK YOU THANK YOU THANK YOU", type: "me" },
+            { text: "I won't mess this up... I swear on my life", type: "me" },
+            { text: "I am yours forever... nahhh huhu surryyyyyy 💚💚💚", type: "me", wobble: true },
+
+            { typing: true, delay: 3000 },
+            { text: "You better not... 😌💖", type: "her" },
+
+            { text: "I won't... I love you so much 💚", type: "me" },
+            { text: "Like... SOOOOO much 🥰", type: "me" },
+            { text: "My heart is yours... always was, always will be", type: "me" },
+            { text: "Surryyyyyy nahhh huhu I am yourssss 😭💖", type: "me", wobble: true },
+
+            { typing: true, delay: 2500 },
+            { text: "I love you too... idiot 😂💚", type: "her" },
+
+            { text: "Your idiot... forever 🥺💖", type: "me" },
+            { text: "💚💚💚💚💚", type: "me" },
+        ];
+
+        let i = 0;
+        let isFinished = false;
+
+        /* Create message element */
+        function addMessage(text, type, wobble = false) {
+            const msg = document.createElement("div");
+            msg.className = "msg " + type;
+            if (wobble) msg.classList.add("wobble");
+            msg.innerText = text;
+
+            // Add ripple on tap
+            msg.addEventListener("click", function(e) {
+                const ripple = document.createElement("span");
+                ripple.className = "ripple";
+                const rect = msg.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = size + "px";
+                ripple.style.height = size + "px";
+                ripple.style.left = (e.clientX - rect.left - size / 2) + "px";
+                ripple.style.top = (e.clientY - rect.top - size / 2) + "px";
+                msg.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+
+                // Burst hearts on apology messages
+                if (type === "me" && (text.includes("surry") || text.includes("sorry") || text
+                        .includes("yours"))) {
+                    burstHearts(e.clientX, e.clientY);
+                }
+            });
+
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        /* Typing indicator */
+        function showTyping(delay, callback) {
+            const typing = document.createElement("div");
+            typing.className = "typing";
+            typing.innerHTML = 'typing <span class="typing-dots"><span></span><span></span><span></span></span>';
+            chat.appendChild(typing);
+            chat.scrollTop = chat.scrollHeight;
+
+            // Update header status
+            headerStatus.textContent = "typing...";
+            headerStatus.classList.remove("online");
+            headerStatus.style.color = "#25d366";
+
+            setTimeout(() => {
+                typing.remove();
+                headerStatus.textContent = "online";
+                headerStatus.classList.add("online");
+                headerStatus.style.color = "#25d366";
+                callback();
+            }, delay);
+        }
+
+        /* Heart burst animation */
+        function burstHearts(x, y) {
+            const hearts = ["💚", "💖", "🥺", "💕", "✨", "💗", "🌸", "💝"];
+            const count = 6;
+            for (let h = 0; h < count; h++) {
+                const heart = document.createElement("div");
+                heart.className = "heart-burst";
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = x + "px";
+                heart.style.top = y + "px";
+                heart.style.animationDuration = (1.4 + Math.random() * 1.8) + "s";
+                heart.style.fontSize = (18 + Math.random() * 22) + "px";
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+
+        /* Seen receipt */
+        function showSeenReceipt() {
+            const seen = document.createElement("div");
+            seen.className = "seen-receipt";
+            seen.innerText = "✓✓ Seen";
+            chat.appendChild(seen);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        /* Flow */
+        function runChat() {
+            if (i >= messages.length) {
+                if (!isFinished) {
+                    isFinished = true;
+                    setTimeout(showSeenReceipt, 1200);
+                    // Keep the footer interactive
+                    micBtn.style.background = "#25d366";
+                    micBtn.style.color = "#fff";
+                    micBtn.style.cursor = "pointer";
+                    micBtn.title = "Send love 💚";
+                }
+                return;
+            }
+
+            const msg = messages[i];
+
+            if (msg.typing) {
+                showTyping(msg.delay, () => {
+                    i++;
+                    runChat();
+                });
+            } else {
+                addMessage(msg.text, msg.type, msg.wobble || false);
+                i++;
+                const nextDelay = msg.type === "her" ? 1800 : (msg.wobble ? 1600 : 1200);
+                setTimeout(runChat, nextDelay);
+            }
+        }
+
+        /* Mic button interaction */
+        micBtn.addEventListener("click", () => {
+            if (isFinished) {
+                // Send a final love note
+                const loveNotes = [
+                    "I love you 💚",
+                    "You're my everything 🌸",
+                    "Surryyyyyy forever 😭💖",
+                    "Nahhh huhu I'm yours 🥺",
+                    "My heart beats for you 💗",
+                ];
+                const note = loveNotes[Math.floor(Math.random() * loveNotes.length)];
+                addMessage(note, "me", true);
+                chat.scrollTop = chat.scrollHeight;
+                burstHearts(window.innerWidth / 2, window.innerHeight / 2);
+
+                // Simulate reply
+                setTimeout(() => {
+                    showTyping(2000 + Math.random() * 2000, () => {
+                        const replies = [
+                            "Awww stop it 😂💖",
+                            "You're so cute 🥰",
+                            "Okay okay I get it 😌💚",
+                            "I love you more 💕",
+                            "Nahhh huhu you're mine 😤💗",
+                        ];
+                        addMessage(replies[Math.floor(Math.random() * replies.length)], "her");
+                        chat.scrollTop = chat.scrollHeight;
+                    });
+                }, 800);
+            } else {
+                // Gently pulse the chat to indicate it's still playing
+                chat.style.transition = "transform 0.15s ease";
+                chat.style.transform = "scale(0.985)";
+                setTimeout(() => {
+                    chat.style.transform = "scale(1)";
+                }, 150);
+                headerStatus.textContent = "wait for it... 💚";
+                setTimeout(() => {
+                    headerStatus.textContent = "online";
+                }, 1500);
+            }
+        });
+
+        /* Start the chat after a short delay */
+        setTimeout(runChat, 600);
+
+        /* Handle resize for mobile */
+        window.addEventListener("resize", () => {
+            chat.scrollTop = chat.scrollHeight;
+        });
+
+        /* Prevent double-tap zoom on buttons */
+        document.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("touchstart", function(e) {
+                e.preventDefault();
+                this.click();
+            }, { passive: false });
+        });
+    </script>
 </body>
 </html>
