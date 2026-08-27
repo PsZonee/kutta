@@ -853,16 +853,16 @@
         }
 
         function startApp() {
-            // ── YOUR UPDATED FIREBASE CONFIG ──
+            // ── YOUR NEW FIREBASE CONFIG ──
             const firebaseConfig = {
-                apiKey: "AIzaSyBM032yN7__y-6TjkJfgMnmlnNrZwogz8U",
-                authDomain: "chat-586aa.firebaseapp.com",
-                databaseURL: "https://chat-586aa-default-rtdb.firebaseio.com",
-                projectId: "chat-586aa",
-                storageBucket: "chat-586aa.firebasestorage.app",
-                messagingSenderId: "642421041454",
-                appId: "1:642421041454:web:da9ac0d0611ba02f89b2bf",
-                measurementId: "G-SYK9R0PCVC" // optional, not used in compat but fine to keep
+                apiKey: "AIzaSyD0AksCro1rvJphZSEHMV5uAYjKo6QaECg",
+                authDomain: "chaat-3292f.firebaseapp.com",
+                databaseURL: "https://chaat-3292f-default-rtdb.firebaseio.com",
+                projectId: "chaat-3292f",
+                storageBucket: "chaat-3292f.firebasestorage.app",
+                messagingSenderId: "382879646995",
+                appId: "1:382879646995:web:acb51edcdd730471f886e6",
+                measurementId: "G-3XHH9WBDXB"
             };
             // ──────────────────────────────────
 
@@ -1002,10 +1002,44 @@
                     launch(); } else { document.getElementById('loginErr').textContent = 'Incorrect password.'; }
             }
 
+            // ── 24‑Hour Expiry: delete messages older than 24 hours ──
+            const EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            function deleteExpiredMessages() {
+                const now = Date.now();
+                messagesRef.once('value', snap => {
+                    if (!snap.exists()) return;
+                    const updates = {};
+                    let expiredCount = 0;
+                    snap.forEach(child => {
+                        const msg = child.val();
+                        // Only delete if message has a timestamp and is older than 24h
+                        if (msg && msg.timestamp && (now - msg.timestamp) > EXPIRY_MS) {
+                            updates[child.key] = null;
+                            expiredCount++;
+                        }
+                    });
+                    if (expiredCount > 0) {
+                        messagesRef.update(updates)
+                            .then(() => console.log(`🗑️ Deleted ${expiredCount} expired messages`))
+                            .catch(err => console.warn('Expiry cleanup error:', err));
+                    }
+                });
+            }
+
+            // Run expiry check on app start and every 60 seconds
+            function startExpiryLoop() {
+                deleteExpiredMessages();
+                setInterval(deleteExpiredMessages, 60 * 1000);
+            }
+
             function launch() {
                 unlockAudio();
                 document.getElementById('loginOverlay').style.display = 'none';
                 document.getElementById('app').style.display = 'flex';
+
+                // Start the 24‑hour expiry loop
+                startExpiryLoop();
 
                 if (role === 'user') {
                     document.getElementById('userInputWrap').style.display = 'block';
@@ -1169,8 +1203,12 @@
                     if (!text) return;
                     clearTimeout(typTimer);
                     typingRef.child('user').set(false);
-                    messagesRef.push({ role: 'user', content: text, timestamp: firebase.database.ServerValue
-                            .TIMESTAMP });
+                    // Include a timestamp so messages can expire
+                    messagesRef.push({
+                        role: 'user',
+                        content: text,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
                     ta.value = '';
                     ta.style.height = 'auto';
                     btn.disabled = true;
@@ -1204,8 +1242,12 @@
                     if (!text) return;
                     clearTimeout(typTimer);
                     typingRef.child('admin').set(false);
-                    messagesRef.push({ role: 'assistant', content: text, timestamp: firebase.database.ServerValue
-                            .TIMESTAMP });
+                    // Include a timestamp so messages can expire
+                    messagesRef.push({
+                        role: 'assistant',
+                        content: text,
+                        timestamp: firebase.database.ServerValue.TIMESTAMP
+                    });
                     ta.value = '';
                     ta.style.height = 'auto';
                 }
